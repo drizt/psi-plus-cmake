@@ -5,9 +5,7 @@ HOWTO USE:
 
 > $ cp -f plugins psi/build/src/
 
-> $ cd psi/build/src/plugins
-
-> $ mkdir build && cd build
+> $ cd psi && mkdir build && cd build
 
 > $ cmake -DPLUGINS_INSTALL_PATH=lib64/psi-plus/plugins -DCMAKE_INSTALL_PREFIX=/usr ..
 
