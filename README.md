@@ -3,22 +3,22 @@ Works only on Linux wiht Qt4.
 
 HOWTO USE:
 
-> cp plugins psi/build/src/
+> $ cp -f plugins psi/build/src/
 
-> cd psi/build/src/plugins
+> $ cd psi/build/src/plugins
 
-> mkdir build && cd build
+> $ mkdir build && cd build
 
-> cmake -DPLUGINS_INSTALL_PATH=lib64/psi-plus/plugins -DCMAKE_INSTALL_PREFIX=/usr ..
+> $ cmake -DPLUGINS_INSTALL_PATH=lib64/psi-plus/plugins -DCMAKE_INSTALL_PREFIX=/usr ..
 
-> make && make install
+> $ make && make install
 
 
 OR:
 
-> cmake -DPLUGINS_INSTALL_PATH=share/psi+/plugins -DCMAKE_INSTALL_PREFIX=~/.local ..
+> $ cmake -DPLUGINS_INSTALL_PATH=share/psi+/plugins -DCMAKE_INSTALL_PREFIX=~/.local ..
 
-> make && make install
+> $ make && make install
 
 
 TODO LIST:
