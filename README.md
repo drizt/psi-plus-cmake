@@ -3,7 +3,7 @@ Works only on Linux wiht Qt4.
 
 HOWTO USE:
 
-> $ cp -f plugins psi/build/src/
+> $ cp -f plugins psi/
 
 > $ cd psi && mkdir build && cd build
 
