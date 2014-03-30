@@ -3,9 +3,11 @@ Works only on Linux wiht Qt4.
 
 HOWTO USE:
 
-> $ cp -rf * psi/
+At PSI_SOURCES_PATH must be your real psi_sources path
 
-> $ cd psi && mkdir build && cd build
+> $ cp -rf * PSI_SOURCES_PATH/
+
+> $ cd PSI_SOURCES_PATH && mkdir build && cd build
 
 > $ cmake -DPLUGINS_INSTALL_PATH=lib64/psi-plus/plugins -DCMAKE_INSTALL_PREFIX=/usr ..
 
