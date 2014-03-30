@@ -1,6 +1,5 @@
-project( screenshotplugin )
+set ( PLUGIN screenshotplugin )
 cmake_minimum_required( VERSION 2.8.6 )
-set ( CMAKE_BUILD_TYPE Release )
 set ( CMAKE_AUTOMOC TRUE )
 add_definitions ( -Wall )
 find_package ( Qt4 REQUIRED )
@@ -17,7 +16,6 @@ include_directories (
 	qxt/gui
 	.
 )
-
 if ( ${UNIX} AND NOT( ${APPLE} OR ${CYGWIN} ) )
 	find_package( X11 REQUIRED )
 	add_definitions ( -DX11 )
@@ -29,7 +27,6 @@ if ( ${UNIX} AND NOT( ${APPLE} OR ${CYGWIN} ) )
 		qxt/gui/x11info.h
 	)
 endif()
-
 if ( ${APPLE} )
 	set ( qxt_mac_SRCS
 		qxt/gui/qxtwindowsystem_mac.cpp
@@ -38,13 +35,11 @@ if ( ${APPLE} )
 		qxt/gui/qxtwindowsystem_mac.h
 	)
 endif()
-
 if ( ${WIN32} )
 	set ( qxt_win_SRCS
 		qxt/gui/qxtwindowsystem_win.cpp
 	)
 endif()
-
 set ( _HDRS
 	screenshot.h
 	server.h
@@ -64,9 +59,8 @@ set ( _HDRS
 	${qxt_X11_HDRS}
 	${qxt_mac_HRDS}
 )
-
 set ( _SRCS
-	${PROJECT_NAME}.cpp
+	${PLUGIN}.cpp
 	screenshot.cpp
 	server.cpp
 	editserverdlg.cpp
@@ -85,7 +79,6 @@ set ( _SRCS
 	${qxt_mac_SRCS}
 	${qxt_win_SRCS}
 )
-
 set ( _UIS
 	optionswidget.ui
 	editserverdlg.ui
@@ -95,14 +88,12 @@ set ( _UIS
 	proxysettingsdlg.ui
 )
 QT4_WRAP_UI(UIS ${_UIS})
-
 set ( _RSCS
-	${PROJECT_NAME}.qrc
+	${PLUGIN}.qrc
 )
 QT4_ADD_RESOURCES(RSCS ${_RSCS})
-
 add_library (
-	${PROJECT_NAME}
+	${PLUGIN}
 	SHARED
 	${_SRCS}
 	${UIS}
@@ -111,19 +102,17 @@ add_library (
 	${MOCS}
 )
 target_link_libraries (
-	${PROJECT_NAME}
+	${PLUGIN}
 	${X11_LIBRARIES}
 	${QT_QTCORE_LIBRARY}
 	${QT_QTGUI_LIBRARY}
 	${QT_QTXML_LIBRARY}
 	${QT_QTNETWORK_LIBRARY}
 )
-
-set ( PLUGIN_INSTALL_PATH ${PLUGIN_INSTALL_PATH} PARENT_SCOPE)
 install (
 	TARGETS
-	${PROJECT_NAME}
+	${PLUGIN}
 	LIBRARY
 	DESTINATION
-	${CMAKE_INSTALL_PREFIX}/${PLUGIN_INSTALL_PATH}
+	${CMAKE_INSTALL_PREFIX}/${PLUGINS_PATH}
 )

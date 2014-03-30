@@ -1,6 +1,5 @@
-project( icqdieplugin )
+set ( PLUGIN icqdieplugin )
 cmake_minimum_required( VERSION 2.8.6 )
-set ( CMAKE_BUILD_TYPE Release )
 set ( CMAKE_AUTOMOC TRUE )
 add_definitions ( -Wall )
 find_package ( Qt4 REQUIRED )
@@ -14,23 +13,19 @@ include_directories (
 	../../include
 	.
 )
-
 set ( _SRCS
-	${PROJECT_NAME}.cpp
+	${PLUGIN}.cpp
 )
-
 set ( _UIS
 	icqdieoptions.ui
 )
 QT4_WRAP_UI(UIS ${_UIS})
-
 set ( _RSCS
 	resources.qrc
 )
 QT4_ADD_RESOURCES(RSCS ${_RSCS})
-
 add_library (
-	${PROJECT_NAME}
+	${PLUGIN}
 	SHARED
 	${_SRCS}
 	${UIS}
@@ -39,17 +34,15 @@ add_library (
 	${MOCS}
 )
 target_link_libraries (
-	${PROJECT_NAME}
+	${PLUGIN}
 	${QT_QTCORE_LIBRARY}
 	${QT_QTGUI_LIBRARY}
 	${QT_QTXML_LIBRARY}
 )
-
-set ( PLUGIN_INSTALL_PATH ${PLUGIN_INSTALL_PATH} PARENT_SCOPE)
 install (
 	TARGETS
-	${PROJECT_NAME}
+	${PLUGIN}
 	LIBRARY
 	DESTINATION
-	${CMAKE_INSTALL_PREFIX}/${PLUGIN_INSTALL_PATH}
+	${CMAKE_INSTALL_PREFIX}/${PLUGINS_PATH}
 )

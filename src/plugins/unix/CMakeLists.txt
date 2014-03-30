@@ -1,13 +1,18 @@
 cmake_minimum_required( VERSION 2.8.6 ) 
 
-if ( UNIX AND NOT( APPLE OR CYGWIN ) )
-	set ( PLUGIN_INSTALL_PATH ${PLUGIN_INSTALL_PATH} PARENT_SCOPE)
-	set ( plugins 
-		gnome3supportplugin
-	)
-
-	FOREACH (plugin ${plugins})
-		MESSAGE("Parse subdirectory: ./${plugin}")
-		ADD_SUBDIRECTORY("./${plugin}")
-	ENDFOREACH(plugin)
-endif ( UNIX AND NOT( APPLE OR CYGWIN ) )
+set ( plugins_list 
+	gnome3supportplugin
+)
+if ( ${BUILD_PLUGINS} STREQUAL "ALL" )
+	set ( plugins ${plugins_list} )
+else ( ${BUILD_PLUGINS} STREQUAL "ALL" )
+	set ( plugins ${BUILD_PLUGINS} )
+endif ( ${BUILD_PLUGINS} STREQUAL "ALL" )
+foreach (plugin ${plugins_list})
+	foreach (subdir ${plugins}})
+		if ( ${plugin} STREQUAL ${subdir} )
+			message("Parse subdirectory: ./${plugin}")
+			add_subdirectory("./${plugin}")
+		endif ( ${plugin} STREQUAL ${subdir} )
+	endforeach(subdir)
+endforeach(plugin)

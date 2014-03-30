@@ -1,0 +1,33 @@
+if ( NOT ${WIN32} )
+	find_package( PkgConfig REQUIRED )
+	pkg_check_modules( PC_LIBOTR QUIET libgpg-error )
+	set ( LIBOTR_DEFINITIONS ${PC_LIBOTR_CFLAGS_OTHER} )
+endif ( NOT ${WIN32} )
+
+find_path(
+	LIBGPGERROR_INCLUDE_DIR gpg-error.h
+	HINTS
+	${PC_LIBGPGERROR_INCLUDEDIR}
+	${PC_LIBGPGERROR_INCLUDE_DIRS}
+	PATH_SUFFIXES
+)
+find_library(
+	LIBGPGERROR_LIBRARY
+	NAMES gpg-error libgpg-error
+	HINTS 
+	${PC_LIBGPGERROR_LIBDIR}
+	${PC_LIBGPGERROR_LIBRARY_DIRS}
+)
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(
+				LibGpgError
+				DEFAULT_MSG
+				LIBGPGERROR_LIBRARY
+				LIBGPGERROR_INCLUDE_DIR
+)
+if ( LIBGPGERROR_FOUND )
+	set ( LIBGPGERROR_LIBRARIES ${LIBGPGERROR_LIBRARY} )
+	set ( LIBGPGERROR_INCLUDE_DIRS ${LIBGPGERROR_INCLUDE_DIR} )
+endif ( LIBGPGERROR_FOUND )
+
+mark_as_advanced( LIBGPGERROR_INCLUDE_DIR LIBGPGERROR_LIBRARY )

@@ -3,18 +3,20 @@ Works only on Linux wiht Qt4.
 
 HOWTO USE:
 
-> $ cp -f plugins psi/build/src/
+At PSI_SOURCES_PATH must be your real psi_sources path
 
-> $ cd psi && mkdir build && cd build
+> $ cp -rf * PSI_SOURCES_PATH/
 
-> $ cmake -DPLUGINS_INSTALL_PATH=lib64/psi-plus/plugins -DCMAKE_INSTALL_PREFIX=/usr ..
+> $ cd PSI_SOURCES_PATH && mkdir build && cd build
+
+> $ cmake -DPLUGIN_INSTALL_PATH=lib64/psi-plus/plugins -DCMAKE_INSTALL_PREFIX=/usr ..
 
 > $ make && make install
 
 
 OR:
 
-> $ cmake -DPLUGINS_INSTALL_PATH=share/psi+/plugins -DCMAKE_INSTALL_PREFIX=~/.local ..
+> $ cmake -DPLUGIN_INSTALL_PATH=share/psi+/plugins -DCMAKE_INSTALL_PREFIX=~/.local ..
 
 > $ make && make install
 
