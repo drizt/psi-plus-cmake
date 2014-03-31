@@ -16,7 +16,7 @@ Instead PSI_SOURCES_PATH must be your real psi_sources path
 
 USEFUL CMAKE FLAGS:
 
-- set list of plugins to build
+- set list of plugins to build:
 
   -DBUILD_PLUGINS=${plugins}
   
@@ -35,18 +35,29 @@ USEFUL CMAKE FLAGS:
   
   > $ cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_PLUGINS="chessplugin;otrplugin;gnome3supportplugin" ..
 
-- set install suffix
+- set install suffix:
 
-  -DPLUGINS_PATH=${path}
+  -DPLUGINS_PATH=${path} 
+  
+  to install plugins into default suffix:
+  
+  -DPLUGINS_PATH=lib/psi-plus/plugins or do not set this flag
   
   For example to install plugins into ~/.local/share/psi+/plugins:
   
-  > $ cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local --DPLUGINS_PATH=share/psi+/plugins ..
+  > $ cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local -DPLUGINS_PATH=share/psi+/plugins ..
   
   For example to install plugins into /usr/share/psi-plus/plugins:
   
-  > $ cmake -DCMAKE_INSTALL_PREFIX=/usr --DPLUGINS_PATH=share/psi-plus/plugins ..
+  > $ cmake -DCMAKE_INSTALL_PREFIX=/usr -DPLUGINS_PATH=share/psi-plus/plugins ..
 
+- set build type:
+ 
+  -DCMAKE_BUILD_TYPE=Release or -DCMAKE_BUILD_TYPE=Debug
+  
+  For example:
+  
+   > $ cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..
 
 TODO LIST:
 - Add Qt5 support
