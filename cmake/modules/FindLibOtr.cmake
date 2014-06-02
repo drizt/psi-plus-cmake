@@ -4,7 +4,7 @@ if (LIBOTR_INCLUDE_DIR AND LIBOTR_LIBRARY)
 endif ()
 
 if ( UNIX AND NOT( APPLE OR CYGWIN ) )
-	find_package( PkgConfig REQUIRED )
+	find_package( PkgConfig QUIET )
 	pkg_check_modules( PC_LIBOTR QUIET libotr )
 	set ( LIBOTR_DEFINITIONS ${PC_LIBOTR_CFLAGS_OTHER} )
 endif ( UNIX AND NOT( APPLE OR CYGWIN ) )
