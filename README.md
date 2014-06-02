@@ -13,7 +13,6 @@ Instead PSI_SOURCES_PATH must be your real psi_sources path
 
 > $ make && make install
 
-
 USEFUL CMAKE FLAGS:
 
 - set list of plugins to build:
@@ -59,8 +58,31 @@ USEFUL CMAKE FLAGS:
   
    > $ cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..
 
+
+To build OTRPLUGIN in OS WINDOWS you need to set additional variables
+
+- path to LIBGCRYPT:
+
+  -DLIBGCRYPT_ROOT=%LIBGCRYPT_ROOT%
+
+- path to LIBGPG-ERROR
+
+  -DLIBGPGERROR_ROOT=%LIBGPGERROR_ROOT%
+
+- path to LIBOTR
+
+  -DLIBOTR_ROOT=%LIBOTR_ROOT%
+
+- path to LIBTIDY
+
+  -DLIBTIDY_ROOT=%LIBTIDY_ROOT%
+
+  For example:
+  
+  > $ cmake -DLIBGCRYPT_ROOT=C:\libgcrypt -DLIBGPGERROR_ROOT=C:\libgpg-error -DLIBOTR_ROOT=C:\libotr -DLIBTIDY_ROOT=C:\libtidy ..
+  
+
 TODO LIST:
 - Add Qt5 support
 - Add MacOSX support
-- Add Windows support
 - Add psi-plus binary build

@@ -1,22 +1,33 @@
-if ( NOT ${WIN32} )
+if (LIBOTR_INCLUDE_DIR AND LIBOTR_LIBRARY)
+	# in cache already
+	set(LIBOTR_FIND_QUIETLY TRUE)
+endif ()
+
+if ( UNIX AND NOT( APPLE OR CYGWIN ) )
 	find_package( PkgConfig REQUIRED )
 	pkg_check_modules( PC_LIBOTR QUIET libotr )
 	set ( LIBOTR_DEFINITIONS ${PC_LIBOTR_CFLAGS_OTHER} )
-endif ( NOT ${WIN32} )
+endif ( UNIX AND NOT( APPLE OR CYGWIN ) )
+
 find_path(
 	LIBOTR_INCLUDE_DIR libotr/privkey.h
 	HINTS
+	${LIBOTR_ROOT}/include
 	${PC_LIBOTR_INCLUDEDIR}
 	${PC_LIBOTR_INCLUDE_DIRS}
 	PATH_SUFFIXES
+	""
 	libotr
 )
+
 find_library(
 	LIBOTR_LIBRARY
 	NAMES otr libotr
 	HINTS 
 	${PC_LIBOTR_LIBDIR}
 	${PC_LIBOTR_LIBRARY_DIRS}
+	${LIBOTR_ROOT}/lib
+	${LIBOTR_ROOT}/bin
 )
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(

@@ -1,7 +1,7 @@
 set( PLUGIN skinsplugin )
 cmake_minimum_required( VERSION 2.8.6 )
 set ( CMAKE_AUTOMOC TRUE )
-add_definitions ( -Wall )
+add_definitions ( -Wall -DQT_PLUGIN )
 find_package ( Qt4 REQUIRED )
 include ( ${QT_USE_FILE} )
 include_directories (
@@ -49,6 +49,7 @@ target_link_libraries (
 	${QT_QTGUI_LIBRARY}
 	${QT_QTXML_LIBRARY}
 )
+if ( UNIX AND NOT( APPLE OR CYGWIN ) )
 install (
 	TARGETS
 	${PLUGIN}
@@ -56,3 +57,14 @@ install (
 	DESTINATION
 	${CMAKE_INSTALL_PREFIX}/${PLUGINS_PATH}
 )
+endif ( UNIX AND NOT( APPLE OR CYGWIN ) )
+if ( WIN32 )
+install (
+	TARGETS
+	${PLUGIN}
+	LIBRARY
+	DESTINATION
+	${CMAKE_INSTALL_PREFIX}/${PLUGINS_PATH}
+	RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/${PLUGINS_PATH}
+)
+endif( WIN32 )

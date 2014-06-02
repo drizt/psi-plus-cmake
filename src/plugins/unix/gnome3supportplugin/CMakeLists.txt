@@ -1,7 +1,7 @@
 set ( PLUGIN gnome3supportplugin )
 cmake_minimum_required( VERSION 2.8.6 )
 set ( CMAKE_AUTOMOC TRUE )
-add_definitions ( -Wall -Ddbus )
+add_definitions ( -Wall -Ddbus -DQT_PLUGIN )
 find_package ( Qt4 REQUIRED )
 include ( ${QT_USE_FILE} )
 include_directories (

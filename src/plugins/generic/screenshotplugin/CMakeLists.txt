@@ -1,7 +1,9 @@
 set ( PLUGIN screenshotplugin )
 cmake_minimum_required( VERSION 2.8.6 )
 set ( CMAKE_AUTOMOC TRUE )
-add_definitions ( -Wall )
+if ( NOT WIN32 )
+	add_definitions ( -Wall -DQT_PLUGIN )
+endif( NOT WIN32 )
 find_package ( Qt4 REQUIRED )
 include ( ${QT_USE_FILE} )
 include_directories (
@@ -16,7 +18,7 @@ include_directories (
 	qxt/gui
 	.
 )
-if ( ${UNIX} AND NOT( ${APPLE} OR ${CYGWIN} ) )
+if ( UNIX AND NOT( APPLE OR CYGWIN ) )
 	find_package( X11 REQUIRED )
 	add_definitions ( -DX11 )
 	set ( qxt_X11_SRCS
@@ -26,20 +28,21 @@ if ( ${UNIX} AND NOT( ${APPLE} OR ${CYGWIN} ) )
 	set ( qxt_X11_HDRS
 		qxt/gui/x11info.h
 	)
-endif()
-if ( ${APPLE} )
+endif( UNIX AND NOT( APPLE OR CYGWIN ) )
+if ( APPLE )
 	set ( qxt_mac_SRCS
 		qxt/gui/qxtwindowsystem_mac.cpp
 	)
 	set ( qxt_mac_HRDS
 		qxt/gui/qxtwindowsystem_mac.h
 	)
-endif()
-if ( ${WIN32} )
+endif( APPLE )
+if ( WIN32 )
 	set ( qxt_win_SRCS
 		qxt/gui/qxtwindowsystem_win.cpp
 	)
-endif()
+	add_definitions ( -Wall -DQ_WS_WIN -DQT_PLUGIN )
+endif( WIN32 )
 set ( _HDRS
 	screenshot.h
 	server.h
@@ -101,6 +104,7 @@ add_library (
 	${TRS}
 	${MOCS}
 )
+if ( UNIX AND NOT( APPLE OR CYGWIN ) )
 target_link_libraries (
 	${PLUGIN}
 	${X11_LIBRARIES}
@@ -116,3 +120,21 @@ install (
 	DESTINATION
 	${CMAKE_INSTALL_PREFIX}/${PLUGINS_PATH}
 )
+endif ( UNIX AND NOT( APPLE OR CYGWIN ) )
+if ( WIN32 )
+target_link_libraries (
+	${PLUGIN}
+	${QT_QTCORE_LIBRARY}
+	${QT_QTGUI_LIBRARY}
+	${QT_QTXML_LIBRARY}
+	${QT_QTNETWORK_LIBRARY}
+)
+install (
+	TARGETS
+	${PLUGIN}
+	LIBRARY
+	DESTINATION
+	${CMAKE_INSTALL_PREFIX}/${PLUGINS_PATH}
+	RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/${PLUGINS_PATH}
+)
+endif( WIN32 )

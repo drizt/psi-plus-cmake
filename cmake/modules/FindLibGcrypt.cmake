@@ -1,27 +1,43 @@
-if (LIBGCRYP_INCLUDE_DIR AND LIBGCRYP_LIBRARY)
-   # in cache already
-   set(libgcrypt_FIND_QUIETLY TRUE)
+if (LIBGCRYPT_INCLUDE_DIR AND LIBGCRYPT_LIBRARY)
+	# in cache already
+	set(libgcrypt_FIND_QUIETLY TRUE)
 endif ()
-if ( NOT ${WIN32} )
+
+if ( UNIX AND NOT( APPLE OR CYGWIN ) )
 	find_package( PkgConfig QUIET )
 	pkg_check_modules( PC_LIBGCRYPT QUIET libgcrypt )
-	set ( LIBGCRYPT_DEFINITIONS ${PC_LIBGCRYPT_CFLAGS_OTHER} )
-endif ( NOT ${WIN32} )
+	set ( LIBGCRYPT_DEFINITIONS ${PC_LIBGCRYPT_CFLAGS} )
+endif ( UNIX AND NOT( APPLE OR CYGWIN ) )
+
+if ( WIN32 )
+	FIND_PROGRAM(LIBGCRYPTCONFIG_EXECUTABLE NAMES libgcrypt-config PATHS ${LIBGCRYPT_ROOT}/bin)
+	IF(LIBGCRYPTCONFIG_EXECUTABLE)
+		execute_process(COMMAND sh "${LIBGCRYPTCONFIG_EXECUTABLE}" --prefix OUTPUT_VARIABLE PREFIX)
+		set(LIBGCRYPT_LIB_HINT "${PREFIX}/lib")
+		set(LIBGCRYPT_INCLUDE_HINT "${PREFIX}/include")
+	ENDIF(LIBGCRYPTCONFIG_EXECUTABLE)
+endif ( WIN32 )
+
 find_path(
 	LIBGCRYPT_INCLUDE_DIR gcrypt.h
 	HINTS
+	${LIBGCRYPT_ROOT}/include
 	${PC_LIBGCRYPT_INCLUDEDIR}
 	${PC_LIBGCRYPT_INCLUDE_DIRS}
+	${LIBGCRYPT_INCLUDE_HINT}
 	PATH_SUFFIXES
 )
+
 find_library(
 	LIBGCRYPT_LIBRARY
-	NAMES gcrypt libgcrypt
+	NAMES gcrypt libgcrypt gcrypt-11 libgcrypt-11
 	HINTS 
 	${PC_LIBGCRYPT_LIBDIR}
 	${PC_LIBGCRYPT_LIBRARY_DIRS}
+	${LIBGCRYPT_LIB_HINT}
+	${LIBGCRYPT_ROOT}/lib
+	${LIBGCRYPT_ROOT}/bin
 )
-
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
 				LibGcrypt
