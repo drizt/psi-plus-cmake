@@ -5,7 +5,7 @@ endif ()
 
 if ( UNIX AND NOT( APPLE OR CYGWIN ) )
 	find_package( PkgConfig QUIET )
-	pkg_check_modules( PC_LIBGCRYPT QUIET libgpg-error )
+	pkg_check_modules( PC_LIBGPGERROR QUIET libgpg-error )
 	set ( LIBGPGERROR_DEFINITIONS ${PC_LIBGPGERROR_CFLAGS} )
 endif ( UNIX AND NOT( APPLE OR CYGWIN ) )
 

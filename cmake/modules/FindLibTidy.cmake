@@ -5,7 +5,7 @@ endif ()
 
 if ( UNIX AND NOT( APPLE OR CYGWIN ) )
 	find_package( PkgConfig QUIET )
-	pkg_check_modules( PC_LIBOTR QUIET libtidy )
+	pkg_check_modules( PC_LIBTIDY QUIET libtidy )
 	set ( LIBTIDY_DEFINITIONS ${PC_LIBTIDY_CFLAGS_OTHER} )
 endif ( UNIX AND NOT( APPLE OR CYGWIN ) )
 
