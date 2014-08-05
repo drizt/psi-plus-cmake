@@ -79,7 +79,11 @@ To build OTRPLUGIN in OS WINDOWS you need to set additional variables
   For example:
   
   > $ cmake -DLIBGCRYPT_ROOT=C:\libgcrypt -DLIBGPGERROR_ROOT=C:\libgpg-error -DLIBOTR_ROOT=C:\libotr -DLIBTIDY_ROOT=C:\libtidy ..
-  
+
+- build plugins using Qt5
+ 
+  -DUSE_QT5=ON
+
 
 TODO LIST:
 - Add MacOSX support
