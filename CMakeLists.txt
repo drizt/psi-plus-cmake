@@ -4,6 +4,10 @@ cmake_minimum_required( VERSION 2.8.11 )
 set( CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" )
 set( USE_QT5 OFF CACHE BOOL "Use Qt5" )
 
+IF( ${USE_QT5} )
+	add_definitions( -DHAVE_QT5 )
+ENDIF( ${USE_QT5} )
+
 IF( WIN32 )
 	macro(remove_compiler_flag flag)
 		string(REPLACE "${flag}" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
