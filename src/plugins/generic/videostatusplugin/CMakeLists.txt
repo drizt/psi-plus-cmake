@@ -50,7 +50,7 @@ IF( ${USE_QT5} )
 	ENDIF( UNIX AND NOT( APPLE OR CYGWIN ) )
 	set(QT_DEPLIBS
 		Qt5::Widgets
-		${Qt5Xml_LIBRARIES}
+		Qt5::Xml
 	)
 	IF( UNIX AND NOT( APPLE OR CYGWIN ) )
 		set(QT_DEPLIBS "${QT_DEPLIBS}" "${Qt5Dbus_LIBRARIES}" )

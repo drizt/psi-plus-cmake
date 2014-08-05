@@ -2,10 +2,12 @@ set( PLUGIN otrplugin )
 cmake_minimum_required( VERSION 2.8.11 )
 set( CMAKE_AUTOMOC TRUE )
 IF( ${WIN32} )
+	set( CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" )
 	set( LIBGCRYPT_ROOT "C:\\build\\psideps\\libgcrypt\\i386" CACHE STRING "Path to libgcrypt library" )
 	set( LIBGPGERROR_ROOT "C:\\build\\psideps\\libgpg-error\\i386" CACHE STRING "Path to libgpg-error library" )
 	set( LIBOTR_ROOT "C:\\build\\psideps\\libotr\\i386" CACHE STRING "Path to libotr library" )
 	set( LIBTIDY_ROOT "C:\\build\\psideps\\libtidy\\i386" CACHE STRING "Path to libtidy library" )
+	add_definitions( -DQ_WS_WIN )
 ENDIF( ${WIN32} )
 find_package( LibGcrypt REQUIRED )
 find_package( LibOtr REQUIRED )
@@ -19,6 +21,13 @@ add_definitions(
 		${LIBGCRYPT_DEFINITIONS}
 		${LIBGPGERROR_DEFINITIONS}
 )
+#dirty hack for Qt-5.3.1
+IF( USE_QT5 AND WIN32 )
+	set(TIDY_INCLUDES
+		${LIBTIDY_INCLUDE_DIR}/..
+	)
+ENDIF( USE_QT5 AND WIN32 )
+#
 include_directories(
 		${CMAKE_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}
@@ -26,6 +35,7 @@ include_directories(
 		${LIBTIDY_INCLUDE_DIR}
 		${LIBGCRYPT_INCLUDE_DIR}
 		${LIBGPGERROR_INCLUDE_DIR}
+		${TIDY_INCLUDES}
 		../../include
 		./src
 		.
@@ -54,17 +64,21 @@ set( _RSCS
 IF( ${USE_QT5} )
 	find_package( Qt5Widgets REQUIRED )
 	find_package( Qt5Xml REQUIRED )
+	find_package( Qt5Concurrent REQUIRED )
 	include_directories(
 		${Qt5Widgets_INCLUDES}
 		${Qt5Xml_INCLUDES}
+		${Qt5Concurrent_INCLUDE_DIRS}
 	)
 	add_definitions(
 		${Qt5Widgets_DEFINITIONS}
 		${Qt5Xml_DEFINITIONS}
+		${Qt5Concurrent_DEFINITIONS}
 	)
 	set(QT_DEPLIBS
 		Qt5::Widgets
-		${Qt5Xml_LIBRARIES}
+		Qt5::Xml
+		Qt5::Concurrent
 	)
 	set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 	qt5_add_resources(RSCS ${_RSCS})

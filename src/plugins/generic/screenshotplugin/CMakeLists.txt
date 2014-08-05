@@ -30,10 +30,10 @@ if( APPLE )
 	)
 endif( APPLE )
 if( WIN32 )
+	add_definitions( -DQ_WS_WIN )
 	set( qxt_win_SRCS
 		qxt/gui/qxtwindowsystem_win.cpp
 	)
-	add_definitions( -DQ_WS_WIN )
 endif( WIN32 )
 set ( _HDRS
 	screenshot.h
@@ -89,20 +89,24 @@ IF( ${USE_QT5} )
 	find_package( Qt5Widgets REQUIRED )
 	find_package( Qt5Xml REQUIRED )
 	find_package( Qt5Network REQUIRED )
+	find_package( Qt5PrintSupport REQUIRED )
 	include_directories(
 		${Qt5Widgets_INCLUDES}
 		${Qt5Xml_INCLUDES}
 		${Qt5Network_INCLUDES}
+		${Qt5PrintSupport_INCLUDES}
 	)
 	add_definitions(
 		${Qt5Widgets_DEFINITIONS}
 		${Qt5Xml_DEFINITIONS}
 		${Qt5Network_DEFINITIONS}
+		${Qt5PrintSupport_DEFINITIONS}
 	)
 	set(QT_DEPLIBS
 		Qt5::Widgets
-		${Qt5Xml_LIBRARIES}
-		${Qt5Network_LIBRARIES}
+		Qt5::Xml
+		Qt5::Network
+		Qt5::PrintSupport
 	)
 	set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 	qt5_wrap_ui(UIS ${_UIS})

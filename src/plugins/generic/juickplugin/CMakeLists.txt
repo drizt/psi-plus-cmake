@@ -33,24 +33,28 @@ IF( ${USE_QT5} )
 	find_package( Qt5Widgets REQUIRED )
 	find_package( Qt5Xml REQUIRED )
 	find_package( Qt5Network REQUIRED )
-	find_package( Qt5Webkit REQUIRED )
+	find_package( Qt5WebKit REQUIRED )
+	find_package( Qt5WebKitWidgets REQUIRED )
 	include_directories(
 		${Qt5Widgets_INCLUDES}
 		${Qt5Xml_INCLUDES}
 		${Qt5Network_INCLUDES}
-		${Qt5Webkit_INCLUDES}
+		${Qt5WebKit_INCLUDES}
+		${Qt5WebKitWidgets_INCLUDES}
 	)
 	add_definitions(
 		${Qt5Widgets_DEFINITIONS}
 		${Qt5Xml_DEFINITIONS}
 		${Qt5Network_DEFINITIONS}
-		${Qt5Webkit_DEFINITIONS}
+		${Qt5WebKit_DEFINITIONS}
+		${Qt5WebKitWidgets_DEFINITIONS}
 	)
 	set(QT_DEPLIBS
 		Qt5::Widgets
-		${Qt5Xml_LIBRARIES}
-		${Qt5Network_LIBRARIES}
-		${Qt5Webkit_LIBRARIES}
+		Qt5::Xml
+		Qt5::Network
+		Qt5::WebKit
+		Qt5::WebKitWidgets
 	)
 	set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 	qt5_wrap_ui(UIS ${_UIS})

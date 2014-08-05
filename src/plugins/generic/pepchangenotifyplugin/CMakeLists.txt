@@ -30,7 +30,7 @@ IF( ${USE_QT5} )
 	)
 	set(QT_DEPLIBS
 		Qt5::Widgets
-		${Qt5Xml_LIBRARIES}
+		Qt5::Xml
 	)
 	set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 	qt5_wrap_ui(UIS ${_UIS})
