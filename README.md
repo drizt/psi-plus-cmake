@@ -1,5 +1,4 @@
 Files to build Psi+ plugins using cmake utility.
-Works only on Linux wiht Qt4.
 
 HOWTO USE:
 
@@ -83,6 +82,5 @@ To build OTRPLUGIN in OS WINDOWS you need to set additional variables
   
 
 TODO LIST:
-- Add Qt5 support
 - Add MacOSX support
 - Add psi-plus binary build
