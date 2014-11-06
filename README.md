@@ -2,7 +2,7 @@ Files to build Psi+ plugins using cmake utility.
 
 HOWTO USE:
 
-Instead PSI_SOURCES_PATH must be your real psi_sources path
+Instead of PSI_SOURCES_PATH must be your real psi_sources path
 
 > $ cp -rf * PSI_SOURCES_PATH/
 
@@ -12,7 +12,7 @@ Instead PSI_SOURCES_PATH must be your real psi_sources path
 
 > $ make && make install
 
-USEFUL CMAKE FLAGS:
+USEFULL CMAKE FLAGS:
 
 - set list of plugins to build:
 
