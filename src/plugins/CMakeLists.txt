@@ -1,5 +1,6 @@
 cmake_minimum_required( VERSION 2.8.11 )
 set( BUILD_PLUGINS "ALL" CACHE STRING "List of plugins to build" )
+set( BUILD_DEV OFF CACHE BOOL "Build plugins from development section" )
 if( NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
 	add_definitions( -DQT_NO_DEBUG -pthread )
 endif( NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
@@ -14,5 +15,10 @@ IF( UNIX AND NOT( APPLE OR CYGWIN ) )
 	add_subdirectory( unix )
 ENDIF( UNIX AND NOT( APPLE OR CYGWIN ) )
 
+IF( BUILD_DEV )
+	add_subdirectory(dev)
+ENDIF( BUILD_DEV )
+
 unset( BUILD_PLUGINS CACHE )
 unset( PLUGINS_PATH CACHE )
+unset( BUILD_DEV CACHE )
