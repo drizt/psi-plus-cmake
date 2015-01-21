@@ -17,7 +17,6 @@ find_path(
 	${PC_LIBTIDY_INCLUDE_DIRS}
 	PATH_SUFFIXES
 	""
-	tidy
 )
 
 find_library(
