@@ -1,10 +1,12 @@
 cmake_minimum_required( VERSION 2.8.11 )
 set( BUILD_PLUGINS "ALL" CACHE STRING "List of plugins to build" )
 set( BUILD_DEV OFF CACHE BOOL "Build plugins from development section" )
+
 if( NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
 	add_definitions( -DQT_NO_DEBUG -pthread )
 endif( NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
 IF( NOT WIN32 )
+	set( LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
 	set( PLUGINS_PATH "lib${LIB_SUFFIX}/psi-plus/plugins" CACHE STRING "Install suffix for plugins" )
 ELSE( NOT WIN32 )
 	set( PLUGINS_PATH "psi-plus/plugins" CACHE STRING "Install suffix for plugins" )

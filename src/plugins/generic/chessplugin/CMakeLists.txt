@@ -1,6 +1,14 @@
 set( PLUGIN chessplugin )
 cmake_minimum_required( VERSION 2.8.11 )
 set( CMAKE_AUTOMOC TRUE )
+
+IF( NOT WIN32 )
+	set( LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
+	set( PLUGINS_PATH "lib${LIB_SUFFIX}/psi-plus/plugins" CACHE STRING "Install suffix for plugins" )
+ELSE( NOT WIN32 )
+	set( PLUGINS_PATH "psi-plus/plugins" CACHE STRING "Install suffix for plugins" )
+ENDIF( NOT WIN32 )
+
 add_definitions( -Wall -DQT_PLUGIN )
 include_directories(
 	${CMAKE_SOURCE_DIR}

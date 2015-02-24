@@ -6,8 +6,12 @@ endif( LIBOTR_INCLUDE_DIR AND LIBOTR_LIBRARY )
 if( UNIX AND NOT( APPLE OR CYGWIN ) )
 	find_package( PkgConfig QUIET )
 	pkg_check_modules( PC_LIBOTR QUIET libotr )
-	set( LIBOTR_DEFINITIONS ${PC_LIBOTR_CFLAGS} ${PC_LIBOTR_CFLAGS_OTHER} )
+	if( PC_LIBOTR_FOUND )
+		set( LIBOTR_DEFINITIONS ${PC_LIBOTR_CFLAGS} ${PC_LIBOTR_CFLAGS_OTHER} )
+	endif( PC_LIBOTR_FOUND )
 endif( UNIX AND NOT( APPLE OR CYGWIN ) )
+
+set( LIBOTR_ROOT "" CACHE STRING "Path to libotr library" )
 
 find_path(
 	LIBOTR_INCLUDE_DIR libotr/privkey.h

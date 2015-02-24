@@ -1,12 +1,25 @@
 set( PLUGIN otrplugin )
 cmake_minimum_required( VERSION 2.8.11 )
 set( CMAKE_AUTOMOC TRUE )
+
+IF( NOT WIN32 )
+	set( LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
+	set( PLUGINS_PATH "lib${LIB_SUFFIX}/psi-plus/plugins" CACHE STRING "Install suffix for plugins" )
+ELSE( NOT WIN32 )
+	set( PLUGINS_PATH "psi-plus/plugins" CACHE STRING "Install suffix for plugins" )
+ENDIF( NOT WIN32 )
+
+IF( ${PROJECT_SOURCE_DIR} )
+	set( CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${PROJECT_SOURCE_DIR}/cmake/modules" )
+ELSE( ${PROJECT_SOURCE_DIR} )
+	set( CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_SOURCE_DIR}/../../../../cmake/modules")
+ENDIF( ${PROJECT_SOURCE_DIR} )
+
 IF( ${WIN32} )
-	set( CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" )
-	set( LIBGCRYPT_ROOT "C:\\build\\psideps\\libgcrypt\\i386" CACHE STRING "Path to libgcrypt library" )
-	set( LIBGPGERROR_ROOT "C:\\build\\psideps\\libgpg-error\\i386" CACHE STRING "Path to libgpg-error library" )
-	set( LIBOTR_ROOT "C:\\build\\psideps\\libotr\\i386" CACHE STRING "Path to libotr library" )
-	set( LIBTIDY_ROOT "C:\\build\\psideps\\libtidy\\i386" CACHE STRING "Path to libtidy library" )
+	set( LIBGCRYPT_ROOT "C:\\build\\psibuild\\psideps\\libgcrypt\\i386" CACHE STRING "Path to libgcrypt library" )
+	set( LIBGPGERROR_ROOT "C:\\build\\psibuild\\psideps\\libgpg-error\\i386" CACHE STRING "Path to libgpg-error library" )
+	set( LIBOTR_ROOT "C:\\build\\psibuild\\psideps\\libotr\\i386" CACHE STRING "Path to libotr library" )
+	set( LIBTIDY_ROOT "C:\\build\\psibuild\\psideps\\libtidy\\i386" CACHE STRING "Path to libtidy library" )
 	add_definitions( -DQ_WS_WIN )
 ENDIF( ${WIN32} )
 find_package( LibGcrypt REQUIRED )
@@ -21,12 +34,14 @@ add_definitions(
 		${LIBGCRYPT_DEFINITIONS}
 		${LIBGPGERROR_DEFINITIONS}
 )
-#dirty hack for Qt-5.3.1
-IF( USE_QT5 AND WIN32 )
+#dirty hack
+set( TIDY_EXTRAS "${LIBTIDY_INCLUDE_DIR}/tidy" )
+IF( EXISTS "${TIDY_EXTRAS}" AND IS_DIRECTORY "${TIDY_EXTRAS}" )
 	set(TIDY_INCLUDES
+		${TIDY_EXTRAS}
 		${LIBTIDY_INCLUDE_DIR}/..
 	)
-ENDIF( USE_QT5 AND WIN32 )
+ENDIF( EXISTS "${TIDY_EXTRAS}" AND IS_DIRECTORY "${TIDY_EXTRAS}" )
 #
 include_directories(
 		${CMAKE_SOURCE_DIR}

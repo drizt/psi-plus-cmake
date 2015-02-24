@@ -5,18 +5,22 @@ endif( LIBTIDY_INCLUDE_DIR AND LIBTIDY_LIBRARY )
 
 if( UNIX AND NOT( APPLE OR CYGWIN ) )
 	find_package( PkgConfig QUIET )
-	pkg_check_modules( PC_LIBOTR QUIET libtidy )
-	set( LIBTIDY_DEFINITIONS ${PC_LIBTIDY_CFLAGS} ${PC_LIBTIDY_CFLAGS_OTHER} )
+	pkg_check_modules( PC_LIBTIDY QUIET libtidy )
+	if( PC_LIBTIDY_FOUND )
+		set( LIBTIDY_DEFINITIONS ${PC_LIBTIDY_CFLAGS} ${PC_LIBTIDY_CFLAGS_OTHER} )
+	endif( PC_LIBTIDY_FOUND )
 endif( UNIX AND NOT( APPLE OR CYGWIN ) )
+
+set( LIBTIDY_ROOT "" CACHE STRING "Path to libtidy library" )
 
 find_path(
 	LIBTIDY_INCLUDE_DIR tidy.h
 	HINTS
-	${LIBTIDY_ROOT}/include
 	${PC_LIBTIDY_INCLUDEDIR}
 	${PC_LIBTIDY_INCLUDE_DIRS}
-	PATH_SUFFIXES
-	""
+	PATHS
+	${LIBTIDY_ROOT}/include
+	${LIBTIDY_ROOT}/include/tidy
 )
 
 find_library(
