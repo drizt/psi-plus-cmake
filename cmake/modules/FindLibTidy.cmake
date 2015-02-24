@@ -20,7 +20,9 @@ find_path(
 	${PC_LIBTIDY_INCLUDE_DIRS}
 	PATHS
 	${LIBTIDY_ROOT}/include
-	${LIBTIDY_ROOT}/include/tidy
+	PATH_SUFFIXES
+	""
+	tidy
 )
 
 find_library(
