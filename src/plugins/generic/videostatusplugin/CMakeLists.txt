@@ -60,6 +60,7 @@ IF( ${USE_QT5} )
 		#find_package( Qt5Dbus REQUIRED )
 		#include_directories( ${Qt5Dbus_INCLUDES} )
 		#add_definitions( ${Qt5Dbus_DEFINITIONS} )
+		add_definitions( -DQ_WS_X11 )
 		set(QT_DEPLIBS
 			${QT_DEPLIBS}
 			Qt5::DBus
