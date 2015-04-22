@@ -40,7 +40,7 @@ IF( ${USE_QT5} )
 	set(QT_DEPLIBS
 		Qt5::Widgets
 		Qt5::Xml
-		Qt5::Dbus
+		Qt5::DBus
 	)
 	set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 	qt5_add_resources(RSCS ${_RSCS})
