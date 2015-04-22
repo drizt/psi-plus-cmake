@@ -24,7 +24,7 @@ if( UNIX AND NOT( APPLE OR CYGWIN ) )
 	add_definitions( -DX11 )
 	set( qxt_X11_SRCS
 		qxt/gui/qxtwindowsystem_x11.cpp
-		qxt/gui/x11info.cpp
+		#qxt/gui/x11info.cpp
 	)
 	set( qxt_X11_HDRS
 		qxt/gui/x11info.h
