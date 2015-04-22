@@ -15,7 +15,7 @@ if( NOT WIN32 )
 	add_definitions( -Ddbus )
 	find_package( X11 REQUIRED )
 else( NOT WIN32 )
-	add_definitions( -DQ_WS_WIN )
+	add_definitions( -DQ_OS_WIN )
 endif( NOT WIN32 )
 include_directories(
 	${CMAKE_SOURCE_DIR}
@@ -57,17 +57,18 @@ IF( ${USE_QT5} )
 		Qt5::Xml
 	)
 	IF( UNIX AND NOT( APPLE OR CYGWIN ) )
-		#find_package( Qt5Dbus REQUIRED )
-		#include_directories( ${Qt5Dbus_INCLUDES} )
-		#add_definitions( ${Qt5Dbus_DEFINITIONS} )
-		add_definitions( -DQ_WS_X11 )
+		find_package( Qt5DBus REQUIRED )
+		find_package( Qt5X11Extras REQUIRED )
+		include_directories( ${Qt5Dbus_INCLUDES} )
+		add_definitions(
+			${Qt5Dbus_DEFINITIONS} 
+			-DHAVE_DBUS
+		)
 		set(QT_DEPLIBS
 			${QT_DEPLIBS}
 			Qt5::DBus
+			Qt5::X11Extras
 		)
-	ENDIF( UNIX AND NOT( APPLE OR CYGWIN ) )
-	IF( UNIX AND NOT( APPLE OR CYGWIN ) )
-		set(QT_DEPLIBS "${QT_DEPLIBS}" "${Qt5Dbus_LIBRARIES}" )
 	ENDIF( UNIX AND NOT( APPLE OR CYGWIN ) )
 	set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 	qt5_wrap_ui(UIS ${_UIS})
