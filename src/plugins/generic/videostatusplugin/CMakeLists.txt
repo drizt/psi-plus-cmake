@@ -52,15 +52,19 @@ IF( ${USE_QT5} )
 		${Qt5Widgets_DEFINITIONS}
 		${Qt5Xml_DEFINITIONS}
 	)
-	IF( UNIX AND NOT( APPLE OR CYGWIN ) )
-		find_package( Qt5Dbus REQUIRED )
-		include_directories( ${Qt5Dbus_INCLUDES} )
-		add_definitions( ${Qt5Dbus_DEFINITIONS} )
-	ENDIF( UNIX AND NOT( APPLE OR CYGWIN ) )
 	set(QT_DEPLIBS
 		Qt5::Widgets
 		Qt5::Xml
 	)
+	IF( UNIX AND NOT( APPLE OR CYGWIN ) )
+		#find_package( Qt5Dbus REQUIRED )
+		#include_directories( ${Qt5Dbus_INCLUDES} )
+		#add_definitions( ${Qt5Dbus_DEFINITIONS} )
+		set(QT_DEPLIBS
+			${QT_DEPLIBS}
+			Qt5::DBus
+		)
+	ENDIF( UNIX AND NOT( APPLE OR CYGWIN ) )
 	IF( UNIX AND NOT( APPLE OR CYGWIN ) )
 		set(QT_DEPLIBS "${QT_DEPLIBS}" "${Qt5Dbus_LIBRARIES}" )
 	ENDIF( UNIX AND NOT( APPLE OR CYGWIN ) )
