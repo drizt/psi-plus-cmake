@@ -26,16 +26,16 @@ set( _RSCS
 IF( ${USE_QT5} )
 	find_package( Qt5Widgets REQUIRED )
 	find_package( Qt5Xml REQUIRED )
-	#find_package( Qt5Dbus REQUIRED )
+	find_package( Qt5Dbus REQUIRED )
 	include_directories(
 		${Qt5Widgets_INCLUDES}
 		${Qt5Xml_INCLUDES}
-		#${Qt5Dbus_INCLUDES}
+		${Qt5Dbus_INCLUDES}
 	)
 	add_definitions(
 		${Qt5Widgets_DEFINITIONS}
 		${Qt5Xml_DEFINITIONS}
-		#${Qt5Dbus_DEFINITIONS}
+		${Qt5Dbus_DEFINITIONS}
 	)
 	set(QT_DEPLIBS
 		Qt5::Widgets
