@@ -26,7 +26,7 @@ set( _RSCS
 IF( ${USE_QT5} )
 	find_package( Qt5Widgets REQUIRED )
 	find_package( Qt5Xml REQUIRED )
-	find_package( Qt5Dbus REQUIRED )
+	find_package( Qt5DBus REQUIRED )
 	include_directories(
 		${Qt5Widgets_INCLUDES}
 		${Qt5Xml_INCLUDES}
@@ -39,9 +39,8 @@ IF( ${USE_QT5} )
 	)
 	set(QT_DEPLIBS
 		Qt5::Widgets
-		${Qt5Xml_LIBRARIES}
+		Qt5::Xml
 		Qt5::Dbus
-		#${Qt5Dbus_LIBRARIES}
 	)
 	set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 	qt5_add_resources(RSCS ${_RSCS})
