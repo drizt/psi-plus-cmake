@@ -12,7 +12,7 @@ ENDIF( NOT WIN32 )
 
 add_definitions( -Wall -DQT_PLUGIN )
 if( NOT WIN32 )
-	add_definitions( -Ddbus )
+	add_definitions( -Ddbus -DHAVE_DBUS )
 	find_package( X11 REQUIRED )
 else( NOT WIN32 )
 	add_definitions( -DQ_OS_WIN )
