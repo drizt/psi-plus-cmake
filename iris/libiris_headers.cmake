@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 2.8.11 ) 
 
-set( iris_HDRS
+set( irisnet_CORELIB_HDRS
 	src/irisnet/corelib/objectsession.h
 	src/irisnet/corelib/netnames.h
 	src/irisnet/corelib/irisnetglobal_p.h
@@ -10,7 +10,8 @@ set( iris_HDRS
 	src/irisnet/corelib/irisnetplugin.h
 	src/irisnet/corelib/irisnetglobal.h
 	src/irisnet/corelib/netinterface.h
-	src/irisnet/appledns/qdnssd.h
+)
+set( irisnet_NONCORE_HDRS
 	src/irisnet/noncore/iceturntransport.h
 	src/irisnet/noncore/icetransport.h
 	src/irisnet/noncore/stuntransaction.h
@@ -36,18 +37,29 @@ set( iris_HDRS
 	src/irisnet/noncore/cutestuff/bsocket.h
 	src/irisnet/noncore/cutestuff/bytestream.h
 	src/irisnet/noncore/cutestuff/socks.h
+)
+set( irsinet_APPLEDNS_HDRS
+	src/irisnet/appledns/qdnssd.h
+)
+set( xmpp_BASE_HDRS
 	src/xmpp/base/randrandomnumbergenerator.h
 	src/xmpp/base/randomnumbergenerator.h
 	src/xmpp/base/unittest/incrementingrandomnumbergenerator.h
+)
+set( xmpp_SASL_HDRS
 	src/xmpp/sasl/scramsha1response.h
 	src/xmpp/sasl/digestmd5proplist.h
 	src/xmpp/sasl/scramsha1message.h
 	src/xmpp/sasl/plainmessage.h
 	src/xmpp/sasl/digestmd5response.h
 	src/xmpp/sasl/scramsha1signature.h
+)
+set( xmpp_ZLIB_HDRS
 	src/xmpp/zlib/common.h
 	src/xmpp/zlib/zlibcompressor.h
 	src/xmpp/zlib/zlibdecompressor.h
+)
+set( xmpp_IM_HDRS
 	src/xmpp/xmpp-im/xmpp_features.h
 	src/xmpp/xmpp-im/xmpp_bytestream.h
 	src/xmpp/xmpp-im/xmpp_tasks.h
@@ -82,6 +94,8 @@ set( iris_HDRS
 	src/xmpp/xmpp-im/xmpp_receipts.h
 	src/xmpp/xmpp-im/xmpp_pubsubretraction.h
 	src/xmpp/xmpp-im/xmpp_message.h
+)
+set( xmpp_CORE_HDRS
 	src/xmpp/xmpp-core/xmpp_stream.h
 	src/xmpp/xmpp-core/td.h
 	src/xmpp/xmpp-core/compressionhandler.h
@@ -93,19 +107,26 @@ set( iris_HDRS
 	src/xmpp/xmpp-core/securestream.h
 	src/xmpp/xmpp-core/protocol.h
 	src/xmpp/xmpp-core/xmpp_clientstream.h
+)
+set( xmpp_JID_HDRS
 	src/xmpp/jid/jid.h
+)
+set( xmpp_QA_HDRS
 	src/xmpp/qa/qttestutil/testregistry.h
 	src/xmpp/qa/qttestutil/testregistration.h
 	src/xmpp/qa/qttestutil/qttestutil.h
-	src/jdns/src/qjdns/qjdnsshared_p.h
-	src/jdns/src/qjdns/qjdns_p.h
-	src/jdns/src/qjdns/qjdns_sock.h
-	src/jdns/src/jdns/jdns_packet.h
-	src/jdns/src/jdns/jdns_mdnsd.h
-	src/jdns/src/jdns/jdns_p.h
-	src/jdns/tools/jdns/main.h
-	src/jdns/include/jdns/jdns_export.h
-	src/jdns/include/jdns/qjdns.h
-	src/jdns/include/jdns/qjdnsshared.h
-	src/jdns/include/jdns/jdns.
 )
+set( iris_HDRS
+	${irisnet_CORELIB_HDRS}
+	${irisnet_NONCORE_HDRS}
+	${xmpp_BASE_HDRS}
+	${xmpp_SASL_HDRS}
+	${xmpp_ZLIB_HDRS}
+	${xmpp_IM_HDRS}
+	${xmpp_CORE_HDRS}
+	${xmpp_JID_HDRS}
+)
+
+if( APPLE )
+	set( iris_HDRS ${iris_HDRS} ${irsinet_APPLEDNS_HDRS} )
+endif( APPLE )

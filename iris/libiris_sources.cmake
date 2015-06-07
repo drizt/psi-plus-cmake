@@ -100,12 +100,12 @@ set( xmpp_CORE
 set( xmpp_JID
 	src/xmpp/jid/jid.cpp
 )
-set( jdns_SRC
-	src/jdns/src/qjdns/qjdnsshared.cpp
-	src/jdns/src/qjdns/qjdns_sock.cpp
-	src/jdns/src/qjdns/qjdns.cpp
-	src/jdns/tools/jdns/main.cpp
-)
+#set( jdns_SRC
+	#src/jdns/src/qjdns/qjdnsshared.cpp
+	#src/jdns/src/qjdns/qjdns_sock.cpp
+	#src/jdns/src/qjdns/qjdns.cpp
+	#src/jdns/tools/jdns/main.cpp
+#)
 #Temporary unused
 set( xmpp_UNITTESTS
 	src/xmpp/base/unittest/randrandomnumbergeneratortest.cpp
@@ -131,7 +131,6 @@ set( iris_SRCS
 	${xmpp_CORE}
 	${xmpp_JID}
 	${xmpp_QA}
-	${jdns_SRC}
 )
 if( APPLE )
 	set( iris_SRCS
