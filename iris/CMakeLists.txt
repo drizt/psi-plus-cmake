@@ -242,7 +242,7 @@ if( NOT hasParent )
 				ARCHIVE DESTINATION "${LIB_INSTALL_DIR}/iris"
 				PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_PREFIX}/include/iris"
 			)
-		endif( ${WIN32} )
+		endif( WIN32 )
 	else( ${BUILD_SHARED_LIBS} )
 		install(
 			TARGETS
