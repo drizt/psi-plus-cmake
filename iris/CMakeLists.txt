@@ -36,11 +36,11 @@ set( CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin" )
 set( CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib" )
 set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib" )
 
-option( BUNDLED_QJDNS "Build qjdns with iris library" ON )
+#option( BUNDLED_QJDNS "Build qjdns with iris library" ON )
 option( BUILD_SHARED_LIBS "Build shared library" ON )
 option( QT4_BUILD "Build with Qt4 support" ON )
-option( BUILD_QJDNS "Buid JDNS Qt-wrapper" ON )
-option( BUILD_JDNS_TOOL "Build jdns test tool" OFF )
+#option( BUILD_QJDNS "Buid JDNS Qt-wrapper" ON )
+#option( BUILD_JDNS_TOOL "Build jdns test tool" OFF )
 
 get_directory_property(hasParent PARENT_DIRECTORY)
 
@@ -123,16 +123,16 @@ include( ${CMAKE_CURRENT_SOURCE_DIR}/libiris_includes.cmake )
 include( ${CMAKE_CURRENT_SOURCE_DIR}/libiris_sources.cmake )
 include( ${CMAKE_CURRENT_SOURCE_DIR}/libiris_headers.cmake )
 
-if( ${BUNDLED_QJDNS} )
-	add_subdirectory( src/jdns )
+#if( ${BUNDLED_QJDNS} )
+#	add_subdirectory( src/jdns )
 	include_directories(
 		src/jdns/include/jdns
 	)
-else( ${BUNDLED_QJDNS} )
-	find_package( QJDns REQUIRED )
-	include_directories( ${QJDns_INCLUDE_DIR} )
-endif( ${BUNDLED_QJDNS} )
-set( qjdns_FILE qjdns )
+#else( ${BUNDLED_QJDNS} )
+#	find_package( QJDns REQUIRED )
+#	include_directories( ${QJDns_INCLUDE_DIR} )
+#endif( ${BUNDLED_QJDNS} )
+#set( qjdns_FILE qjdns )
 
 if( ${BUILD_SHARED_LIBS} )
 	add_library( ${LIB_IRIS} SHARED ${iris_SRCS} )
@@ -147,8 +147,8 @@ set( iris_libs
 	${qca_LIB}
 	${ZLIB_LIBRARIES}
 	${IDN_LIBRARIES}
-	${qjdns_FILE}
 )
+#${qjdns_FILE}
 
 if( WIN32 )
 	set( iris_libs ${iris_libs} ws2_32 )
@@ -175,9 +175,9 @@ set_target_properties(
 )
 
 target_link_libraries( ${LIB_IRIS} ${iris_libs} )
-if( ${BUNDLED_QJDNS} )
-	add_dependencies( ${LIB_IRIS} qjdns )
-endif( ${BUNDLED_QJDNS} )
+#if( ${BUNDLED_QJDNS} )
+#	add_dependencies( ${LIB_IRIS} qjdns )
+#endif( ${BUNDLED_QJDNS} )
 
 if( NOT hasParent )
 	if(NOT MSVC)

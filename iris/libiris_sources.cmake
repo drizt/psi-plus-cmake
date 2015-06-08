@@ -100,12 +100,12 @@ set( xmpp_CORE
 set( xmpp_JID
 	src/xmpp/jid/jid.cpp
 )
-#set( jdns_SRC
-	#src/jdns/src/qjdns/qjdnsshared.cpp
-	#src/jdns/src/qjdns/qjdns_sock.cpp
-	#src/jdns/src/qjdns/qjdns.cpp
-	#src/jdns/tools/jdns/main.cpp
-#)
+set( jdns_SRC
+	src/jdns/src/qjdns/qjdnsshared.cpp
+	src/jdns/src/qjdns/qjdns_sock.cpp
+	src/jdns/src/qjdns/qjdns.cpp
+	src/jdns/tools/jdns/main.cpp
+)
 #Temporary unused
 set( xmpp_UNITTESTS
 	src/xmpp/base/unittest/randrandomnumbergeneratortest.cpp
@@ -122,6 +122,7 @@ set( xmpp_UNITTESTS
 	src/xmpp/jid/unittest/jidtest.cpp
 )
 set( iris_SRCS
+	${jdns_SRC}
 	${irisnet_CORELIB}
 	${irisnet_NONCORE}
 	${xmpp_BASE}
