@@ -51,11 +51,18 @@ USEFULL CMAKE FLAGS:
 
   -DZLIB_ROOT=DIRECTORY
 
+- set build qjdns as separate lib 
+
+  -DSEPARATE_QJDNS=ON
+
+  to build qjdns library as separate library (default OFF)
+
 - set build qjdns library bundled
 
   -DBUNDLED_QJDNS=ON
 
   to build qjdns bundled with iris library (default ON)
+  works only with flag SEPARATE_QJDNS=ON
 
 - set list of plugins to build:
 

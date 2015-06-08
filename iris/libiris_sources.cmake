@@ -122,7 +122,6 @@ set( xmpp_UNITTESTS
 	src/xmpp/jid/unittest/jidtest.cpp
 )
 set( iris_SRCS
-	${jdns_SRC}
 	${irisnet_CORELIB}
 	${irisnet_NONCORE}
 	${xmpp_BASE}

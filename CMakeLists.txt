@@ -6,6 +6,8 @@ option( QT4_BUILD "Build with Qt4 support" ON )
 option( PLUGINS "Build psi-plus plugins" ON )
 option( BUNDLED_IRIS "Build iris library bundled" ON )
 option( ONLY_PLUGINS "Build psi-plus plugins only" OFF )
+option( SEPARATE_QJDNS "Build qjdns as separate lib" OFF )
+option( BUNDLED_QJDNS "Build qjdns with iris library" ON )
 
 if( ${QT4_BUILD} )
 	set( USE_QT5 OFF)
