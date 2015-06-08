@@ -42,6 +42,8 @@ option( QT4_BUILD "Build with Qt4 support" ON )
 option( BUILD_QJDNS "Buid JDNS Qt-wrapper" ON )
 option( BUILD_JDNS_TOOL "Build jdns test tool" OFF )
 
+get_directory_property(hasParent PARENT_DIRECTORY)
+
 if( ${QT4_BUILD} )
 	set( USE_QT5 OFF)
 else( ${QT4_BUILD} )
@@ -59,9 +61,11 @@ endif( NOT WIN32 )
 if( ${USE_QT5} )
 	find_package( Qca-qt5 REQUIRED PATHS ${QCA_DIR} )
 	get_target_property( QCA_INCLUDES qca-qt5 INTERFACE_INCLUDE_DIRECTORIES )
+	set(qca_LIB qca-qt5)
 else( ${USE_QT5} )
 	find_package( Qca REQUIRED PATHS ${QCA_DIR} )
 	get_target_property( QCA_INCLUDES qca INTERFACE_INCLUDE_DIRECTORIES )
+	set(qca_LIB qca)
 endif( ${USE_QT5} )
 find_package( ZLIB REQUIRED )
 find_package( IDN REQUIRED )
@@ -120,7 +124,6 @@ include( ${CMAKE_CURRENT_SOURCE_DIR}/libiris_sources.cmake )
 include( ${CMAKE_CURRENT_SOURCE_DIR}/libiris_headers.cmake )
 
 if( ${BUNDLED_QJDNS} )
-	set( CMAKE_AUTOMOC OFF )
 	add_subdirectory( src/jdns )
 	include_directories(
 		src/jdns/include/jdns
@@ -141,7 +144,7 @@ endif( ${BUILD_SHARED_LIBS} )
 
 set( iris_libs
 	${QT_DEPLIBS}
-	qca
+	${qca_LIB}
 	${ZLIB_LIBRARIES}
 	${IDN_LIBRARIES}
 	${qjdns_FILE}
@@ -176,78 +179,81 @@ if( ${BUNDLED_QJDNS} )
 	add_dependencies( ${LIB_IRIS} qjdns )
 endif( ${BUNDLED_QJDNS} )
 
-if(NOT MSVC)
-	set(IRIS_CONFIG_INSTALL_DIR "${LIB_INSTALL_DIR}/cmake/iris")
-else(NOT MSVC)
-	set(IRIS_CONFIG_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/cmake/")
-endif(NOT MSVC)
+if( NOT hasParent )
+	if(NOT MSVC)
+		set(IRIS_CONFIG_INSTALL_DIR "${LIB_INSTALL_DIR}/cmake/iris")
+	else(NOT MSVC)
+		set(IRIS_CONFIG_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/cmake/")
+	endif(NOT MSVC)
 
-file(RELATIVE_PATH relInstallDir ${IRIS_CONFIG_INSTALL_DIR} ${CMAKE_INSTALL_PREFIX})
-file(RELATIVE_PATH IRIS_INCLUDEDIR_REL ${CMAKE_INSTALL_PREFIX} "${INCLUDE_INSTALL_DIR}/iris")
-file(RELATIVE_PATH LIB_INSTALL_DIR_REL ${CMAKE_INSTALL_PREFIX} ${LIB_INSTALL_DIR})
+	file(RELATIVE_PATH relInstallDir ${IRIS_CONFIG_INSTALL_DIR} ${CMAKE_INSTALL_PREFIX})
+	file(RELATIVE_PATH IRIS_INCLUDEDIR_REL ${CMAKE_INSTALL_PREFIX} "${INCLUDE_INSTALL_DIR}/iris")
+	file(RELATIVE_PATH LIB_INSTALL_DIR_REL ${CMAKE_INSTALL_PREFIX} ${LIB_INSTALL_DIR})
 
-if(NOT WIN32)
-	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/iris.pc.in
-			${CMAKE_CURRENT_BINARY_DIR}/iris.pc
+	if(NOT WIN32)
+		configure_file(${CMAKE_CURRENT_SOURCE_DIR}/iris.pc.in
+				${CMAKE_CURRENT_BINARY_DIR}/iris.pc
+				@ONLY
+		)
+		install(FILES ${CMAKE_CURRENT_BINARY_DIR}/iris.pc
+			DESTINATION ${LIB_INSTALL_DIR}/pkgconfig
+		)
+	endif(NOT WIN32)
+
+	configure_file(
+		"${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+		"${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+		IMMEDIATE @ONLY
+	)
+
+	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/IrisConfig.cmake.in
+			${CMAKE_CURRENT_BINARY_DIR}/IrisConfig.cmake
 			@ONLY
 	)
-	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/iris.pc
-		DESTINATION ${LIB_INSTALL_DIR}/pkgconfig
+	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/IrisConfigVersion.cmake.in
+			${CMAKE_CURRENT_BINARY_DIR}/IrisConfigVersion.cmake
+			@ONLY
 	)
-endif(NOT WIN32)
+	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/IrisConfig.cmake
+			${CMAKE_CURRENT_BINARY_DIR}/IrisConfigVersion.cmake
+			DESTINATION ${IRIS_CONFIG_INSTALL_DIR})
 
-configure_file(
-	"${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
-	"${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-	IMMEDIATE @ONLY
-)
-
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/IrisConfig.cmake.in
-		${CMAKE_CURRENT_BINARY_DIR}/IrisConfig.cmake
-		@ONLY
-)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/IrisConfigVersion.cmake.in
-		${CMAKE_CURRENT_BINARY_DIR}/IrisConfigVersion.cmake
-		@ONLY
-)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/IrisConfig.cmake
-		${CMAKE_CURRENT_BINARY_DIR}/IrisConfigVersion.cmake
-		DESTINATION ${IRIS_CONFIG_INSTALL_DIR})
-
-install(EXPORT iris-export DESTINATION ${IRIS_CONFIG_INSTALL_DIR} FILE IrisTargets.cmake)
-
-########### install files ###############
-if( ${BUILD_SHARED_LIBS} )
-	if( ${UNIX} )
+	install(EXPORT iris-export DESTINATION ${IRIS_CONFIG_INSTALL_DIR} FILE IrisTargets.cmake)
+	if( ${BUILD_SHARED_LIBS} )
+		if( UNIX )
+			install(
+				TARGETS
+				${LIB_IRIS}
+				EXPORT iris-export
+				LIBRARY
+				DESTINATION ${LIB_INSTALL_DIR}
+				ARCHIVE DESTINATION "${LIB_INSTALL_DIR}/iris"
+				PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_PREFIX}/include/iris"
+			)
+		endif( UNIX )
+		if( WIN32 )
+			install(
+				TARGETS
+				${LIB_IRIS}
+				EXPORT iris-export
+				LIBRARY
+				DESTINATION ${BIN_INSTALL_DIR}
+				RUNTIME DESTINATION ${BIN_INSTALL_DIR}
+				ARCHIVE DESTINATION "${LIB_INSTALL_DIR}/iris"
+				PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_PREFIX}/include/iris"
+			)
+		endif( ${WIN32} )
+	else( ${BUILD_SHARED_LIBS} )
 		install(
 			TARGETS
 			${LIB_IRIS}
 			EXPORT iris-export
 			LIBRARY
 			DESTINATION ${LIB_INSTALL_DIR}
-			ARCHIVE DESTINATION "${LIB_INSTALL_DIR}/iris"
+			ARCHIVE DESTINATION "${LIB_INSTALL_DIR}"
 			PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_PREFIX}/include/iris"
 		)
-	endif( ${UNIX} )
-	if( ${WIN32} )
-		install(
-			TARGETS
-			${LIB_IRIS}
-			EXPORT iris-export
-			LIBRARY
-			DESTINATION ${BIN_INSTALL_DIR}
-			RUNTIME DESTINATION ${BIN_INSTALL_DIR}
-			ARCHIVE DESTINATION "${LIB_INSTALL_DIR}/iris"
-			PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_PREFIX}/include/iris"
-		)
-	endif( ${WIN32} )
-	set( DOC_FILES
-		${CMAKE_CURRENT_SOURCE_DIR}/README
-		${CMAKE_CURRENT_SOURCE_DIR}/COPYING
-		${CMAKE_CURRENT_SOURCE_DIR}/TODO
-	)
-	install( FILES ${DOC_FILES} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/iris )
-	#install( FILES ${libiris_INCLUDES} DESTINATION ${INCLUDE_INSTALL_DIR}/iris )
-endif( ${BUILD_SHARED_LIBS} )
-add_custom_target(uninstall_iris
-		"${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
+	endif( ${BUILD_SHARED_LIBS} )
+	add_custom_target(uninstall_iris
+			"${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
+endif( NOT hasParent )
