@@ -33,6 +33,10 @@ if( NOT ${ONLY_PLUGINS} )
 		find_package( Iris REQUIRED )
 	endif( ${BUNDLED_IRIS} )
 	set( iris_LIB iris )
+	include( ${CMAKE_CURRENT_SOURCE_DIR}/psi_sources.cmake )
+	include( ${CMAKE_CURRENT_SOURCE_DIR}/psi_headers.cmake )
+	include( ${CMAKE_CURRENT_SOURCE_DIR}/psi_uis.cmake )
+	include( ${CMAKE_CURRENT_SOURCE_DIR}/psi_resources.cmake )
 endif( NOT ${ONLY_PLUGINS} )
 #TODO psi-plus build
 
