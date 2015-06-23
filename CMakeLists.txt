@@ -27,6 +27,10 @@ ELSE( WIN32 )
 ENDIF( WIN32 )
 
 if( NOT ${ONLY_PLUGINS} )
+	message(
+		"WARNING!!! Build of psi-plus not yet finished"
+		"For now only libiris and plugins are finished"
+	)
 	if( ${BUNDLED_IRIS} )
 		add_subdirectory( iris )
 	else( ${BUNDLED_IRIS} )

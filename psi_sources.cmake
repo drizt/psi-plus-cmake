@@ -135,6 +135,7 @@ set( tools_crash_SRCS
 	src/tools/crash/crash_kde.cpp
 	src/tools/crash/crash.cpp
 )
+#deprecated
 #src/tools/tunecontroller/combinedtunecontroller.cpp
 set( tools_tunecontroller_SRCS
 	src/tools/tunecontroller/tunecontrollermanager.cpp
@@ -257,222 +258,236 @@ set( unittest_SRCS
 	src/unittest/psipopup/testpsipopup.cpp
 	src/unittest/psiiconset/testpsiiconset.cpp
 )
-src/registrationdlg.cpp
-src/globalstatusmenu.cpp
-src/timeserver.cpp
-src/actionlist.cpp
-src/jidutil.cpp
-src/contactupdatesmanager.cpp
-src/conferencebookmark.cpp
-src/x11windowsystem.cpp
-src/psidbusnotifier.cpp
-src/psifilteredcontactlistview.cpp
-src/chatsplitter.cpp
-src/accountadddlg.cpp
-src/statusdlg.cpp
-src/qwextend.cpp
-src/chatview_webkit.cpp
-src/accountlabel.cpp
-src/psiiconset.cpp
-src/contactlistaccountgroup.cpp
-src/pgpkeydlg.cpp
-src/contactlistmodel.cpp
-src/alertable.cpp
-src/hoverabletreeview.cpp
-src/activity.cpp
-src/mucconfigdlg.cpp
-src/psitoolbar.cpp
-src/contactlistitemmenu.cpp
-src/googleftmanager.cpp
-src/passdialog.cpp
-src/contactlistgroupmenu.cpp
-src/profiledlg.cpp
-src/chatviewthemeprovider.cpp
-src/accountstatusmenu.cpp
-src/eventdb.cpp
-src/pgptransaction.cpp
-src/mcmdcompletion.cpp
-src/htmltextcontroller.cpp
-src/fileutil.cpp
-src/filetransdlg.cpp
-src/resourcemenu.cpp
-src/statuspreset.cpp
-src/psiapplication.cpp
-src/shortcutmanager.cpp
-src/bobfilecache.cpp
-src/avatars.cpp
-src/ahcommandserver.cpp
-src/textutil.cpp
-src/adduserdlg.cpp
-src/pepmanager.cpp
-src/alerticon.cpp
-src/psitrayicon.cpp
-src/contactlistnestedgroup.cpp
-src/chatdlg.cpp
-src/historydlg.cpp
-src/psiactionlist.cpp
-src/adhoc_fileserver.cpp
-src/activecontactsmenu.cpp
-src/mucaffiliationsview.cpp
-src/globaleventqueue.cpp
-src/theme.cpp
-src/ahcexecutetask.cpp
-src/psicontactlistviewdelegate.cpp
-src/psicon.cpp
-src/contactlistdragmodel.cpp
-src/bytearrayreply.cpp
-src/bookmarkmanagedlg.cpp
-src/moodcatalog.cpp
-src/chateditproxy.cpp
-src/chatviewtheme.cpp
-src/groupchatdlg.cpp
-src/alertmanager.cpp
-src/contactlistitemproxy.cpp
-src/aboutdlg.cpp
-src/sendbuttonmenu.cpp
-src/activeprofiles_dbus.cpp
-src/mucmanager.cpp
-src/contactlistviewdelegate.cpp
-src/rc.cpp
-src/discodlg.cpp
-src/mucreasonseditor.cpp
-src/rosteritemexchangetask.cpp
-src/psithememanager.cpp
-src/contactlistdragview.cpp
-src/activitydlg.cpp
-src/serverlistquerier.cpp
-src/urlbookmark.cpp
-src/mucjoindlg.cpp
-src/psichatdlg.cpp
-src/mcmdsimplesite.cpp
-src/psicontactmenu.cpp
-src/mainwin.cpp
-src/showtextdlg.cpp
-src/voicecalldlg.cpp
-src/contactlistitem.cpp
-src/userlist.cpp
-src/psioptions.cpp
-src/contactlistaccountmenu.cpp
-src/coloropt.cpp
-src/gcuserview.cpp
-src/ahcservermanager.cpp
-src/tabcompletion.cpp
-src/vcardphotodlg.cpp
-src/psicontactlistview.cpp
-src/psithemeviewdelegate.cpp
-src/psicontact.cpp
-src/contactlistproxymodel.cpp
-src/homedirmigration.cpp
-src/geolocation.cpp
-src/networkaccessmanager.cpp
-src/statuscombobox.cpp
-src/mcmdmanager.cpp
-src/main.cpp
-src/pixmaputil.cpp
-src/dummystream.cpp
-src/lastactivitytask.cpp
-src/pluginmanager.cpp
-src/desktoputil.cpp
-src/msgmle.cpp
-src/systeminfo.cpp
-src/applicationinfo.cpp
-src/bookmarkmanager.cpp
-src/contactlistmodelselection.cpp
-src/legacypsiaccount.cpp
-src/tipdlg.cpp
-src/eventdlg.cpp
-src/activeprofiles_win.cpp
-src/contactview.cpp
-src/contactlistview.cpp
-src/accountloginpassword.cpp
-src/common.cpp
-src/infodlg.cpp
-src/contactlistutil.cpp
-src/chatviewcommon.cpp
-src/contactlistmodelupdater.cpp
-src/psithemeprovider.cpp
-src/rtparse.cpp
-src/dbus.cpp
-src/pgputil.cpp
-src/varlist.cpp
-src/pubsubsubscription.cpp
-src/bosskey.cpp
-src/activeprofiles_stub.cpp
-src/geolocationdlg.cpp
-src/psievent.cpp
-src/changepwdlg.cpp
-src/psiwkavatarhandler.cpp
-src/ahcformdlg.cpp
-src/psiaccount.cpp
-src/vcardfactory.cpp
-src/psiselfcontact.cpp
-src/ahcommanddlg.cpp
-src/jsutil.cpp
-src/psithememodel.cpp
-src/mucaffiliationsmodel.cpp
-src/removeconfirmationmessagebox.cpp
-src/contactlistgroupstate.cpp
-src/psi_profiles.cpp
-src/mood.cpp
-src/popupmanager.cpp
-src/rosteravatarframe.cpp
-src/statusmenu.cpp
-src/translationmanager.cpp
-src/accountmodifydlg.cpp
-src/accountregdlg.cpp
-src/activitycatalog.cpp
-src/pluginhost.cpp
-src/xmlconsole.cpp
-src/contactlistspecialgroup.cpp
-src/ahcommand.cpp
-src/widgets/typeaheadfind.cpp
-src/widgets/fancylabel.cpp
-src/widgets/psirichtext.cpp
-src/widgets/iconaction.cpp
-src/widgets/psitabbar.cpp
-src/widgets/psitooltip.cpp
-src/widgets/iconwidget.cpp
-src/widgets/iconselect.cpp
-src/widgets/psiwindowheader.cpp
-src/widgets/urllabel.cpp
-src/widgets/psitabwidget.cpp
-src/widgets/fancypopup.cpp
-src/widgets/actionlineedit.cpp
-src/widgets/psitiplabel.cpp
-src/widgets/psiwidgets.cpp
-src/widgets/tabbar.cpp
-src/widgets/unittest/iconaction/testiconaction.cpp
-src/widgets/unittest/richtext/main.cpp
-src/widgets/psitextview.cpp
-src/widgets/urlobject.cpp
-src/widgets/busywidget.cpp
-src/miniclient.cpp
-src/xdata_widget.cpp
-src/proxy.cpp
-src/psioptionseditor.cpp
-src/contactlistgroup.cpp
-src/httpauthmanager.cpp
-src/serverinfomanager.cpp
-src/accountmanagedlg.cpp
-src/contactlistgroupcache.cpp
-src/webview.cpp
-src/psipopupinterface.cpp
-src/filecache.cpp
-src/psimedia/psimedia.cpp
-src/messageview.cpp
-src/searchdlg.cpp
-src/physicallocation.cpp
-src/psirosterwidget.cpp
-src/psicontactlistmodel.cpp
-src/mucaffiliationsproxymodel.cpp
-src/passphrasedlg.cpp
-src/groupchattopicdlg.cpp
-src/psicontactlist.cpp
-src/mooddlg.cpp
-src/jinglevoicecaller.cpp
-src/psipopup.cpp
-src/entitytimetask.cpp
-src/activeprofiles.cpp
-src/mainwin_p.cpp
-src/accountscombobox.cpp
-src/chatview_te.cpp
+set( widgets_SRCS 
+	src/widgets/typeaheadfind.cpp
+	src/widgets/fancylabel.cpp
+	src/widgets/psirichtext.cpp
+	src/widgets/iconaction.cpp
+	src/widgets/psitabbar.cpp
+	src/widgets/psitooltip.cpp
+	src/widgets/iconwidget.cpp
+	src/widgets/iconselect.cpp
+	src/widgets/psiwindowheader.cpp
+	src/widgets/urllabel.cpp
+	src/widgets/psitabwidget.cpp
+	src/widgets/fancypopup.cpp
+	src/widgets/actionlineedit.cpp
+	src/widgets/psitiplabel.cpp
+	src/widgets/psiwidgets.cpp
+	src/widgets/tabbar.cpp
+	src/widgets/psitextview.cpp
+	src/widgets/urlobject.cpp
+	src/widgets/busywidget.cpp
+)
+set( widgets_unittest_SRCS
+	src/widgets/unittest/iconaction/testiconaction.cpp
+	src/widgets/unittest/richtext/main.cpp
+)
+set( psimeida_SRCS
+	src/psimedia/psimedia.cpp
+)
+set( psi_unix_SRCS
+	src/x11windowsystem.cpp
+)
+set( psi_dbus_SRCS
+	src/dbus.cpp
+	src/psidbusnotifier.cpp
+	src/activeprofiles_dbus.cpp
+)
+set( psi_win_SRCS
+	src/activeprofiles_win.cpp
+)
+set( psi_SRCS
+	src/registrationdlg.cpp
+	src/globalstatusmenu.cpp
+	src/timeserver.cpp
+	src/actionlist.cpp
+	src/jidutil.cpp
+	src/contactupdatesmanager.cpp
+	src/conferencebookmark.cpp
+	src/psifilteredcontactlistview.cpp
+	src/chatsplitter.cpp
+	src/accountadddlg.cpp
+	src/statusdlg.cpp
+	src/qwextend.cpp
+	src/chatview_webkit.cpp
+	src/accountlabel.cpp
+	src/psiiconset.cpp
+	src/contactlistaccountgroup.cpp
+	src/pgpkeydlg.cpp
+	src/contactlistmodel.cpp
+	src/alertable.cpp
+	src/hoverabletreeview.cpp
+	src/activity.cpp
+	src/mucconfigdlg.cpp
+	src/psitoolbar.cpp
+	src/contactlistitemmenu.cpp
+	src/googleftmanager.cpp
+	src/passdialog.cpp
+	src/contactlistgroupmenu.cpp
+	src/profiledlg.cpp
+	src/chatviewthemeprovider.cpp
+	src/accountstatusmenu.cpp
+	src/eventdb.cpp
+	src/pgptransaction.cpp
+	src/mcmdcompletion.cpp
+	src/htmltextcontroller.cpp
+	src/fileutil.cpp
+	src/filetransdlg.cpp
+	src/resourcemenu.cpp
+	src/statuspreset.cpp
+	src/psiapplication.cpp
+	src/shortcutmanager.cpp
+	src/bobfilecache.cpp
+	src/avatars.cpp
+	src/ahcommandserver.cpp
+	src/textutil.cpp
+	src/adduserdlg.cpp
+	src/pepmanager.cpp
+	src/alerticon.cpp
+	src/psitrayicon.cpp
+	src/contactlistnestedgroup.cpp
+	src/chatdlg.cpp
+	src/historydlg.cpp
+	src/psiactionlist.cpp
+	src/adhoc_fileserver.cpp
+	src/activecontactsmenu.cpp
+	src/mucaffiliationsview.cpp
+	src/globaleventqueue.cpp
+	src/theme.cpp
+	src/ahcexecutetask.cpp
+	src/psicontactlistviewdelegate.cpp
+	src/psicon.cpp
+	src/contactlistdragmodel.cpp
+	src/bytearrayreply.cpp
+	src/bookmarkmanagedlg.cpp
+	src/moodcatalog.cpp
+	src/chateditproxy.cpp
+	src/chatviewtheme.cpp
+	src/groupchatdlg.cpp
+	src/alertmanager.cpp
+	src/contactlistitemproxy.cpp
+	src/aboutdlg.cpp
+	src/sendbuttonmenu.cpp
+	src/mucmanager.cpp
+	src/contactlistviewdelegate.cpp
+	src/rc.cpp
+	src/discodlg.cpp
+	src/mucreasonseditor.cpp
+	src/rosteritemexchangetask.cpp
+	src/psithememanager.cpp
+	src/contactlistdragview.cpp
+	src/activitydlg.cpp
+	src/serverlistquerier.cpp
+	src/urlbookmark.cpp
+	src/mucjoindlg.cpp
+	src/psichatdlg.cpp
+	src/mcmdsimplesite.cpp
+	src/psicontactmenu.cpp
+	src/mainwin.cpp
+	src/showtextdlg.cpp
+	src/voicecalldlg.cpp
+	src/contactlistitem.cpp
+	src/userlist.cpp
+	src/psioptions.cpp
+	src/contactlistaccountmenu.cpp
+	src/coloropt.cpp
+	src/gcuserview.cpp
+	src/ahcservermanager.cpp
+	src/tabcompletion.cpp
+	src/vcardphotodlg.cpp
+	src/psicontactlistview.cpp
+	src/psithemeviewdelegate.cpp
+	src/psicontact.cpp
+	src/contactlistproxymodel.cpp
+	src/homedirmigration.cpp
+	src/geolocation.cpp
+	src/networkaccessmanager.cpp
+	src/statuscombobox.cpp
+	src/mcmdmanager.cpp
+	src/main.cpp
+	src/pixmaputil.cpp
+	src/dummystream.cpp
+	src/lastactivitytask.cpp
+	src/pluginmanager.cpp
+	src/desktoputil.cpp
+	src/msgmle.cpp
+	src/systeminfo.cpp
+	src/applicationinfo.cpp
+	src/bookmarkmanager.cpp
+	src/contactlistmodelselection.cpp
+	src/legacypsiaccount.cpp
+	src/tipdlg.cpp
+	src/eventdlg.cpp
+	src/contactview.cpp
+	src/contactlistview.cpp
+	src/accountloginpassword.cpp
+	src/common.cpp
+	src/infodlg.cpp
+	src/contactlistutil.cpp
+	src/chatviewcommon.cpp
+	src/contactlistmodelupdater.cpp
+	src/psithemeprovider.cpp
+	src/rtparse.cpp
+	src/pgputil.cpp
+	src/varlist.cpp
+	src/pubsubsubscription.cpp
+	src/bosskey.cpp
+	src/activeprofiles_stub.cpp
+	src/geolocationdlg.cpp
+	src/psievent.cpp
+	src/changepwdlg.cpp
+	src/psiwkavatarhandler.cpp
+	src/ahcformdlg.cpp
+	src/psiaccount.cpp
+	src/vcardfactory.cpp
+	src/psiselfcontact.cpp
+	src/ahcommanddlg.cpp
+	src/jsutil.cpp
+	src/psithememodel.cpp
+	src/mucaffiliationsmodel.cpp
+	src/removeconfirmationmessagebox.cpp
+	src/contactlistgroupstate.cpp
+	src/psi_profiles.cpp
+	src/mood.cpp
+	src/popupmanager.cpp
+	src/rosteravatarframe.cpp
+	src/statusmenu.cpp
+	src/translationmanager.cpp
+	src/accountmodifydlg.cpp
+	src/accountregdlg.cpp
+	src/activitycatalog.cpp
+	src/pluginhost.cpp
+	src/xmlconsole.cpp
+	src/contactlistspecialgroup.cpp
+	src/ahcommand.cpp
+	src/miniclient.cpp
+	src/xdata_widget.cpp
+	src/proxy.cpp
+	src/psioptionseditor.cpp
+	src/contactlistgroup.cpp
+	src/httpauthmanager.cpp
+	src/serverinfomanager.cpp
+	src/accountmanagedlg.cpp
+	src/contactlistgroupcache.cpp
+	src/webview.cpp
+	src/psipopupinterface.cpp
+	src/filecache.cpp
+	src/messageview.cpp
+	src/searchdlg.cpp
+	src/physicallocation.cpp
+	src/psirosterwidget.cpp
+	src/psicontactlistmodel.cpp
+	src/mucaffiliationsproxymodel.cpp
+	src/passphrasedlg.cpp
+	src/groupchattopicdlg.cpp
+	src/psicontactlist.cpp
+	src/mooddlg.cpp
+	src/jinglevoicecaller.cpp
+	src/psipopup.cpp
+	src/entitytimetask.cpp
+	src/activeprofiles.cpp
+	src/mainwin_p.cpp
+	src/accountscombobox.cpp
+	src/chatview_te.cpp
+)
