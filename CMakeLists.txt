@@ -5,7 +5,8 @@ set( CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_SOURCE_DIR}/cmake
 option( QT4_BUILD "Build with Qt4 support" ON )
 option( PLUGINS "Build psi-plus plugins" ON )
 option( BUNDLED_IRIS "Build iris library bundled" ON )
-option( ONLY_PLUGINS "Build psi-plus plugins only" OFF )
+#This option will be changed when build of psi+ will be ready
+option( ONLY_PLUGINS "Build psi-plus plugins only" ON )
 option( SEPARATE_QJDNS "Build qjdns as separate lib" OFF )
 option( BUNDLED_QJDNS "Build qjdns with iris library" ON )
 
