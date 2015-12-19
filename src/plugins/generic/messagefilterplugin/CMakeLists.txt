@@ -32,14 +32,17 @@ set( _RSCS
 )
 IF( ${USE_QT5} )
 	find_package( Qt5Widgets REQUIRED )
+	find_package( Qt5Xml REQUIRED )
 	include_directories(
 		${Qt5Widgets_INCLUDES}
+		${Qt5Xml_INCLUDES}
 	)
 	add_definitions(
 		${Qt5Widgets_DEFINITIONS}
 	)
 	set(QT_DEPLIBS
 		Qt5::Widgets
+		Qt5::Xml
 	)
 	set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 	qt5_wrap_ui(UIS ${_UIS})
@@ -59,6 +62,7 @@ ELSE( ${USE_QT5} )
 	set(QT_DEPLIBS
 		${QT_QTCORE_LIBRARY}
 		${QT_QTGUI_LIBRARY}
+		${QT_QTXML_LIBRARY}
 	)
 	QT4_WRAP_UI(UIS ${_UIS})
 	QT4_ADD_RESOURCES(RSCS ${_RSCS})
