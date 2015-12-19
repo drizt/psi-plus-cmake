@@ -30,6 +30,7 @@ set( plugins_list
 	otrplugin
 	chessplugin
 	conferenceloggerplugin
+	messagefilterplugin
 )
 
 if( "${BUILD_PLUGINS}" STREQUAL "ALL" )
