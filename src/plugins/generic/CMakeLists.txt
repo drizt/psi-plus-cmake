@@ -31,6 +31,7 @@ set( plugins_list
 	chessplugin
 	conferenceloggerplugin
 	messagefilterplugin
+	enummessagesplugin
 )
 
 if( "${BUILD_PLUGINS}" STREQUAL "ALL" )

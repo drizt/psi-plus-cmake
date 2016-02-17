@@ -77,7 +77,7 @@ USEFULL CMAKE FLAGS:
     clientswitcherplugin captchaformsplugin watcherplugin videostatusplugin screenshotplugin
     jabberdiskplugin storagenotesplugin	extendedoptionsplugin imageplugin	extendedmenuplugin
     birthdayreminderplugin gmailserviceplugin gnupgplugin pepchangenotifyplugin otrplugin
-    chessplugin conferenceloggerplugin gnome3supportplugin
+    chessplugin conferenceloggerplugin gnome3supportplugin enummessagesplugin
   
   Example:
   
