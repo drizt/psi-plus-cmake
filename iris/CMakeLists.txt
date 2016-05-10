@@ -39,15 +39,9 @@ set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib" )
 option( SEPARATE_QJDNS "Build qjdns as separate lib" OFF )
 option( BUNDLED_QJDNS "Build qjdns with iris library" ON )
 option( BUILD_SHARED_LIBS "Build shared library" ON )
-option( QT4_BUILD "Build with Qt4 support" ON )
+option( USE_QT5 "Build with Qt5 support" ON )
 
 get_directory_property(hasParent PARENT_DIRECTORY)
-
-if( ${QT4_BUILD} )
-	set( USE_QT5 OFF)
-else( ${QT4_BUILD} )
-	set( USE_QT5 ON)
-endif( ${QT4_BUILD} )
 
 if( NOT WIN32 )
 	add_definitions( -fPIC )

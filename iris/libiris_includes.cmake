@@ -1,6 +1,7 @@
 cmake_minimum_required( VERSION 2.8.11 )
 
 set( libiris_INCLUDES
+	include/iris/xmpp_captcha.h
 	include/iris/xmpp_stream.h
 	include/iris/xmpp_features.h
 	include/iris/httppoll.h
@@ -34,6 +35,7 @@ set( libiris_INCLUDES
 	include/iris/xmpp_liverosteritem.h
 	include/iris/bytestream.h
 	include/iris/netavailability.h
+	include/iris/xmpp_caps.h
 	include/iris/udpportreserver.h
 	include/iris/addressresolver.h
 	include/iris/xmpp_pubsubitem.h

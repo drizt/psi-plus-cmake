@@ -46,14 +46,13 @@ set( irisnet_NONCORE
 	src/irisnet/noncore/legacy/srvresolver.cpp
 	src/irisnet/noncore/legacy/safedelete.cpp
 	src/irisnet/noncore/cutestuff/httppoll.cpp
-	src/irisnet/noncore/cutestuff/httpstream.cpp
 	src/irisnet/noncore/cutestuff/socks.cpp
 	src/irisnet/noncore/cutestuff/bsocket.cpp
-	src/irisnet/noncore/cutestuff/networkaccessmanager.cpp
 	src/irisnet/noncore/cutestuff/bytestream.cpp
 	src/irisnet/noncore/cutestuff/httpconnect.cpp
 )
 set( xmpp_BASE
+	src/xmpp/base/timezone.cpp
 	src/xmpp/base/randomnumbergenerator.cpp
 )
 set( xmpp_SASL
@@ -92,6 +91,7 @@ set( xmpp_CORE
 	src/xmpp/xmpp-core/xmpp_stanza.cpp
 	src/xmpp/xmpp-core/tlshandler.cpp
 	src/xmpp/xmpp-core/securestream.cpp
+	src/xmpp/xmpp-core/sm.cpp
 	src/xmpp/xmpp-core/connector.cpp
 	src/xmpp/xmpp-core/compressionhandler.cpp
 	src/xmpp/xmpp-core/parser.cpp

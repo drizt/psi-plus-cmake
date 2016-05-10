@@ -31,8 +31,6 @@ set( irisnet_NONCORE_HDRS
 	src/irisnet/noncore/stunmessage.h
 	src/irisnet/noncore/icecomponent.h
 	src/irisnet/noncore/cutestuff/httppoll.h
-	src/irisnet/noncore/cutestuff/networkaccessmanager.h
-	src/irisnet/noncore/cutestuff/httpstream.h
 	src/irisnet/noncore/cutestuff/httpconnect.h
 	src/irisnet/noncore/cutestuff/bsocket.h
 	src/irisnet/noncore/cutestuff/bytestream.h
@@ -45,6 +43,7 @@ set( xmpp_BASE_HDRS
 	src/xmpp/base/randrandomnumbergenerator.h
 	src/xmpp/base/randomnumbergenerator.h
 	src/xmpp/base/unittest/incrementingrandomnumbergenerator.h
+	src/xmpp/base/timezone.h
 )
 set( xmpp_SASL_HDRS
 	src/xmpp/sasl/scramsha1response.h
@@ -60,6 +59,7 @@ set( xmpp_ZLIB_HDRS
 	src/xmpp/zlib/zlibdecompressor.h
 )
 set( xmpp_IM_HDRS
+	src/xmpp/xmpp-im/xmpp_captcha.h
 	src/xmpp/xmpp-im/xmpp_features.h
 	src/xmpp/xmpp-im/xmpp_bytestream.h
 	src/xmpp/xmpp-im/xmpp_tasks.h
@@ -77,6 +77,7 @@ set( xmpp_IM_HDRS
 	src/xmpp/xmpp-im/xmpp_resource.h
 	src/xmpp/xmpp-im/xmpp_rosterx.h
 	src/xmpp/xmpp-im/xmpp_liverosteritem.h
+	src/xmpp/xmpp-im/xmpp_caps.h
 	src/xmpp/xmpp-im/xmpp_pubsubitem.h
 	src/xmpp/xmpp-im/xmpp_roster.h
 	src/xmpp/xmpp-im/filetransfer.h
@@ -106,6 +107,7 @@ set( xmpp_CORE_HDRS
 	src/xmpp/xmpp-core/simplesasl.h
 	src/xmpp/xmpp-core/securestream.h
 	src/xmpp/xmpp-core/protocol.h
+	src/xmpp/xmpp-core/sm.h
 	src/xmpp/xmpp-core/xmpp_clientstream.h
 )
 set( xmpp_JID_HDRS
