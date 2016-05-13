@@ -1,26 +1,33 @@
-cmake_minimum_required( VERSION 2.8.11 )
-set( BUILD_PLUGINS "ALL" CACHE STRING "List of plugins to build" )
-set( BUILD_DEV OFF CACHE BOOL "Build plugins from development section" )
+set_directory_properties(PROPERTIES
+  INCLUDE_DIRECTORIES ""
+  COMPILE_DEFINITIONS ""
+)
 
-if( NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
-	add_definitions( -DQT_NO_DEBUG -pthread )
-endif( NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
-IF( NOT WIN32 )
-	set( LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
-	set( PLUGINS_PATH "lib${LIB_SUFFIX}/psi-plus/plugins" CACHE STRING "Install suffix for plugins" )
-ELSE( NOT WIN32 )
-	set( PLUGINS_PATH "psi-plus/plugins" CACHE STRING "Install suffix for plugins" )
-ENDIF( NOT WIN32 )
+if(USE_QT5)
+  add_definitions(-DHAVE_QT5)
+endif()
 
-add_subdirectory( generic )
-IF( UNIX AND NOT( APPLE OR CYGWIN ) )
-	add_subdirectory( unix )
-ENDIF( UNIX AND NOT( APPLE OR CYGWIN ) )
+# Use the same path for shared and static plugins
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/plugins")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/plugins")
 
-IF( BUILD_DEV )
-	add_subdirectory(dev)
-ENDIF( BUILD_DEV )
+set(BUILD_PLUGINS "ALL" CACHE STRING "List of plugins to build")
 
-unset( BUILD_PLUGINS CACHE )
-unset( PLUGINS_PATH CACHE )
-unset( BUILD_DEV CACHE )
+if(NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+  add_definitions(-DQT_NO_DEBUG -pthread)
+endif(NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+
+if(NOT WIN32)
+  set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)")
+  set(PLUGINS_PATH "lib${LIB_SUFFIX}/psi-plus/plugins" CACHE STRING "Install suffix for plugins")
+else()
+  set(PLUGINS_PATH "psi-plus/plugins" CACHE STRING "Install suffix for plugins")
+endif()
+
+add_subdirectory(generic)
+if(LINUX)
+  add_subdirectory(unix)
+endif()
+
+unset(BUILD_PLUGINS CACHE)
+unset(PLUGINS_PATH CACHE)

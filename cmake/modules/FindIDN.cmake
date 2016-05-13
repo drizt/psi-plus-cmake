@@ -32,7 +32,7 @@ find_library(
 )
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
-				LibIdn
+				IDN
 				DEFAULT_MSG
 				IDN_LIBRARY
 				IDN_INCLUDE_DIR

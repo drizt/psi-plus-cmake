@@ -30,7 +30,7 @@ USEFULL CMAKE FLAGS:
 
   -DBUILD_SHARED_LIBS=ON
 
-  to build and install shared libraries (default ON)
+  to build and install shared libraries (default OFF)
   if there are bundled libs
 
 - set build iris library bundled
@@ -139,4 +139,3 @@ To build OTRPLUGIN in OS WINDOWS you need to set additional variables
 
 TODO LIST:
 - Add MacOSX support
-- Add psi-plus binary build
