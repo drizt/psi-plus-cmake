@@ -106,7 +106,7 @@ set(HEADERS
 qt_wrap_cpp(MOC_SOURCES ${HEADERS} ${SOURCES})
 add_library(irisnet STATIC ${SOURCES} ${HEADERS} ${MOC_SOURCES} ${PLAIN_SOURCES} ${PLAIN_HEADERS} )
 
-target_link_libraries(irisnet qjdns)
+target_link_libraries(irisnet ${QJDns_LIBRARY})
 if(USE_QT5)
   target_link_libraries(irisnet Qt5::Core Qt5::Network Qt5::Xml qca-qt5)
 else()

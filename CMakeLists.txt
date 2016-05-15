@@ -28,6 +28,7 @@ if(WIN32)
   set(LIBTIDY_ROOT "c:/build/psibuild/psideps/libtidy/i386" CACHE STRING "Path to libtidy library")
   set(QJSON_ROOT "c:/build/psibuild/psideps/qjson/i386" CACHE STRING "Path to qjson library")
   set(ZLIB_ROOT "c:/build/psibuild/psideps/zlib/i386" CACHE STRING "Path to zlib")
+  set(QJDNS_DIR "c:/build/psibuild/psideps/qjdns/i386" CACHE STRING "Path to qjdns")
 endif()
 
 set(APP_VERSION "0.16")

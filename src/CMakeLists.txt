@@ -68,9 +68,9 @@ else()
   if(LINUX)
     set(QT_EXTRA_MODULES QtDBus)
   endif()
+  SET(CMAKE_AUTOUIC ON)
   find_package(Qt4 REQUIRED QtCore QtGui QtNetwork QtXml QtWebKit QtSql QtSvg ${QT_EXTRA_MODULES})
   unset(QT_EXTRA_MODULES)
-  SET(CMAKE_AUTOUIC ON)
 
   include(${QT_USE_FILE})
   find_package( Qca REQUIRED PATHS ${QCA_DIR} )
@@ -82,6 +82,9 @@ else()
 	${QJSON_LIBRARY}
      )
   include_directories(${QJSON_INCLUDE_DIR})
+  if( WIN32 )
+	  include_directories( ${QJSON_INCLUDE_DIR}/../ )
+  endif()
 endif()
 
 if(LINUX)
@@ -95,6 +98,7 @@ if(USE_ENCHANT)
 	  ${EXTRA_LIBS}
 	  ${Enchant_LIBRARY}
      )
+  include_directories(${Enchant_INCLUDE_DIR})
 endif()
 if(USE_HUNSPELL)
   find_package(Hunspell REQUIRED)
@@ -102,6 +106,10 @@ if(USE_HUNSPELL)
 	  ${EXTRA_LIBS}
 	  ${HUNSPELL_LIBRARY}
      )
+  include_directories(${HUNSPELL_INCLUDE_DIR})
+  if( WIN32 )
+	  include_directories( ${HUNSPELL_INCLUDE_DIR}/../ )
+  endif()
 endif()
 
 macro(qt_wrap_cpp)
