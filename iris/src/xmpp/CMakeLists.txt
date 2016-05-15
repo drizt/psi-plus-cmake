@@ -8,7 +8,7 @@ include_directories(
   ../irisnet/corelib
   xmpp-core
   xmpp-im
-  ${Idn_INCLUDE_DIRS}
+  ${IDN_INCLUDE_DIRS}
   ${QCA_INCLUDES}
 )
 
