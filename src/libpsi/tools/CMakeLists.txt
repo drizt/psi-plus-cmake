@@ -153,7 +153,7 @@ if(Enchant_FOUND)
   )
 
   list(APPEND EXTRA_LDFLAGS
-    ${Enchant_LDFLAGS}
+    ${Enchant_LIBRARY}
   )
     
   list(APPEND PLAIN_HEADERS
@@ -171,7 +171,7 @@ elseif(Hunspell_FOUND)
   )
 
   list(APPEND EXTRA_LDFLAGS
-    ${HUNSPELL_LDFLAGS}
+    ${HUNSPELL_LIBRARY}
   )
     
   list(APPEND PLAIN_HEADERS
