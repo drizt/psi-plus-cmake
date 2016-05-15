@@ -14,61 +14,45 @@ Instead of PSI_SOURCES_PATH must be your real psi_sources path
 
 USEFULL CMAKE FLAGS:
 
-- set build plugins
+  -DUSE_QT5=ON
+  
+  to build psi-plus with Qt5 support (default ON)
 
-  -DPLUGINS=ON
+  -DENABLE_PLUGINS=ON
 
-  to build psi-plus plugins (default ON)
-
-- set build plugins only
+  to build psi-plus plugins (default OFF)
 
   -DONLY_PLUGINS=ON
 
   to build only psi-plus plugins (default OFF)
 
-- set build shared libs (iris, qjdns)
-
   -DBUILD_SHARED_LIBS=ON
 
-  to build and install shared libraries (default OFF)
-  if there are bundled libs
-
-- set build iris library bundled
+  to build and install iris as shared library (default OFF)
 
   -DBUNDLED_IRIS=ON
 
   to build iris library bundled (default ON)
 
-- set path to Qca library root dir
-
-  -DQCA_DIR=DIRECTORY
-
-- set path to IDN library root dir 
-
-  -DIDN_ROOT=DIRECTORY
-
-- set path to zlib root dir 
-
-  -DZLIB_ROOT=DIRECTORY
-
-- set build qjdns as separate lib 
-
+  -DUSE_ENCHANT=ON
+  
+  to use Enchant spellchecker (default OFF)
+  
+  -DUSE_HUNSPELL=ON
+  
+  to use Hunspell spellchecker (default ON)
+  
   -DSEPARATE_QJDNS=ON
 
-  to build qjdns library as separate library (default OFF)
-
-- set build qjdns library bundled
-
-  -DBUNDLED_QJDNS=ON
-
-  to build qjdns bundled with iris library (default ON)
-  works only with flag SEPARATE_QJDNS=ON
-
-- set list of plugins to build:
+  to build qjdns library as separate library (default ON)
+  
+  -DPSI_PLUS_VERSION=${version}
+  
+  to set Psi-plus version manually
 
   -DBUILD_PLUGINS=${plugins}
 
-  to build all plugins:  -DBUILD_PLUGINS="ALL" or do not set this flag
+  set list of plugins to build. To build all plugins:  -DBUILD_PLUGINS="ALL" or do not set this flag
 
   - possible values for ${plugins}:
 
@@ -83,11 +67,11 @@ USEFULL CMAKE FLAGS:
   
   > $ cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_PLUGINS="chessplugin;otrplugin;gnome3supportplugin" ..
 
-- set install suffix:
+
 
   -DPLUGINS_PATH=${path} 
 
-  to install plugins into default suffix:
+  to install plugins into ${path}. To install into default suffix:
 
   -DPLUGINS_PATH=lib/psi-plus/plugins or do not set this flag
 
@@ -99,14 +83,30 @@ USEFULL CMAKE FLAGS:
 
   > $ cmake -DCMAKE_INSTALL_PREFIX=/usr -DPLUGINS_PATH=share/psi-plus/plugins ..
 
-- set build type:
  
   -DCMAKE_BUILD_TYPE=Release or -DCMAKE_BUILD_TYPE=Debug
 
-  For example:
+To build Psi-plus in OS QWINDOWS you need to set additional variables
 
-   > $ cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..
+  -DQCA_DIR=DIRECTORY
+  
+  to set Qca directory (WIN32)
+  
+  -DIDN_ROOT=DIRECTORY
+  
+  to set Idn directory (WIN32)
+  
+  -DZLIB_ROOT=DIRECTORY
 
+  to set Zlib directory (WIN32)
+  
+  -DHUNSPELL_ROOT=DIRECTORY
+  
+  to set Hunspell directory (WIN32)
+  
+  -DPRODUCTION=ON
+  
+  to install needed libs to run Psi+ (WIN32)
 
 To build OTRPLUGIN in OS WINDOWS you need to set additional variables
 
@@ -129,13 +129,6 @@ To build OTRPLUGIN in OS WINDOWS you need to set additional variables
   For example:
 
   > $ cmake -DLIBGCRYPT_ROOT=C:\libgcrypt -DLIBGPGERROR_ROOT=C:\libgpg-error -DLIBOTR_ROOT=C:\libotr -DLIBTIDY_ROOT=C:\libtidy ..
-
-- build psi-plus using Qt4
-
-  -DQT4_BUILD=ON
-
-  to build psi-plus with Qt4 (default ON)
-
 
 TODO LIST:
 - Add MacOSX support

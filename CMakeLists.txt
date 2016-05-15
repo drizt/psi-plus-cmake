@@ -152,5 +152,6 @@ if(WIN32)
 endif()
 
 else()
+	set(ENABLE_PLUGINS ON)
 	add_subdirectory(src/plugins)
 endif()
