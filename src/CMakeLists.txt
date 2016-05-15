@@ -70,6 +70,7 @@ else()
   endif()
   find_package(Qt4 REQUIRED QtCore QtGui QtNetwork QtXml QtWebKit QtSql QtSvg ${QT_EXTRA_MODULES})
   unset(QT_EXTRA_MODULES)
+  SET(CMAKE_AUTOUIC ON)
 
   include(${QT_USE_FILE})
   find_package( Qca REQUIRED PATHS ${QCA_DIR} )
