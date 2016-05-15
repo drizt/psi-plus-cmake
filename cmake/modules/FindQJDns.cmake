@@ -19,7 +19,7 @@ set ( LIBINCS
 find_path(
 	QJDns_INCLUDE_DIR ${LIBINCS}
 	HINTS
-	${QJDns_DIR}/include
+	${QJDNS_DIR}/include
 	${PC_QJDns_INCLUDEDIR}
 	${PC_QJDns_INCLUDE_DIRS}
 	PATH_SUFFIXES
@@ -35,8 +35,8 @@ find_library(
 	HINTS 
 	${PC_QJDns_LIBDIR}
 	${PC_QJDns_LIBRARY_DIRS}
-	${QJDns_DIR}/lib
-	${QJDns_DIR}/bin
+	${QJDNS_DIR}/lib
+	${QJDNS_DIR}/bin
 )
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
