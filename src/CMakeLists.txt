@@ -9,6 +9,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug" AND WIN32)
 endif()
 
 if(USE_QT5)
+  find_package(Qt5Widgets REQUIRED)
   find_package(Qt5Core REQUIRED)
   find_package(Qt5Gui REQUIRED)
   find_package(Qt5Xml REQUIRED)
@@ -201,7 +202,7 @@ add_subdirectory(whiteboarding)
 
 find_path(TRSPATH NAMES psi_en.ts PATHS ${PROJECT_SOURCE_DIR}/translations NO_DEFAULT_PATH)
 
-if(NOT TRSPATH_NOTFOUND)
+if(NOT TRSPATH STREQUAL "TRSPATH-NOTFOUND")
 
   set(TRANSLATIONS
     ../translations/psi_be.ts

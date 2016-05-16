@@ -118,9 +118,7 @@ if(NOT SEPARATE_QJDNS)
 		src/jdns/src/qjdns/qjdnsshared_p.h
 	)
 
-        if(NOT Qt5Core_FOUND)
-		qt4_wrap_cpp(qjdns_MOC_SRCS ${qjdns_MOC_HDRS})
-	endif()
+	qt_wrap_cpp(qjdns_MOC_SRCS ${qjdns_MOC_HDRS})
 
 	set(qjdns_SRCS
 		src/jdns/src/qjdns/qjdns.cpp
@@ -136,11 +134,11 @@ if(NOT SEPARATE_QJDNS)
 		src/jdns/src/qjdns/qjdns_sock.h
 	)
         add_library(${QJDns_LIBRARY} STATIC ${qjdns_SRCS} ${qjdns_MOC_SRCS} ${qjdns_MOC_HDRS} ${qjdns_PUBLIC_HEADERS})
-	if(Qt5Core_FOUND)
-		target_link_libraries(${QJDns_LIBRARY} ${Qt5Core_LIBRARIES} ${Qt5Network_LIBRARIES})
-	else(Qt5Core_FOUND)
+	if(USE_QT5)
+		target_link_libraries(${QJDns_LIBRARY} Qt5::Core Qt5::Network)
+	else()
 		target_link_libraries(${QJDns_LIBRARY} ${QT_LIBRARIES})
-	endif(Qt5Core_FOUND)
+	endif()
 	target_link_libraries(${QJDns_LIBRARY} jdns)
 else()
 	find_package(QJDns REQUIRED)
