@@ -262,13 +262,8 @@ qt4_wrap_ui(UI_FORMS ${FORMS})
 qt_wrap_cpp(MOC_SOURCES ${SOURCES} ${HEADERS})
 
 if(WIN32)
-  if( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-    set( RC_ARCH 64 )
-  else( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-    set( RC_ARCH 32 )
-  endif( CMAKE_SIZEOF_VOID_P EQUAL 8 )
   # resource compilation for MinGW
-  if(RC_ARCH EQUAL 32)
+  if(BUILD_ARCH STREQUAL "i386")
     add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o
                      COMMAND ${CMAKE_RC_COMPILER} -I${CMAKE_CURRENT_SOURCE_DIR} -i${CMAKE_SOURCE_DIR}/win32/psi_win32.rc
                              -o ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o)
