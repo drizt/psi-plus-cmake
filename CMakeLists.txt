@@ -3,7 +3,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 project(psi-plus)
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.0.2)
 
 set(GLOBAL_DEPENDS_DEBUG_MODE ON)
 
@@ -13,25 +13,36 @@ option( BUNDLED_IRIS "Build iris library bundled" ON )
 option( ONLY_PLUGINS "Build psi-plus plugins only" OFF )
 option( USE_HUNSPELL "Build psi-plus plugins only" ON )
 option( USE_ENCHANT "Build psi-plus plugins only" OFF )
-option( SEPARATE_QJDNS "Build qjdns as separate lib" ON )
+option( SEPARATE_QJDNS "Build qjdns as separate lib" OFF )
 option( USE_QT5 "Use Qt5 to build psi-plus" ON )
 option( ENABLE_PLUGINS "Enable plugins" OFF )
-set(PSI_PLUS_VERSION "" CACHE STRING "Version string of Psi+")
 
 if(WIN32)
-  set(QCA_DIR "c:/build/psibuild/psideps/qca/i386" CACHE STRING "Path to QCA")
-  set(IDN_ROOT "c:/build/psibuild/psideps/libidn/i386" CACHE STRING "Path to IDN library")
-  set(HUNSPELL_ROOT "c:/build/psibuild/psideps/hunspell/i386" CACHE STRING "Path to hunspell library")
-  set(LIBGCRYPT_ROOT "c:/build/psibuild/psideps/libgcrypt/i386" CACHE STRING "Path to libgcrypt library")
-  set(LIBGPGERROR_ROOT "c:/build/psibuild/psideps/libgpg-error/i386" CACHE STRING "Path to libgpg-error library")
-  set(LIBOTR_ROOT "c:/build/psibuild/psideps/libotr/i386" CACHE STRING "Path to libotr library")
-  set(LIBTIDY_ROOT "c:/build/psibuild/psideps/libtidy/i386" CACHE STRING "Path to libtidy library")
-  set(QJSON_ROOT "c:/build/psibuild/psideps/qjson/i386" CACHE STRING "Path to qjson library")
-  set(ZLIB_ROOT "c:/build/psibuild/psideps/zlib/i386" CACHE STRING "Path to zlib")
-  set(QJDNS_DIR "c:/build/psibuild/psideps/qjdns/i386" CACHE STRING "Path to qjdns")
+  set(BUILD_ARCH "i386" CACHE STRING "CPU architecture i386/x86_64")
+  set(SDK_PATH "c:/build/psibuild/psideps" CACHE STRING "Path to SDK")
+  #temporary Qt5
+  if(USE_QT5)
+    set(SDK_PATH "${SDK_PATH}/Qt5")
+    set(BUILD_ARCH "")
+  endif()
+  set(QCA_DIR "${SDK_PATH}/qca/${BUILD_ARCH}" CACHE STRING "Path to QCA")
+  set(IDN_ROOT "${SDK_PATH}/libidn/${BUILD_ARCH}" CACHE STRING "Path to IDN library")
+  set(HUNSPELL_ROOT "${SDK_PATH}/hunspell/${BUILD_ARCH}" CACHE STRING "Path to hunspell library")
+  set(LIBGCRYPT_ROOT "${SDK_PATH}/libgcrypt/${BUILD_ARCH}" CACHE STRING "Path to libgcrypt library")
+  set(LIBGPGERROR_ROOT "${SDK_PATH}/libgpg-error/${BUILD_ARCH}" CACHE STRING "Path to libgpg-error library")
+  set(LIBOTR_ROOT "${SDK_PATH}/libotr/${BUILD_ARCH}" CACHE STRING "Path to libotr library")
+  set(LIBTIDY_ROOT "${SDK_PATH}/libtidy/${BUILD_ARCH}" CACHE STRING "Path to libtidy library")
+  set(QJSON_ROOT "${SDK_PATH}/qjson/${BUILD_ARCH}" CACHE STRING "Path to qjson library")
+  set(ZLIB_ROOT "${SDK_PATH}/zlib/${BUILD_ARCH}" CACHE STRING "Path to zlib")
+  set(QJDNS_DIR "${SDK_PATH}/qjdns/${BUILD_ARCH}" CACHE STRING "Path to qjdns")
+  set(GST_SDK "${SDK_PATH}/gstbundle/${BUILD_ARCH}" CACHE STRING "Path to gstreamer SDK")
+  set(PSIMEDIA_DIR "${SDK_PATH}/psimedia/${BUILD_ARCH}" CACHE STRING "Path to psimedia plugin")
+  set(PLUGINS_PATH "/plugins" CACHE STRING "Install suffix for plugins")
 endif()
 
 set(APP_VERSION "0.16")
+set(PSI_PLUS_VERSION "${APP_VERSION}-dev" CACHE STRING "Version string of Psi+")
+
 option(PRODUCTION "Build production version" OFF)
 
 # Define LINUX on Linux like as WIN32 on Windows and APPLE on Mac OS X
@@ -46,18 +57,9 @@ include_regular_expression("^.*\\.h$")
 # Put Wime executable in build root dir
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/psi" )
 
-# Enable C++11
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-
 # Enable all warnings
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
-
-# Make all warnings into errors only for release buildings
-#if(CMAKE_BUILD_TYPE STREQUAL Release OR CMAKE_BUILD_TYPE STREQUAL RelWithDbInfo)
-#  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wno-error=cpp")
-#  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wno-error=cpp")
-#endif()
 
 if(APPLE)
   # Force Qt5 build on Mac OS X. Qt4 is not supported

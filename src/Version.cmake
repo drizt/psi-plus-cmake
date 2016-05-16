@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 2.8.11)
 
-set(GIT_DIR "${PROJECT_SOURCE_DIR}/../../git-plus" CACHE STRING "Git psi-plus sources path" )
-
 macro(GET_DATE)
   #
   # All macro arguments are optional.
@@ -135,31 +133,6 @@ endmacro()
 
 GET_DATE()
 
-set(_COMPILATION_DATE "${${GD_PREFIX}MONTH}.${${GD_PREFIX}DAY}.${${GD_PREFIX}YEAR}")
-set(_COMPILATION_TIME "${${GD_PREFIX}HOUR}:${${GD_PREFIX}MINUTE}:${${GD_PREFIX}SECOND}")
+set(_COMPILATION_DATE "${${GD_PREFIX}MONTH}-${${GD_PREFIX}DAY}-${${GD_PREFIX}YEAR}")
 
-execute_process(COMMAND git rev-list HEAD --count
-  WORKING_DIRECTORY "${GIT_DIR}"
-  OUTPUT_VARIABLE _REVISION
-  ERROR_VARIABLE ERROR_MESSAGE
-  OUTPUT_STRIP_TRAILING_WHITESPACE)
-if(NOT _REVISION)
-  message(WARNING "Can't get revision\n${ERROR_MESSAGE}")
-  set (_REVISION "dev" )
-endif()
-
-execute_process(COMMAND git rev-parse --short HEAD
-  WORKING_DIRECTORY "${GIT_DIR}"
-  OUTPUT_VARIABLE _HASH
-  ERROR_VARIABLE ERROR_MESSAGE
-  OUTPUT_STRIP_TRAILING_WHITESPACE)
-if(NOT _HASH)
-  message(WARNING "Can't get revision\n${ERROR_MESSAGE}")
-endif()
-
-set(PSI_VERSION "${APP_VERSION}")
-set(PSI_REVISION "${_REVISION}")
-set(PSI_GIT_HASH "${_HASH}")
-set(PSI_REVISION "${_REVISION}")
 set(PSI_COMPILATION_DATE "${_COMPILATION_DATE}")
-set(PSI_COMPILATION_TIME "${_COMPILATION_TIME}")

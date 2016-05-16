@@ -82,12 +82,66 @@ macro(qt_wrap_cpp)
 endmacro()
 
 if(NOT SEPARATE_QJDNS)
-	option( BUILD_QJDNS "Buid JDNS Qt-wrapper" ON )
-	option( BUILD_JDNS_TOOL "Build jdns test tool" OFF )
-	add_subdirectory(src/jdns)
+	add_definitions(-DJDNS_STATIC)
+	set(QJDns_LIBRARY qjdns)
+	set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
+	set(BIN_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/bin" CACHE STRING "Directory where binary will install")
+	set(LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE STRING "Directory where library will install")
+	set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include" CACHE PATH "The directory the headers are installed in")
 	include_directories(
 		src/jdns/include/jdns
 	)
+        set(jdns_SRCS
+		src/jdns/src/jdns/jdns.c
+		src/jdns/src/jdns/jdns_mdnsd.c
+		src/jdns/src/jdns/jdns_packet.c
+		src/jdns/src/jdns/jdns_sys.c
+		src/jdns/src/jdns/jdns_util.c
+	)
+        set(jdns_PUBLIC_HEADERS
+		src/jdns/include/jdns/jdns.h
+		src/jdns/include/jdns/jdns_export.h
+	)
+        set(jdns_HEADERS
+		src/jdns/src/jdns/jdns_packet.h
+		src/jdns/src/jdns/jdns_mdnsd.h
+		src/jdns/src/jdns/jdns_p.h
+	)
+        add_library(jdns STATIC ${jdns_SRCS} ${jdns_HEADERS} ${jdns_PUBLIC_HEADERS})
+	if(WIN32)
+		target_link_libraries(jdns Ws2_32 Advapi32)
+	endif(WIN32)
+	set(qjdns_MOC_HDRS
+		src/jdns/include/jdns/qjdns.h
+		src/jdns/include/jdns/qjdnsshared.h
+		src/jdns/src/qjdns/qjdns_p.h
+		src/jdns/src/qjdns/qjdnsshared_p.h
+	)
+
+        if(NOT Qt5Core_FOUND)
+		qt4_wrap_cpp(qjdns_MOC_SRCS ${qjdns_MOC_HDRS})
+	endif()
+
+	set(qjdns_SRCS
+		src/jdns/src/qjdns/qjdns.cpp
+		src/jdns/src/qjdns/qjdns_sock.cpp
+		src/jdns/src/qjdns/qjdnsshared.cpp
+	)
+
+        set(qjdns_PUBLIC_HEADERS
+		src/jdns/include/jdns/qjdns.h
+		src/jdns/include/jdns/qjdnsshared.h
+	)
+        set(qjdns_HEADERS
+		src/jdns/src/qjdns/qjdns_sock.h
+	)
+        add_library(${QJDns_LIBRARY} STATIC ${qjdns_SRCS} ${qjdns_MOC_SRCS} ${qjdns_MOC_HDRS} ${qjdns_PUBLIC_HEADERS})
+	if(Qt5Core_FOUND)
+		target_link_libraries(${QJDns_LIBRARY} ${Qt5Core_LIBRARIES} ${Qt5Network_LIBRARIES})
+	else(Qt5Core_FOUND)
+		target_link_libraries(${QJDns_LIBRARY} ${QT_LIBRARIES})
+	endif(Qt5Core_FOUND)
+	target_link_libraries(${QJDns_LIBRARY} jdns)
 else()
 	find_package(QJDns REQUIRED)
 	include_directories( ${QJDns_INCLUDE_DIR} )

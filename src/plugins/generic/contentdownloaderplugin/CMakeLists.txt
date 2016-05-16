@@ -1,4 +1,4 @@
-set( PLUGIN contentdownloader )
+set( PLUGIN contentdownloaderplugin )
 cmake_minimum_required( VERSION 2.8.11 )
 set( CMAKE_AUTOMOC TRUE )
 
@@ -17,13 +17,13 @@ include_directories(
 	.
 )
 set( _HDRS
-	${PLUGIN}.h
+	contentdownloader.h
 	cditemmodel.h
 	form.h
 	contentitem.h
 )
 set( _SRCS
-	${PLUGIN}.cpp
+	contentdownloader.cpp
 	cditemmodel.cpp
 	form.cpp
 	contentitem.cpp

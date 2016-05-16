@@ -68,8 +68,8 @@ else()
   if(LINUX)
     set(QT_EXTRA_MODULES QtDBus)
   endif()
-  SET(CMAKE_AUTOUIC ON)
   find_package(Qt4 REQUIRED QtCore QtGui QtNetwork QtXml QtWebKit QtSql QtSvg ${QT_EXTRA_MODULES})
+  set(CMAKE_AUTOUIC ON)
   unset(QT_EXTRA_MODULES)
 
   include(${QT_USE_FILE})
@@ -147,11 +147,9 @@ else()
 	include_directories(${Iris_INCLUDE_DIR})
 endif()
 
-if(PSI_PLUS_VERSION STREQUAL "")
-  include(Version.cmake)
-else()
-  add_definitions(-DPSI_VERSION="${PSI_PLUS_VERSION}")
-endif()
+include(Version.cmake)
+add_definitions(-DPSI_VERSION="${PSI_PLUS_VERSION} ${PSI_COMPILATION_DATE}")
+
 if(LINUX)
   if(LIB_INSTALL_DIR)
     set(PSI_LIBDIR "${LIB_INSTALL_DIR}/${PROJECT_NAME}")
@@ -201,55 +199,60 @@ add_subdirectory(widgets)
 add_subdirectory(sxe)
 add_subdirectory(whiteboarding)
 
-set(TRANSLATIONS
-  ../translations/psi_be.ts
-  ../translations/psi_bg.ts
-  ../translations/psi_ca.ts
-  ../translations/psi_cs.ts
-  ../translations/psi_de.ts
-  ../translations/psi_en.ts
-  ../translations/psi_eo.ts
-  ../translations/psi_es.ts
-  ../translations/psi_et.ts
-  ../translations/psi_fa.ts
-  ../translations/psi_fi.ts
-  ../translations/psi_fr.ts
-  ../translations/psi_he.ts
-  ../translations/psi_hu.ts
-  ../translations/psi_it.ts
-  ../translations/psi_ja.ts
-  ../translations/psi_kk.ts
-  ../translations/psi_mk.ts
-  ../translations/psi_nl.ts
-  ../translations/psi_pl.ts
-  ../translations/psi_pt_BR.ts
-  ../translations/psi_pt.ts
-  ../translations/psi_ru.ts
-  ../translations/psi_sk.ts
-  ../translations/psi_sl.ts
-  ../translations/psi_sr@latin.ts
-  ../translations/psi_sv.ts
-  ../translations/psi_sw.ts
-  ../translations/psi_uk.ts
-  ../translations/psi_ur_PK.ts
-  ../translations/psi_vi.ts
-  ../translations/psi_zh_CN.ts
-  ../translations/psi_zh_TW.ts
-)
+find_path(TRSPATH NAMES psi_en.ts PATHS ${PROJECT_SOURCE_DIR}/translations NO_DEFAULT_PATH)
 
-set_property(SOURCE ${TRANSLATIONS} PROPERTY OUTPUT_LOCATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/translations)
+if(NOT TRSPATH_NOTFOUND)
 
-add_custom_target(lupdate)
-foreach(_LANG ${TRANSLATIONS})
-  get_filename_component(_SHORT_LANG ${_LANG} NAME_WE)
-  string(REPLACE "@" "_" _SHORT_LANG ${_SHORT_LANG})
-  add_custom_target(${_SHORT_LANG}
-    COMMAND ${QT_LUPDATE_EXECUTABLE} "-no-obsolete" "-recursive" "." "../iris" "-ts" ${_LANG}
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" VERBATIM)
-  add_dependencies(lupdate ${_SHORT_LANG})
-endforeach()
+  set(TRANSLATIONS
+    ../translations/psi_be.ts
+    ../translations/psi_bg.ts
+    ../translations/psi_ca.ts
+    ../translations/psi_cs.ts
+    ../translations/psi_de.ts
+    ../translations/psi_en.ts
+    ../translations/psi_eo.ts
+    ../translations/psi_es.ts
+    ../translations/psi_et.ts
+    ../translations/psi_fa.ts
+    ../translations/psi_fi.ts
+    ../translations/psi_fr.ts
+    ../translations/psi_he.ts
+    ../translations/psi_hu.ts
+    ../translations/psi_it.ts
+    ../translations/psi_ja.ts
+    ../translations/psi_kk.ts
+    ../translations/psi_mk.ts
+    ../translations/psi_nl.ts
+    ../translations/psi_pl.ts
+    ../translations/psi_pt_BR.ts
+    ../translations/psi_pt.ts
+    ../translations/psi_ru.ts
+    ../translations/psi_sk.ts
+    ../translations/psi_sl.ts
+    ../translations/psi_sr@latin.ts
+    ../translations/psi_sv.ts
+    ../translations/psi_sw.ts
+    ../translations/psi_uk.ts
+    ../translations/psi_ur_PK.ts
+    ../translations/psi_vi.ts
+    ../translations/psi_zh_CN.ts
+    ../translations/psi_zh_TW.ts
+  )
 
-QT4_ADD_TRANSLATION(QM ${TRANSLATIONS})
+  set_property(SOURCE ${TRANSLATIONS} PROPERTY OUTPUT_LOCATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/translations)
+
+  add_custom_target(lupdate)
+  foreach(_LANG ${TRANSLATIONS})
+    get_filename_component(_SHORT_LANG ${_LANG} NAME_WE)
+    string(REPLACE "@" "_" _SHORT_LANG ${_SHORT_LANG})
+    add_custom_target(${_SHORT_LANG}
+      COMMAND ${QT_LUPDATE_EXECUTABLE} "-no-obsolete" "-recursive" "." "../iris" "-ts" ${_LANG}
+      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" VERBATIM)
+    add_dependencies(lupdate ${_SHORT_LANG})
+  endforeach()
+
+  QT4_ADD_TRANSLATION(QM ${TRANSLATIONS})
+endif()
 
 set(RESOURCES ../psi.qrc ../iconsets.qrc)
 qt4_add_resources(QRC_SOURCES ${RESOURCES})
@@ -259,10 +262,21 @@ qt4_wrap_ui(UI_FORMS ${FORMS})
 qt_wrap_cpp(MOC_SOURCES ${SOURCES} ${HEADERS})
 
 if(WIN32)
+  if( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+    set( RC_ARCH 64 )
+  else( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+    set( RC_ARCH 32 )
+  endif( CMAKE_SIZEOF_VOID_P EQUAL 8 )
   # resource compilation for MinGW
-  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o
+  if(RC_ARCH EQUAL 32)
+    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o
                      COMMAND ${CMAKE_RC_COMPILER} -I${CMAKE_CURRENT_SOURCE_DIR} -i${CMAKE_SOURCE_DIR}/win32/psi_win32.rc
                              -o ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o)
+  else()
+    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o
+                     COMMAND ${CMAKE_RC_COMPILER} -I${CMAKE_CURRENT_SOURCE_DIR} -i${CMAKE_SOURCE_DIR}/win32/psi_win64.rc
+                             -o ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o)
+  endif()
   set(RC_FILE ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o)
 endif()
 
@@ -310,6 +324,11 @@ if(LINUX)
   install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 endif()
 
+if(WIN32)
+  install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX})
+  install(FILES ../client_icons.txt DESTINATION ${CMAKE_INSTALL_PREFIX})
+endif()
+
 if(ENABLE_PLUGINS)
   add_subdirectory(plugins)
 endif()
@@ -325,8 +344,8 @@ if(PRODUCTION)
   set(QT_PLUGINS_DIR ${QT_DIR}/plugins)
   set(QT_TRANSLATIONS_DIR ${QT_DIR}/translations)
 
-  find_program(ZIP_PATH zip.exe)
-  get_filename_component(OTHER_DIR ${ZIP_PATH} DIRECTORY)
+  #find_program(ZIP_PATH zip.exe)
+  #get_filename_component(OTHER_DIR ${ZIP_PATH} DIRECTORY)
 
   if(USE_QT5)
     # required libraries
@@ -397,8 +416,8 @@ if(PRODUCTION)
       copy(${FILE} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/translations/" prepare-bin-libs)
     endforeach()
 
-    get_filename_component(OTHER_DIR ${ZIP_PATH} DIRECTORY)
-    copy("${OTHER_DIR}/libqca-qt5${D}.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+    #get_filename_component(OTHER_DIR ${ZIP_PATH} DIRECTORY)
+    copy("${QCA_DIR}/bin/libqca-qt5${D}.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
   else()
     # Qt4 libs
     copy("${QT_BIN_DIR}/QtCore${D}4.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
@@ -433,20 +452,20 @@ if(PRODUCTION)
       endif()
     endforeach()
 
-    copy("${OTHER_DIR}/libqca${D}.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
-    copy("${OTHER_DIR}/libqjson${D}.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+    copy("${QCA_DIR}/bin/libqca${D}.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+    copy("${QJSON_ROOT}/bin/libqjson${D}.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
   endif()
 
   copy("${QT_BIN_DIR}/libwinpthread-1.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
-  copy("${QT_BIN_DIR}/libgcc_s_dw2-1.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+  copy("${QT_BIN_DIR}/libgcc_s_sjlj-1.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
   copy("${QT_BIN_DIR}/libstdc++-6.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
 
   # psimedia
-  find_program(PSIMEDIA_PATH libgstprovider${D}.dll)
-  copy(${PSIMEDIA_PATH} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+  find_program(PSIMEDIA_PATH libgstprovider${D}.dll PATHS ${PSIMEDIA_DIR}/plugins )
+  copy(${PSIMEDIA_DIR} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
 
   # psimedia deps
-  find_program(PSIMEDIA_DEPS_PATH libgstvideo-0.10-0.dll)
+  find_program(PSIMEDIA_DEPS_PATH libgstvideo-0.10-0.dll PATHS ${GST_SDK}/bin )
   get_filename_component(PSIMEDIA_DEPS_DIR ${PSIMEDIA_DEPS_PATH} DIRECTORY)
   copy(${PSIMEDIA_DEPS_DIR}/libjpeg-9.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
   copy(${PSIMEDIA_DEPS_DIR}/libgettextlib-0-19-6.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
@@ -492,31 +511,35 @@ if(PRODUCTION)
   copy(${PSIMEDIA_DEPS_DIR}/libgstvideo-0.10-0.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
 
   # streamer plugins
-  get_filename_component(GSTREAMER_PLUGINS_DIR ${PSIMEDIA_DEPS_DIR} DIRECTORY)
-  set(GSTREAMER_PLUGINS_DIR "${GSTREAMER_PLUGINS_DIR}/lib/gstreamer-0.10")
+  set(GSTREAMER_PLUGINS_DIR "${PSIMEDIA_DIR}/gstreamer-0.10")
   file(GLOB GSTREAMER_PLUGINS "${GSTREAMER_PLUGINS_DIR}/*.dll")
   foreach(FILE ${GSTREAMER_PLUGINS})
     copy(${FILE} "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/gstreamer-0.10/" prepare-bin-libs)
   endforeach()
 
   # other libs and executables
-  copy(${OTHER_DIR}/zip.exe "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
-  copy(${OTHER_DIR}/libgcrypt-20.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
-  copy(${OTHER_DIR}/libotr.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
-  copy(${OTHER_DIR}/gpg.exe "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
-  copy(${OTHER_DIR}/zlib1.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
-  copy(${OTHER_DIR}/libgpg-error-0.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
-  copy(${OTHER_DIR}/libqjdns${D}.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
-  copy(${OTHER_DIR}/libjdns${D}.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
-  copy(${OTHER_DIR}/libidn-11.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
-  copy(${OTHER_DIR}/libiconv-2.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
-  copy(${OTHER_DIR}/libintl-8.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
-  copy(${OTHER_DIR}/libhunspell-1.3-0.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
-  copy(${OTHER_DIR}/libeay32.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
-  copy(${OTHER_DIR}/ssleay32.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+  #copy(${OTHER_DIR}/zip.exe "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+  copy(${LIBGCRYPT_ROOT}/bin/libgcrypt-11.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+  copy(${LIBOTR_ROOT}/bin/libotr.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+  #copy(${OTHER_DIR}/gpg.exe "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+  copy(${ZLIB_ROOT}/bin/zlib1.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+  copy(${LIBGPGERROR_ROOT}/bin/libgpg-error-0.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+  if(SEPARATE_QJDNS)
+    copy(${QJDNS_DIR}/libqjdns${D}.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+    copy(${QJDNS_DIR}/libjdns${D}.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+  endif()
+  copy(${IDN_ROOT}/bin/libidn-11.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+  #copy(${OTHER_DIR}/libiconv-2.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+  #copy(${OTHER_DIR}/libintl-8.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+  copy(${HUNSPELL_ROOT}/bin/libhunspell.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+  if(USE_QT5)
+  set(SDK_PREFIX "Qt5/")
+  endif()
+  copy(${SDK_PATH}/${SDK_PREFIX}openssl/bin/libeay32.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
+  copy(${SDK_PATH}/${SDK_PREFIX}openssl/bin/ssleay32.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
 
   # qca plugins
-  get_filename_component(QCA_PLUGINS_DIR ${OTHER_DIR} DIRECTORY)
+  get_filename_component(QCA_PLUGINS_DIR ${QCA_DIR} DIRECTORY)
   set(QCA_PLUGINS_DIR "${QCA_PLUGINS_DIR}/lib/qca/crypto")
   copy(${QCA_PLUGINS_DIR}/libqca-ossl${D}.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/crypto/" prepare-bin-libs)
   copy(${QCA_PLUGINS_DIR}/libqca-gnupg${D}.dll "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/crypto/" prepare-bin-libs)

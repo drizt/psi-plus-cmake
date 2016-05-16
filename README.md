@@ -130,5 +130,11 @@ To build OTRPLUGIN in OS WINDOWS you need to set additional variables
 
   > $ cmake -DLIBGCRYPT_ROOT=C:\libgcrypt -DLIBGPGERROR_ROOT=C:\libgpg-error -DLIBOTR_ROOT=C:\libotr -DLIBTIDY_ROOT=C:\libtidy ..
 
+If you use Psi+ SDK set SDK_PATH (WIN32)
+
+  -DSDK_PATH=path
+
+
+  
 TODO LIST:
 - Add MacOSX support
