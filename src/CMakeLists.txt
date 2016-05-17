@@ -163,7 +163,7 @@ else()
 endif()
 
 include(getdate.cmake)
-add_definitions(-DPSI_VERSION="${PSI_PLUS_VERSION} (${PSI_COMPILATION_DATE})")
+add_definitions(-DPSI_VERSION="${PSI_PLUS_VERSION} \(${PSI_COMPILATION_DATE}\)")
 
 if(LINUX)
   if(LIB_INSTALL_DIR)
