@@ -5,10 +5,15 @@ add_definitions(
   -DNEWCONTACTLIST
   -DHAVE_PGPUTIL
   -DPSI_PLUGINS
-  -DWEBKIT
   -DUSE_PEP
   -DQT_STATICPLUGIN
 )
+
+if(ENABLE_WEBKIT)
+add_definitions(
+  -DWEBKIT
+)
+endif()
 
 if(UNIX AND NOT APPLE)
   add_definitions(
@@ -89,14 +94,11 @@ list(APPEND HEADERS
   bookmarkmanagedlg.h
   bookmarkmanager.h
   bosskey.h
-  bytearrayreply.h
   captchadlg.h
   changepwdlg.h
   chatdlg.h
   chateditproxy.h
   chatsplitter.h
-  chatview_webkit.h
-  chatviewthemeprovider.h
   coloropt.h
   contactlistaccountgroup.h
   contactlistaccountmenu.h
@@ -150,7 +152,6 @@ list(APPEND HEADERS
   mucjoindlg.h
   mucmanager.h
   mucreasonseditor.h
-  networkaccessmanager.h
   passdialog.h
   passphrasedlg.h
   pepmanager.h
@@ -206,7 +207,6 @@ list(APPEND HEADERS
   vcardphotodlg.h
   voicecalldlg.h
   voicecaller.h
-  webview.h
   xdata_widget.h
   xmlconsole.h
 )
@@ -222,8 +222,6 @@ list(APPEND SOURCES
   captchadlg.cpp
   contactlistaccountmenu.cpp
   contactlistgroupmenu.cpp
-  chatview_webkit.cpp
-  chatviewtheme.cpp
   discodlg.cpp
   dummystream.cpp
   eventdlg.cpp
@@ -295,7 +293,6 @@ list(APPEND PLAIN_HEADERS
   applicationinfo.h
   chatview.h
   chatviewcommon.h
-  chatviewtheme.h
   common.h
   conferencebookmark.h
   contactlistitem.h
@@ -305,7 +302,6 @@ list(APPEND PLAIN_HEADERS
   dummystream.h
   geolocation.h
   jidutil.h
-  jsutil.h
   lastactivitytask.h
   mcmdcompletion.h
   messageview.h
@@ -320,7 +316,6 @@ list(APPEND PLAIN_HEADERS
   psihttpauthrequest.h
   psipopupinterface.h
   psiselfcontact.h
-  psiwkavatarhandler.h
   pubsubsubscription.h
   rc.h
   rtparse.h
@@ -360,13 +355,11 @@ list(APPEND PLAIN_SOURCES
   bookmarkmanagedlg.cpp
   bookmarkmanager.cpp
   bosskey.cpp
-  bytearrayreply.cpp
   changepwdlg.cpp
   chatdlg.cpp
   chateditproxy.cpp
   chatsplitter.cpp
   chatviewcommon.cpp
-  chatviewthemeprovider.cpp
   coloropt.cpp
   common.cpp
   conferencebookmark.cpp
@@ -407,7 +400,6 @@ list(APPEND PLAIN_SOURCES
   infodlg.cpp
   infodlg.cpp
   jidutil.cpp
-  jsutil.cpp
   lastactivitytask.cpp
   main.cpp
   mainwin.cpp
@@ -426,7 +418,6 @@ list(APPEND PLAIN_SOURCES
   mucjoindlg.cpp
   mucmanager.cpp
   mucreasonseditor.cpp
-  networkaccessmanager.cpp
   passdialog.cpp
   passphrasedlg.cpp
   pepmanager.cpp
@@ -454,7 +445,6 @@ list(APPEND PLAIN_SOURCES
   psithemeviewdelegate.cpp
   psitoolbar.cpp
   psitrayicon.cpp
-  psiwkavatarhandler.cpp
   pubsubsubscription.cpp
   rc.cpp
   removeconfirmationmessagebox.cpp
@@ -482,6 +472,39 @@ list(APPEND PLAIN_SOURCES
   vcardfactory.cpp
   vcardphotodlg.cpp
   voicecalldlg.cpp
-  webview.cpp
   xmlconsole.cpp
 )
+
+if(ENABLE_WEBKIT)
+  list(APPEND HEADERS
+    chatview_webkit.h
+    networkaccessmanager.h
+    bytearrayreply.h
+    webview.h
+    chatviewthemeprovider.h
+  )
+  list(APPEND PLAIN_HEADERS
+    psiwkavatarhandler.h
+    jsutil.h
+    chatviewtheme.h
+  )
+  list(APPEND SOURCES
+    chatview_webkit.cpp
+    chatviewtheme.cpp
+  )
+  list(APPEND PLAIN_SOURCES
+    networkaccessmanager.cpp
+    bytearrayreply.cpp
+    webview.cpp
+    psiwkavatarhandler.cpp
+    jsutil.cpp
+    chatviewthemeprovider.cpp
+  )
+else()
+  list(APPEND HEADERS
+    chatview_te.h
+  )
+  list(APPEND SOURCES
+    chatview_te.cpp
+  )
+endif()
