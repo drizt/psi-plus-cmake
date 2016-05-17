@@ -17,6 +17,7 @@ option( SEPARATE_QJDNS "Build qjdns as separate lib" OFF )
 option( USE_QT5 "Use Qt5 to build psi-plus" ON )
 option( ENABLE_PLUGINS "Enable plugins" OFF )
 option( ENABLE_WEBKIT "Enable webkit support" ON )
+option( ENABLE_SQL "Enable SQL history support" OFF )
 
 if(WIN32)
   set(BUILD_ARCH "i386" CACHE STRING "CPU architecture i386/x86_64")

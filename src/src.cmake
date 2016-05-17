@@ -132,7 +132,6 @@ list(APPEND HEADERS
   groupchatdlg.h
   groupchattopicdlg.h
   historydlg.h
-  historyimp.h
   homedirmigration.h
   hoverabletreeview.h
   htmltextcontroller.h
@@ -394,7 +393,6 @@ list(APPEND PLAIN_SOURCES
   globalstatusmenu.cpp
   groupchattopicdlg.cpp
   historydlg.cpp
-  historyimp.cpp
   homedirmigration.cpp
   hoverabletreeview.cpp
   infodlg.cpp
@@ -506,5 +504,14 @@ else()
   )
   list(APPEND SOURCES
     chatview_te.cpp
+  )
+endif()
+
+if(ENABLE_SQL)
+  list(APPEND HEADERS
+    historyimp.h
+  )
+  list(APPEND PLAIN_SOURCES
+    historyimp.cpp
   )
 endif()
