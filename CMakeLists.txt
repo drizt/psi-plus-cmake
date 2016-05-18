@@ -61,6 +61,12 @@ if(UNIX AND NOT APPLE)
   set(LINUX ON)
 endif()
 
+if(LINUX)
+  set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)")
+  set(LIB_INSTALL_DIR "/usr/lib${LIB_SUFFIX}" CACHE STRING "Path to libraies")
+  set(SHARE_INSTALL_PREFIX "/usr/share" CACHE STRING "Path to datafiles")
+endif()
+
 # Qt dependencies make building very slow
 # Track only .h files
 include_regular_expression("^.*\\.h$")
