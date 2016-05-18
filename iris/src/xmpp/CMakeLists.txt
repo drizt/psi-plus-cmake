@@ -1,7 +1,5 @@
 add_definitions(-DXMPP_TEST)
 
-option( BUILD_SHARED_LIBS "Build iris lib shared" OFF )
-
 include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
   ..
@@ -135,25 +133,14 @@ set(SOURCES
 )
 
 qt_wrap_cpp(MOC_SOURCES ${HEADERS} ${SOURCES})
-if(BUILD_SHARED_LIBS)
-	add_library(iris
-		    SHARED
-		    ${HEADERS}
-		    ${SOURCES}
-		    ${MOC_SOURCES}
-		    ${PLAIN_SOURCES}
-		    ${PLAIN_HEADERS}
-		    )
-else()
-	add_library(iris
-		    STATIC
-		    ${HEADERS}
-		    ${SOURCES}
-		    ${MOC_SOURCES}
-		    ${PLAIN_SOURCES}
-		    ${PLAIN_HEADERS}
-		    )
-endif()
+add_library(iris
+	    STATIC
+	    ${HEADERS}
+	    ${SOURCES}
+	    ${MOC_SOURCES}
+	    ${PLAIN_SOURCES}
+	    ${PLAIN_HEADERS}
+	    )
 
 target_link_libraries(iris ${IDN_LIBRARY})
 if(USE_QT5)
