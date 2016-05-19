@@ -8,65 +8,65 @@ unset(UI_FORMS)
 unset(EXTRA_LDFLAGS)
 
 set(SOURCES
-  busywidget.cpp
-  fancylabel.cpp
-  fancypopup.cpp
-  iconaction.cpp
-  iconselect.cpp
-  iconwidget.cpp
-  psirichtext.cpp
-  psitextview.cpp
-  psitooltip.cpp
-  tabbar.cpp
-  urlobject.cpp
-)
+	busywidget.cpp
+	fancylabel.cpp
+	fancypopup.cpp
+	iconaction.cpp
+	iconselect.cpp
+	iconwidget.cpp
+	psirichtext.cpp
+	psitextview.cpp
+	psitooltip.cpp
+	tabbar.cpp
+	urlobject.cpp
+	)
 
 set(PLAIN_SOURCES
-  actionlineedit.cpp
-  psitabbar.cpp
-  psitabwidget.cpp
-  psitiplabel.cpp
-  psiwindowheader.cpp
-  typeaheadfind.cpp
-  urllabel.cpp
-)
+	actionlineedit.cpp
+	psitabbar.cpp
+	psitabwidget.cpp
+	psitiplabel.cpp
+	psiwindowheader.cpp
+	typeaheadfind.cpp
+	urllabel.cpp
+	)
 
 set(HEADERS
-  actionlineedit.h
-  busywidget.h
-  fancylabel.h
-  fancypopup.h
-  fancypopuplist.h
-  iconaction.h
-  iconbutton.h
-  iconlabel.h
-  iconselect.h
-  iconsetdisplay.h
-  iconsetselect.h
-  icontoolbutton.h
-  iconwidget.h
-  psitabbar.h
-  psitabwidget.h
-  psitextview.h
-  psitiplabel.h
-  psiwindowheader.h
-  tabbar.h
-  typeaheadfind.h
-  updatingcombobox.h
-  urllabel.h
-  urlobject.h
-)
+	actionlineedit.h
+	busywidget.h
+	fancylabel.h
+	fancypopup.h
+	fancypopuplist.h
+	iconaction.h
+	iconbutton.h
+	iconlabel.h
+	iconselect.h
+	iconsetdisplay.h
+	iconsetselect.h
+	icontoolbutton.h
+	iconwidget.h
+	psitabbar.h
+	psitabwidget.h
+	psitextview.h
+	psitiplabel.h
+	psiwindowheader.h
+	tabbar.h
+	typeaheadfind.h
+	updatingcombobox.h
+	urllabel.h
+	urlobject.h
+	)
 
 set(PLAIN_HEADERS
-  psirichtext.h
-  psitooltip.h
-  stretchwidget.h
-)
+	psirichtext.h
+	psitooltip.h
+	stretchwidget.h
+	)
 
 set(FORMS
-  fancypopup.ui
-  psiwindowheader.ui
-)
+	fancypopup.ui
+	psiwindowheader.ui
+	)
 
 qt4_wrap_ui(UI_FORMS ${FORMS})
 qt_wrap_cpp(MOC_SOURCES ${SOURCES} ${HEADERS})

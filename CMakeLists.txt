@@ -1,5 +1,5 @@
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE "Release" CACHE STRING "")
+	set(CMAKE_BUILD_TYPE "Release" CACHE STRING "")
 endif()
 
 project(psi-plus)
@@ -9,7 +9,6 @@ set(GLOBAL_DEPENDS_DEBUG_MODE ON)
 
 set( CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" )
 option( BUNDLED_IRIS "Build iris library bundled" ON )
-#This option will be changed when build of psi+ will be ready
 option( ONLY_PLUGINS "Build psi-plus plugins only" OFF )
 option( USE_HUNSPELL "Build psi-plus plugins only" ON )
 option( USE_ENCHANT "Build psi-plus plugins only" OFF )
@@ -19,36 +18,35 @@ option( ENABLE_PLUGINS "Enable plugins" OFF )
 option( ENABLE_WEBKIT "Enable webkit support" ON )
 set( ENABLE_SQL OFF CACHE BOOL "Enable SQL history support")
 
-find_path(SQL_FILE NAMES historyimp.cpp PATHS ${PROJECT_SOURCE_DIR}/src)
-if(SQL_FILE STREQUAL "SQL_FILE-NOTFOUND")
-  set(ENABLE_SQL OFF)
+if(EXISTS "${PROJECT_SOURCE_DIR}/src/historyimp.cpp")
+	message("-- SQL history - enabled")
+	set(ENABLE_SQL ON)
 else()
-  message("SQL history enabled")
-  set(ENABLE_SQL ON)
+	set(ENABLE_SQL OFF)
 endif()
 
 if(WIN32)
-  set(BUILD_ARCH "i386" CACHE STRING "CPU architecture i386/x86_64")
-  set(SDK_PATH "c:/build/psibuild/psideps" CACHE STRING "Path to SDK")
-  set(SDK_SUFFIX ${BUILD_ARCH})
-  #temporary Qt5
-  if(USE_QT5)
-    set(SDK_PATH "${SDK_PATH}/Qt5")
-    set(SDK_SUFFIX "")
-  endif()
-  set(QCA_DIR "${SDK_PATH}/qca/${SDK_SUFFIX}" CACHE STRING "Path to QCA")
-  set(IDN_ROOT "${SDK_PATH}/libidn/${SDK_SUFFIX}" CACHE STRING "Path to IDN library")
-  set(HUNSPELL_ROOT "${SDK_PATH}/hunspell/${SDK_SUFFIX}" CACHE STRING "Path to hunspell library")
-  set(LIBGCRYPT_ROOT "${SDK_PATH}/libgcrypt/${SDK_SUFFIX}" CACHE STRING "Path to libgcrypt library")
-  set(LIBGPGERROR_ROOT "${SDK_PATH}/libgpg-error/${SDK_SUFFIX}" CACHE STRING "Path to libgpg-error library")
-  set(LIBOTR_ROOT "${SDK_PATH}/libotr/${SDK_SUFFIX}" CACHE STRING "Path to libotr library")
-  set(LIBTIDY_ROOT "${SDK_PATH}/libtidy/${SDK_SUFFIX}" CACHE STRING "Path to libtidy library")
-  set(QJSON_ROOT "${SDK_PATH}/qjson/${SDK_SUFFIX}" CACHE STRING "Path to qjson library")
-  set(ZLIB_ROOT "${SDK_PATH}/zlib/${SDK_SUFFIX}" CACHE STRING "Path to zlib")
-  set(QJDNS_DIR "${SDK_PATH}/qjdns/${SDK_SUFFIX}" CACHE STRING "Path to qjdns")
-  set(GST_SDK "${SDK_PATH}/gstbundle/${SDK_SUFFIX}" CACHE STRING "Path to gstreamer SDK")
-  set(PSIMEDIA_DIR "${SDK_PATH}/psimedia/${SDK_SUFFIX}" CACHE STRING "Path to psimedia plugin")
-  set(PLUGINS_PATH "/plugins" CACHE STRING "Install suffix for plugins")
+	set(BUILD_ARCH "i386" CACHE STRING "CPU architecture i386/x86_64")
+	set(SDK_PATH "c:/build/psibuild/psideps" CACHE STRING "Path to SDK")
+	set(SDK_SUFFIX ${BUILD_ARCH})
+	#temporary Qt5
+	if(USE_QT5)
+		set(SDK_PATH "${SDK_PATH}/Qt5")
+		set(SDK_SUFFIX "")
+	endif()
+	set(QCA_DIR "${SDK_PATH}/qca/${SDK_SUFFIX}" CACHE STRING "Path to QCA")
+	set(IDN_ROOT "${SDK_PATH}/libidn/${SDK_SUFFIX}" CACHE STRING "Path to IDN library")
+	set(HUNSPELL_ROOT "${SDK_PATH}/hunspell/${SDK_SUFFIX}" CACHE STRING "Path to hunspell library")
+	set(LIBGCRYPT_ROOT "${SDK_PATH}/libgcrypt/${SDK_SUFFIX}" CACHE STRING "Path to libgcrypt library")
+	set(LIBGPGERROR_ROOT "${SDK_PATH}/libgpg-error/${SDK_SUFFIX}" CACHE STRING "Path to libgpg-error library")
+	set(LIBOTR_ROOT "${SDK_PATH}/libotr/${SDK_SUFFIX}" CACHE STRING "Path to libotr library")
+	set(LIBTIDY_ROOT "${SDK_PATH}/libtidy/${SDK_SUFFIX}" CACHE STRING "Path to libtidy library")
+	set(QJSON_ROOT "${SDK_PATH}/qjson/${SDK_SUFFIX}" CACHE STRING "Path to qjson library")
+	set(ZLIB_ROOT "${SDK_PATH}/zlib/${SDK_SUFFIX}" CACHE STRING "Path to zlib")
+	set(QJDNS_DIR "${SDK_PATH}/qjdns/${SDK_SUFFIX}" CACHE STRING "Path to qjdns")
+	set(GST_SDK "${SDK_PATH}/gstbundle/${SDK_SUFFIX}" CACHE STRING "Path to gstreamer SDK")
+	set(PSIMEDIA_DIR "${SDK_PATH}/psimedia/${SDK_SUFFIX}" CACHE STRING "Path to psimedia plugin")
+	set(PLUGINS_PATH "/plugins" CACHE STRING "Install suffix for plugins")
 endif()
 
 set(APP_VERSION "0.16")
@@ -58,13 +56,7 @@ option(PRODUCTION "Build production version" OFF)
 
 # Define LINUX on Linux like as WIN32 on Windows and APPLE on Mac OS X
 if(UNIX AND NOT APPLE)
-  set(LINUX ON)
-endif()
-
-if(LINUX)
-  set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)")
-  set(LIB_INSTALL_DIR "/usr/lib${LIB_SUFFIX}" CACHE STRING "Path to libraies")
-  set(SHARE_INSTALL_PREFIX "/usr/share" CACHE STRING "Path to datafiles")
+	set(LINUX ON)
 endif()
 
 # Qt dependencies make building very slow
@@ -79,77 +71,79 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 
 if(APPLE)
-  # Force Qt5 build on Mac OS X. Qt4 is not supported
-  set(USE_QT5 ON)
+	# Force Qt5 build on Mac OS X. Qt4 is not supported
+	set(USE_QT5 ON)
 endif()
 
 if(USE_QT5)
-  option( QT4_BUILD "Build with Qt4 support" OFF )
+	option( QT4_BUILD "Build with Qt4 support" OFF )
 else()
-  set( USE_QT5 OFF)
-  option( QT4_BUILD "Build with Qt4 support" ON )
+	set( USE_QT5 OFF)
+	option( QT4_BUILD "Build with Qt4 support" ON )
 endif()
 
 # Copy a list of files from one directory to another. Only full paths.
 function(copy SOURCE DEST TARGET)
-  set(OUT_TARGET_FILE "${CMAKE_BINARY_DIR}/${TARGET}.cmake")
+	if(EXISTS ${SOURCE})
+		set(OUT_TARGET_FILE "${CMAKE_BINARY_DIR}/${TARGET}.cmake")
 
-  string(REGEX REPLACE "\\\\+" "/" DEST "${DEST}")
-  string(REGEX REPLACE "\\\\+" "/" SOURCE "${SOURCE}")
+		string(REGEX REPLACE "\\\\+" "/" DEST "${DEST}")
+		string(REGEX REPLACE "\\\\+" "/" SOURCE "${SOURCE}")
 
-  if(NOT TARGET ${TARGET})
-    file(REMOVE "${OUT_TARGET_FILE}")
-    add_custom_target(${TARGET} COMMAND ${CMAKE_COMMAND} -P "${OUT_TARGET_FILE}")
-  endif()
+		if(NOT TARGET ${TARGET})
+			file(REMOVE "${OUT_TARGET_FILE}")
+			add_custom_target(${TARGET} COMMAND ${CMAKE_COMMAND} -P "${OUT_TARGET_FILE}")
+		endif()
 
-  if(IS_DIRECTORY ${SOURCE})
-    # copy directory
-    file(GLOB_RECURSE FILES "${SOURCE}/*")
-    get_filename_component(SOURCE_DIR_NAME ${SOURCE} NAME)
+		if(IS_DIRECTORY ${SOURCE})
+			# copy directory
+			file(GLOB_RECURSE FILES "${SOURCE}/*")
+			get_filename_component(SOURCE_DIR_NAME ${SOURCE} NAME)
 
-    foreach(FILE ${FILES})
-      file(RELATIVE_PATH REL_PATH ${SOURCE} ${FILE})
-      set(REL_PATH "${SOURCE_DIR_NAME}/${REL_PATH}")
-      get_filename_component(REL_PATH ${REL_PATH} DIRECTORY)
-      set(DESTIN "${DEST}/${REL_PATH}")
+			foreach(FILE ${FILES})
+				file(RELATIVE_PATH REL_PATH ${SOURCE} ${FILE})
+				set(REL_PATH "${SOURCE_DIR_NAME}/${REL_PATH}")
+				get_filename_component(REL_PATH ${REL_PATH} DIRECTORY)
+				set(DESTIN "${DEST}/${REL_PATH}")
 
-      string(REGEX REPLACE "/+" "/" DESTIN ${DESTIN})
-      string(REGEX REPLACE "/+" "/" FILE ${FILE})
+				string(REGEX REPLACE "/+" "/" DESTIN ${DESTIN})
+				string(REGEX REPLACE "/+" "/" FILE ${FILE})
 
-      file(APPEND
-        "${OUT_TARGET_FILE}"
-        "file(INSTALL \"${FILE}\" DESTINATION \"${DESTIN}\" USE_SOURCE_PERMISSIONS)\n")
-    endforeach()
-  else()
-    string(REPLACE "//" "/" DEST ${DEST})
-    if(DEST MATCHES "/$")
-      set(DIR "${DEST}")
-      string(REGEX REPLACE "^(.+)/$" "\\1" DIR ${DIR})
-    else()
-      # need to copy and rename
-      get_filename_component(DIR ${DEST} DIRECTORY)
-      get_filename_component(FILENAME ${DEST} NAME)
-      get_filename_component(SOURCE_FILENAME ${SOURCE} NAME)
-    endif()
-    file(APPEND
-      "${OUT_TARGET_FILE}"
-      "file(INSTALL \"${SOURCE}\" DESTINATION \"${DIR}\" USE_SOURCE_PERMISSIONS)\n")
-    if(DEFINED FILENAME)
-      file(APPEND
-        "${OUT_TARGET_FILE}"
-        "file(RENAME \"${DIR}/${SOURCE_FILENAME}\" \"${DIR}/${FILENAME}\")\n")
-    endif()
-  endif()
+				file(APPEND
+					"${OUT_TARGET_FILE}"
+					"file(INSTALL \"${FILE}\" DESTINATION \"${DESTIN}\" USE_SOURCE_PERMISSIONS)\n")
+			endforeach()
+		else()
+			string(REPLACE "//" "/" DEST ${DEST})
+			if(DEST MATCHES "/$")
+				set(DIR "${DEST}")
+				string(REGEX REPLACE "^(.+)/$" "\\1" DIR ${DIR})
+			else()
+				# need to copy and rename
+				get_filename_component(DIR ${DEST} DIRECTORY)
+				get_filename_component(FILENAME ${DEST} NAME)
+				get_filename_component(SOURCE_FILENAME ${SOURCE} NAME)
+			endif()
+			file(APPEND
+				"${OUT_TARGET_FILE}"
+				"file(INSTALL \"${SOURCE}\" DESTINATION \"${DIR}\" USE_SOURCE_PERMISSIONS)\n")
+			if(DEFINED FILENAME)
+				file(APPEND
+					"${OUT_TARGET_FILE}"
+					"file(RENAME \"${DIR}/${SOURCE_FILENAME}\" \"${DIR}/${FILENAME}\")\n")
+			endif()
+		endif()
+	endif()
 endfunction()
 
 # Configure CCache if available
 find_program(CCACHE_PATH ccache DOC "Path to ccache")
 if(CCACHE_PATH)
-  message(STATUS "Found ccache at ${CCACHE_PATH}")
-  set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ${CCACHE_PATH})
-  set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ${CCACHE_PATH})
+	message(STATUS "Found ccache at ${CCACHE_PATH}")
+	set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ${CCACHE_PATH})
+	set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ${CCACHE_PATH})
 endif()
-      
+
 
 if(NOT ONLY_PLUGINS)
 	if( ${BUNDLED_IRIS} )

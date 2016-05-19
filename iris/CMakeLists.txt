@@ -1,5 +1,5 @@
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE "Release")
+	set(CMAKE_BUILD_TYPE "Release")
 endif()
 
 project(iris)
@@ -10,7 +10,7 @@ set( IRIS_LIB_VERSION_MINOR 0 )
 set( IRIS_LIB_VERSION_PATCH 0 )
 set( IRIS_LIB_VERSION_STRING
 	${IRIS_LIB_VERSION_MAJOR}.${IRIS_LIB_VERSION_MINOR}.${IRIS_LIB_VERSION_PATCH}
-)
+	)
 
 set( CMAKE_MODULE_PATH
 	"${CMAKE_MODULE_PATH}"
@@ -18,7 +18,7 @@ set( CMAKE_MODULE_PATH
 	"${CMAKE_CURRENT_SOURCE_DIR}/../cmake/modules"
 	"${PROJECT_SOURCE_DIR}/cmake/modules"
 	"${PROJECT_SOURCE_DIR}/../cmake/modules"
-)
+	)
 
 option( BUILD_SHARED_LIBS "Build iris lib shared" OFF )
 option( SEPARATE_QJDNS "Build qjdns with iris library" OFF )
@@ -34,51 +34,51 @@ set(CMAKE_AUTOMOC OFF)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 if(APPLE)
-  # Force Qt5 build on Mac OS X. Qt4 is not supported
-  set(USE_QT5 ON)
+	# Force Qt5 build on Mac OS X. Qt4 is not supported
+	set(USE_QT5 ON)
 endif()
 
 if(USE_QT5)
-  find_package(Qt5Core REQUIRED)
-  find_package(Qt5Gui REQUIRED)
-  find_package(Qt5Xml REQUIRED)
-  find_package(Qt5Network REQUIRED)
-  find_package( Qca-qt5 REQUIRED PATHS ${QCA_DIR} )
-  get_target_property( QCA_INCLUDES qca-qt5 INTERFACE_INCLUDE_DIRECTORIES )
+	find_package(Qt5Core REQUIRED)
+	find_package(Qt5Gui REQUIRED)
+	find_package(Qt5Xml REQUIRED)
+	find_package(Qt5Network REQUIRED)
+	find_package( Qca-qt5 REQUIRED PATHS ${QCA_DIR} )
+	get_target_property( QCA_INCLUDES qca-qt5 INTERFACE_INCLUDE_DIRECTORIES )
 
-  macro(qt4_generate_moc)
-    qt5_generate_moc(${ARGN})
-  endmacro()
+	macro(qt4_generate_moc)
+		qt5_generate_moc(${ARGN})
+	endmacro()
 
-  add_definitions(-DHAVE_QT5)
+	add_definitions(-DHAVE_QT5)
 else()
-  find_package(Qt4 REQUIRED QtCore QtGui QtNetwork QtXml)
-  find_package( Qca REQUIRED PATHS ${QCA_DIR} )
-  get_target_property( QCA_INCLUDES qca INTERFACE_INCLUDE_DIRECTORIES )
-  include(${QT_USE_FILE})
+	find_package(Qt4 REQUIRED QtCore QtGui QtNetwork QtXml)
+	find_package( Qca REQUIRED PATHS ${QCA_DIR} )
+	get_target_property( QCA_INCLUDES qca INTERFACE_INCLUDE_DIRECTORIES )
+	include(${QT_USE_FILE})
 endif()
 
 include_directories(
 	${QCA_INCLUDES}
-)
+	)
 
 macro(qt_wrap_cpp)
-  set(_SOURCES ${ARGN})
-  list(REMOVE_AT _SOURCES 0)
-  foreach(SOURCE ${_SOURCES})
-    if(SOURCE MATCHES "^(.*/|)([^/.]+)\\.h$")
-      set(DEST "moc_${CMAKE_MATCH_2}.cpp")
-      qt4_generate_moc(${SOURCE} ${DEST})
-      list(APPEND ${ARGV0} ${DEST})
-    elseif(SOURCE MATCHES "^(.*/|)([^/.]+)\\.cpp$")
-      set(DEST "${CMAKE_MATCH_2}.moc")
-      qt4_generate_moc(${SOURCE} ${DEST})
-      list(APPEND ${ARGV0} ${DEST})
-    else()
-      message(WARNING "Wrong source ${SOURCE}")
-    endif()
-  endforeach()
-  unset(_SOURCES)
+	set(_SOURCES ${ARGN})
+	list(REMOVE_AT _SOURCES 0)
+	foreach(SOURCE ${_SOURCES})
+		if(SOURCE MATCHES "^(.*/|)([^/.]+)\\.h$")
+			set(DEST "moc_${CMAKE_MATCH_2}.cpp")
+			qt4_generate_moc(${SOURCE} ${DEST})
+			list(APPEND ${ARGV0} ${DEST})
+		elseif(SOURCE MATCHES "^(.*/|)([^/.]+)\\.cpp$")
+			set(DEST "${CMAKE_MATCH_2}.moc")
+			qt4_generate_moc(${SOURCE} ${DEST})
+			list(APPEND ${ARGV0} ${DEST})
+		else()
+			message(WARNING "Wrong source ${SOURCE}")
+		endif()
+	endforeach()
+	unset(_SOURCES)
 endmacro()
 
 if(NOT SEPARATE_QJDNS)
@@ -86,24 +86,24 @@ if(NOT SEPARATE_QJDNS)
 	set(QJDns_LIBRARY qjdns)
 	include_directories(
 		src/jdns/include/jdns
-	)
-        set(jdns_SRCS
+		)
+	set(jdns_SRCS
 		src/jdns/src/jdns/jdns.c
 		src/jdns/src/jdns/jdns_mdnsd.c
 		src/jdns/src/jdns/jdns_packet.c
 		src/jdns/src/jdns/jdns_sys.c
 		src/jdns/src/jdns/jdns_util.c
-	)
-        set(jdns_PUBLIC_HEADERS
+		)
+	set(jdns_PUBLIC_HEADERS
 		src/jdns/include/jdns/jdns.h
 		src/jdns/include/jdns/jdns_export.h
-	)
-        set(jdns_HEADERS
+		)
+	set(jdns_HEADERS
 		src/jdns/src/jdns/jdns_packet.h
 		src/jdns/src/jdns/jdns_mdnsd.h
 		src/jdns/src/jdns/jdns_p.h
-	)
-        add_library(jdns STATIC ${jdns_SRCS} ${jdns_HEADERS} ${jdns_PUBLIC_HEADERS})
+		)
+	add_library(jdns STATIC ${jdns_SRCS} ${jdns_HEADERS} ${jdns_PUBLIC_HEADERS})
 	if(WIN32)
 		target_link_libraries(jdns Ws2_32 Advapi32)
 	endif(WIN32)
@@ -112,7 +112,7 @@ if(NOT SEPARATE_QJDNS)
 		src/jdns/include/jdns/qjdnsshared.h
 		src/jdns/src/qjdns/qjdns_p.h
 		src/jdns/src/qjdns/qjdnsshared_p.h
-	)
+		)
 
 	qt_wrap_cpp(qjdns_MOC_SRCS ${qjdns_MOC_HDRS})
 
@@ -120,16 +120,16 @@ if(NOT SEPARATE_QJDNS)
 		src/jdns/src/qjdns/qjdns.cpp
 		src/jdns/src/qjdns/qjdns_sock.cpp
 		src/jdns/src/qjdns/qjdnsshared.cpp
-	)
+		)
 
-        set(qjdns_PUBLIC_HEADERS
+	set(qjdns_PUBLIC_HEADERS
 		src/jdns/include/jdns/qjdns.h
 		src/jdns/include/jdns/qjdnsshared.h
-	)
-        set(qjdns_HEADERS
+		)
+	set(qjdns_HEADERS
 		src/jdns/src/qjdns/qjdns_sock.h
-	)
-        add_library(${QJDns_LIBRARY} STATIC ${qjdns_SRCS} ${qjdns_MOC_SRCS} ${qjdns_MOC_HDRS} ${qjdns_PUBLIC_HEADERS})
+		)
+	add_library(${QJDns_LIBRARY} STATIC ${qjdns_SRCS} ${qjdns_MOC_SRCS} ${qjdns_MOC_HDRS} ${qjdns_PUBLIC_HEADERS})
 	if(USE_QT5)
 		target_link_libraries(${QJDns_LIBRARY} Qt5::Core Qt5::Network)
 	else()

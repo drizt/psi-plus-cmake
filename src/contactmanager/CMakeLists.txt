@@ -10,20 +10,20 @@ unset(EXTRA_LDFLAGS)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 
 list(APPEND HEADERS
-  contactmanagerdlg.h
-  contactmanagermodel.h
-  contactmanagerview.h
-)
+	contactmanagerdlg.h
+	contactmanagermodel.h
+	contactmanagerview.h
+	)
 
 list(APPEND PLAIN_SOURCES
-  contactmanagerdlg.cpp
-  contactmanagermodel.cpp
-  contactmanagerview.cpp
-)
+	contactmanagerdlg.cpp
+	contactmanagermodel.cpp
+	contactmanagerview.cpp
+	)
 
 list(APPEND FORMS
-  contactmanagerdlg.ui
-)
+	contactmanagerdlg.ui
+	)
 
 qt4_wrap_ui(UI_FORMS ${FORMS})
 qt_wrap_cpp(MOC_SOURCES ${HEADERS})
