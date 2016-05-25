@@ -6,6 +6,7 @@ set(CMAKE_AUTOMOC OFF)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug" AND WIN32)
 	set(D "d")
+	add_definitions(-DALLOW_QT_PLUGINS_DIR)
 endif()
 
 set( LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
@@ -398,6 +399,8 @@ if(WIN32)
 			copy("${QT_BIN_DIR}/Qt5OpenGL${D}.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
 			copy("${QT_BIN_DIR}/Qt5PrintSupport${D}.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/" prepare-bin-libs)
 
+			#audio
+			copy("${QT_PLUGINS_DIR}/audio/qtaudio_windows${D}.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/audio/" prepare-bin-libs)
 			# platforms
 			copy("${QT_PLUGINS_DIR}/platforms/qminimal${D}.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/platforms/" prepare-bin-libs)
 			copy("${QT_PLUGINS_DIR}/platforms/qoffscreen${D}.dll" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/platforms/" prepare-bin-libs)
