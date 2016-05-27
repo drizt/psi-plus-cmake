@@ -4,7 +4,6 @@ set ( CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" )
 find_package ( LibGcrypt REQUIRED )
 find_package ( LibGpgError REQUIRED )
 add_definitions (
-		-Wall
 		${LIBGCRYPT_DEFINITIONS}
 		${LIBGPGERROR_DEFINITIONS}
 )
@@ -65,10 +64,10 @@ install (
 	DESTINATION
 	${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}
 )
-endif ( UNIX AND NOT( APPLE OR CYGWIN ) )
+endif ()
 INSTALL ( FILES ${otr_HDRS} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/libotr )
 INSTALL ( FILES libotr.m4 DESTINATION ${CMAKE_INSTALL_PREFIX}/share/aclocal )
-if ( WIN32 )
+if ( WIN32 OR APPLE )
 install (
 	TARGETS
 	${LIBOTR}
@@ -77,4 +76,4 @@ install (
 	RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
 	ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
 )
-endif( WIN32 )
+endif()
