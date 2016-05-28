@@ -10,7 +10,7 @@ ELSE( NOT WIN32 )
 ENDIF( NOT WIN32 )
 
 
-add_definitions( -Wall -DQT_PLUGIN )
+add_definitions( -DQT_PLUGIN )
 include_directories(
 	${CMAKE_SOURCE_DIR}
 	${CMAKE_CURRENT_BINARY_DIR}

@@ -10,7 +10,7 @@ ELSE( NOT WIN32 )
 ENDIF( NOT WIN32 )
 
 
-add_definitions( -Wall -DQT_PLUGIN )
+add_definitions( -DQT_PLUGIN )
 if( WIN32 )
 	add_definitions( -DQ_OS_WIN )
 endif( WIN32 )

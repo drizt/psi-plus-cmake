@@ -10,7 +10,7 @@ ELSE( NOT WIN32 )
 ENDIF( NOT WIN32 )
 
 
-add_definitions( -Wall -DQT_PLUGIN )
+add_definitions( -DQT_PLUGIN )
 if( NOT WIN32 )
 	add_definitions( -Ddbus -DHAVE_DBUS )
 	find_package( X11 REQUIRED )

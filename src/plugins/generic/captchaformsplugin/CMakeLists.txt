@@ -9,7 +9,7 @@ ELSE( NOT WIN32 )
 	set( PLUGINS_PATH "psi-plus/plugins" CACHE STRING "Install suffix for plugins" )
 ENDIF( NOT WIN32 )
 
-add_definitions( -Wall -DQT_PLUGIN )
+add_definitions( -DQT_PLUGIN )
 set( _HDRS
 	captchadialog.h
 	loader.h

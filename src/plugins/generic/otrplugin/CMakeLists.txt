@@ -27,7 +27,6 @@ find_package( LibOtr REQUIRED )
 find_package( LibTidy REQUIRED )
 find_package( LibGpgError REQUIRED )
 add_definitions(
-		-Wall
 		-DQT_PLUGIN
 		${LIBOTR_DEFINITIONS}
 		${LIBTIDY_DEFINITIONS}

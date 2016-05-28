@@ -25,6 +25,10 @@ else()
 	set(ENABLE_SQL OFF)
 endif()
 
+if(ENABLE_WEBKIT)
+	message("-- Webkit - enabled")
+endif()
+
 if(WIN32)
 	set(BUILD_ARCH "i386" CACHE STRING "CPU architecture i386/x86_64")
 	set(SDK_PATH "c:/build/psibuild/psideps" CACHE STRING "Path to SDK")
@@ -66,13 +70,13 @@ include_regular_expression("^.*\\.h$")
 # Put Wime executable in build root dir
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/psi" )
 
-# Enable all warnings
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
-
 if(APPLE)
 	# Force Qt5 build on Mac OS X. Qt4 is not supported
 	set(USE_QT5 ON)
+else()
+# Enable all warnings
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 endif()
 
 if(USE_QT5)
