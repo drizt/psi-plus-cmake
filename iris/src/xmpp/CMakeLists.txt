@@ -98,6 +98,7 @@ set(PLAIN_SOURCES
 	xmpp-im/types.cpp
 	xmpp-im/xmpp_bitsofbinary.cpp
 	xmpp-im/xmpp_bytestream.cpp
+	xmpp-im/xmpp_caps.cpp
 	xmpp-im/xmpp_discoinfotask.cpp
 	xmpp-im/xmpp_discoitem.cpp
 	xmpp-im/xmpp_ibb.cpp
@@ -127,7 +128,6 @@ set(SOURCES
 	xmpp-core/securestream.cpp
 	xmpp-core/simplesasl.cpp
 
-	xmpp-im/xmpp_caps.cpp
 	xmpp-im/s5b.cpp
 	xmpp-im/xmpp_features.cpp
 	)

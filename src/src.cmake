@@ -119,7 +119,6 @@ list(APPEND HEADERS
 	contactlistview.h
 	contactupdatesmanager.h
 	discodlg.h
-	dummystream.h
 	eventdb.h
 	eventdlg.h
 	filecache.h
@@ -218,11 +217,9 @@ list(APPEND SOURCES
 	ahcservermanager.cpp
 	alerticon.cpp
 	avatars.cpp
-	captchadlg.cpp
 	contactlistaccountmenu.cpp
 	contactlistgroupmenu.cpp
 	discodlg.cpp
-	dummystream.cpp
 	eventdlg.cpp
 	filetransdlg.cpp
 	gcuserview.cpp
@@ -234,7 +231,6 @@ list(APPEND SOURCES
 	proxy.cpp
 	psiaccount.cpp
 	psiactionlist.cpp
-	psicapsregsitry.cpp
 	psichatdlg.cpp
 	psicontactmenu.cpp
 	psicon.cpp
@@ -354,6 +350,7 @@ list(APPEND PLAIN_SOURCES
 	bookmarkmanagedlg.cpp
 	bookmarkmanager.cpp
 	bosskey.cpp
+	captchadlg.cpp
 	changepwdlg.cpp
 	chatdlg.cpp
 	chateditproxy.cpp
@@ -427,6 +424,7 @@ list(APPEND PLAIN_SOURCES
 	pluginmanager.cpp
 	popupmanager.cpp
 	profiledlg.cpp
+	psicapsregsitry.cpp
 	psi_profiles.cpp
 	psiapplication.cpp
 	psicontactlist.cpp

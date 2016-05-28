@@ -35,13 +35,14 @@ list(APPEND HEADERS
 	)
 
 list(APPEND SOURCES
-	optionsdlg.cpp
+
 	optionsdlgbase.cpp
 	optionstab.cpp
 	opt_plugins.cpp
 	)
 
 list(APPEND PLAIN_SOURCES
+	optionsdlg.cpp
 	opt_advanced.cpp
 	opt_appearance.cpp
 	opt_application.cpp
