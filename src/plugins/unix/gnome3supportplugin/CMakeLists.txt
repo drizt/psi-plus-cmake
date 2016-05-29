@@ -1,5 +1,5 @@
 set( PLUGIN gnome3supportplugin )
-cmake_minimum_required( VERSION 2.8.11)
+cmake_minimum_required( VERSION 2.8.12)
 set( CMAKE_AUTOMOC TRUE )
 
 IF( NOT WIN32 )
@@ -42,7 +42,6 @@ IF( ${USE_QT5} )
 		Qt5::Xml
 		Qt5::DBus
 	)
-	set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 	qt5_add_resources(RSCS ${_RSCS})
 ELSE( ${USE_QT5} )
 	find_package( Qt4 REQUIRED )

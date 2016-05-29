@@ -1,5 +1,5 @@
 set( PLUGIN screenshotplugin )
-cmake_minimum_required( VERSION 2.8.11 )
+cmake_minimum_required( VERSION 2.8.12 )
 set( CMAKE_AUTOMOC TRUE )
 
 IF( NOT WIN32 )
@@ -124,7 +124,6 @@ IF( ${USE_QT5} )
 			Qt5::X11Extras
 		)
 	endif( UNIX AND NOT( APPLE OR CYGWIN ) )
-	set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 	qt5_wrap_ui(UIS ${_UIS})
 	qt5_add_resources(RSCS ${_RSCS})
 ELSE( ${USE_QT5} )

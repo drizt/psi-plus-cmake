@@ -3,7 +3,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 project(iris)
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 2.8.12)
 
 set( IRIS_LIB_VERSION_MAJOR 1 )
 set( IRIS_LIB_VERSION_MINOR 0 )
@@ -25,8 +25,6 @@ option( SEPARATE_QJDNS "Build qjdns with iris library" OFF )
 
 include_directories(${PROJECT_SOURCE_DIR} ${PROJECT_BINARY_DIR})
 include_directories(include/iris)
-
-#set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})  # to find FindIdn.cmake file
 
 set(CMAKE_AUTOMOC OFF)
 
