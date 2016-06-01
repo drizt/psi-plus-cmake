@@ -70,13 +70,19 @@ include_regular_expression("^.*\\.h$")
 # Put Wime executable in build root dir
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/psi" )
 
+macro(remove_compiler_flag flag)
+	string(REPLACE "${flag}" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
+	string(REPLACE "${flag}" "" CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE}")
+endmacro()
+remove_compiler_flag("-O3")
+
 if(APPLE)
 	# Force Qt5 build on Mac OS X. Qt4 is not supported
 	set(USE_QT5 ON)
 else()
 # Enable all warnings
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -O2")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -O2")
 endif()
 
 if(USE_QT5)
