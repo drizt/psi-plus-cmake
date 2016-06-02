@@ -25,6 +25,10 @@ find_path(
 	tidy
 )
 
+if( EXISTS "${LIBTIDY_INCLUDE_DIR}/buffio.h" OR (EXISTS "${LIBTIDY_INCLUDE_DIR}/tidy/buffio.h") )
+	set( LIBTIDY_DEFINITIONS "${LIBTIDY_DEFINITIONS} -DLEGACY_TIDY" )
+endif()
+
 find_library(
 	LIBTIDY_LIBRARY
 	NAMES tidy libtidy libtidy-0-99-0 tidy-0-99-0
