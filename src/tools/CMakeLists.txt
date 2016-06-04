@@ -67,6 +67,25 @@ list(APPEND PLAIN_HEADERS
 	tunecontroller/tunecontrollerplugin.h
 	)
 
+list(APPEND PLAIN_HEADERS
+	crash/crash.h
+	)
+
+if(LINUX)
+	list(APPEND PLAIN_SOURCES
+		crash/crash_sigsegv.cpp
+		crash/crash.cpp
+		)
+	list(APPEND PLAIN_HEADERS
+		crash/crash_sigsegv.h
+		)
+endif()
+if(WIN32)
+	list(APPEND PLAIN_SOURCES
+		crash/crash_dummy.cpp
+		)
+endif()
+	
 include_directories(tunecontroller)
 
 add_definitions(-DTC_PSIFILE)
@@ -131,6 +150,7 @@ target_link_libraries(tools ${QT_LIBRARIES} ${iris_LIB} zip ${EXTRA_LDFLAGS})
 target_include_directories(tools PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}
 	${CMAKE_CURRENT_BINARY_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/crash
 	${CMAKE_CURRENT_SOURCE_DIR}/optionstree
 	${CMAKE_CURRENT_SOURCE_DIR}/advwidget
 	${CMAKE_CURRENT_SOURCE_DIR}/iconset

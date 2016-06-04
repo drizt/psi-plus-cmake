@@ -20,7 +20,6 @@ set( CMAKE_MODULE_PATH
 	"${PROJECT_SOURCE_DIR}/../cmake/modules"
 	)
 
-option( BUILD_SHARED_LIBS "Build iris lib shared" OFF )
 option( SEPARATE_QJDNS "Build qjdns with iris library" OFF )
 
 include_directories(${PROJECT_SOURCE_DIR} ${PROJECT_BINARY_DIR})
@@ -28,19 +27,13 @@ include_directories(include/iris)
 
 set(CMAKE_AUTOMOC OFF)
 
-# Enable C++11
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-
 if(APPLE)
 	# Force Qt5 build on Mac OS X. Qt4 is not supported
 	set(USE_QT5 ON)
 endif()
 
 if(USE_QT5)
-	find_package(Qt5Core REQUIRED)
-	find_package(Qt5Gui REQUIRED)
-	find_package(Qt5Xml REQUIRED)
-	find_package(Qt5Network REQUIRED)
+	find_package(Qt5 REQUIRED Core Gui Xml Network)
 	find_package( Qca-qt5 REQUIRED PATHS ${QCA_DIR} )
 	get_target_property( QCA_INCLUDES qca-qt5 INTERFACE_INCLUDE_DIRECTORIES )
 
