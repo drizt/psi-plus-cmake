@@ -26,10 +26,6 @@ USEFULL CMAKE FLAGS:
 
   to build only psi-plus plugins (default OFF)
 
-  -DBUILD_SHARED_LIBS=ON
-
-  to build and install iris as shared library (default OFF)
-
   -DBUNDLED_IRIS=ON
 
   to build iris library bundled (default ON)
