@@ -67,7 +67,7 @@ endif()
 # Track only .h files
 include_regular_expression("^.*\\.h$")
 
-# Put Wime executable in build root dir
+# Put executable in build root dir
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/psi" )
 
 macro(remove_compiler_flag flag)
