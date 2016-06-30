@@ -337,7 +337,14 @@ set(OTHER_FILES
 	../sound
 	)
 if(LINUX)
+	set(SHARE_SUFF "share/psi-plus")
 	install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+	install(FILES ../client_icons.txt DESTINATION ${CMAKE_INSTALL_PREFIX}/SHARE_SUFF)
+	install(FILES ../psi.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
+	install(DIRECTORY ${OTHER_FILES} DESTINATION ${CMAKE_INSTALL_PREFIX}/SHARE_SUFF)
+	if(ENABLE_WEBKIT)
+		install(DIRECTORY ../themes DESTINATION ${CMAKE_INSTALL_PREFIX}/SHARE_SUFF/themes)
+	endif()
 endif()
 
 if(WIN32)
