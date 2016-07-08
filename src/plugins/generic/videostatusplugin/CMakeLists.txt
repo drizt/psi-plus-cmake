@@ -108,7 +108,7 @@ add_library(
 if( UNIX AND NOT( APPLE OR CYGWIN ) )
 	target_link_libraries(
 		${PLUGIN}
-		${X11_LIBRARY}
+		${X11_LIBRARIES}
 		${QT_DEPLIBS}
 	)
 	install(
