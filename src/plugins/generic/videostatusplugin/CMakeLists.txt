@@ -5,18 +5,18 @@ set( CMAKE_AUTOMOC TRUE )
 IF( NOT WIN32 )
 	set( LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
 	set( PLUGINS_PATH "lib${LIB_SUFFIX}/psi-plus/plugins" CACHE STRING "Install suffix for plugins" )
-ELSE( NOT WIN32 )
+ELSE()
 	set( PLUGINS_PATH "psi-plus/plugins" CACHE STRING "Install suffix for plugins" )
-ENDIF( NOT WIN32 )
+ENDIF()
 
 
 add_definitions( -DQT_PLUGIN )
 if( NOT WIN32 )
 	add_definitions( -Ddbus -DHAVE_DBUS )
 	find_package( X11 REQUIRED )
-else( NOT WIN32 )
+else()
 	add_definitions( -DQ_OS_WIN )
-endif( NOT WIN32 )
+endif()
 include_directories(
 	${CMAKE_SOURCE_DIR}
 	${CMAKE_CURRENT_BINARY_DIR}
@@ -24,13 +24,13 @@ include_directories(
 	.
 )
 if( NOT WIN32 )
-set( x11_SRCS
-	x11info.cpp
-)
-set( x11_HDRS
-	x11info.h
-)
-endif( NOT WIN32 )
+	set( x11_SRCS
+		x11info.cpp
+		)
+	set( x11_HDRS
+		x11info.h
+	)
+endif()
 set( _SRCS
 	${PLUGIN}.cpp
 	${x11_SRCS}
@@ -41,7 +41,7 @@ set( _UIS
 set( _RSCS
 	resources.qrc
 )
-IF( ${USE_QT5} )
+IF( USE_QT5 )
 	find_package( Qt5Widgets REQUIRED )
 	find_package( Qt5Xml REQUIRED )
 	set(QT_DEPLIBS
@@ -52,9 +52,7 @@ IF( ${USE_QT5} )
 		find_package( Qt5DBus REQUIRED )
 		find_package( Qt5X11Extras REQUIRED )
 		find_package( XCB REQUIRED )
-		include_directories( ${Qt5Dbus_INCLUDES} )
 		add_definitions(
-			${Qt5Dbus_DEFINITIONS} 
 			-DHAVE_DBUS
 		)
 		set(QT_DEPLIBS
@@ -63,10 +61,10 @@ IF( ${USE_QT5} )
 			Qt5::X11Extras
 			${XCB_LIBRARY}
 		)
-	ENDIF( UNIX AND NOT( APPLE OR CYGWIN ) )
+	ENDIF()
 	qt5_wrap_ui(UIS ${_UIS})
 	qt5_add_resources(RSCS ${_RSCS})
-ELSE( ${USE_QT5} )
+ELSE()
 	find_package( Qt4 REQUIRED )
 	include( ${QT_USE_FILE} )
 	include_directories(
@@ -77,7 +75,7 @@ ELSE( ${USE_QT5} )
 	)
 	IF( UNIX AND NOT( APPLE OR CYGWIN ) )
 		include_directories(${QT_QTDBUS_INCLUDE_DIR})
-	ENDIF( UNIX AND NOT( APPLE OR CYGWIN ) )
+	ENDIF()
 	set(QT_DEPLIBS
 		${QT_QTCORE_LIBRARY}
 		${QT_QTGUI_LIBRARY}
@@ -85,10 +83,10 @@ ELSE( ${USE_QT5} )
 	)
 	IF( UNIX AND NOT( APPLE OR CYGWIN ) )
 		set(QT_DEPLIBS "${QT_DEPLIBS}" "${QT_QTDBUS_LIBRARY}" )
-	ENDIF( UNIX AND NOT( APPLE OR CYGWIN ) )
+	ENDIF()
 	QT4_WRAP_UI(UIS ${_UIS})
 	QT4_ADD_RESOURCES(RSCS ${_RSCS})
-ENDIF( ${USE_QT5} )
+ENDIF()
 
 add_library(
 	${PLUGIN}
@@ -114,9 +112,9 @@ if( UNIX AND NOT( APPLE OR CYGWIN ) )
 		RUNTIME DESTINATION
 		${CMAKE_INSTALL_PREFIX}/${PLUGINS_PATH}
 	)
-endif( UNIX AND NOT( APPLE OR CYGWIN ) )
+endif()
 
-if( ${WIN32} )
+if( WIN32 )
 	target_link_libraries(
 		${PLUGIN}
 		${QT_DEPLIBS}
@@ -129,4 +127,4 @@ if( ${WIN32} )
 		${CMAKE_INSTALL_PREFIX}/${PLUGINS_PATH}
 		RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/${PLUGINS_PATH}
 	)
-endif( ${WIN32} )
+endif()

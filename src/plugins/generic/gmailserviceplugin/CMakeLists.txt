@@ -5,9 +5,9 @@ set( CMAKE_AUTOMOC TRUE )
 IF( NOT WIN32 )
 	set( LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
 	set( PLUGINS_PATH "lib${LIB_SUFFIX}/psi-plus/plugins" CACHE STRING "Install suffix for plugins" )
-ELSE( NOT WIN32 )
+ELSE()
 	set( PLUGINS_PATH "psi-plus/plugins" CACHE STRING "Install suffix for plugins" )
-ENDIF( NOT WIN32 )
+ENDIF()
 
 add_definitions( -DQT_PLUGIN )
 include_directories(
@@ -37,24 +37,16 @@ set( _UIS
 set( _RSCS
 	${PLUGIN}.qrc
 )
-IF( ${USE_QT5} )
+IF( USE_QT5 )
 	find_package( Qt5Widgets REQUIRED )
 	find_package( Qt5Xml REQUIRED )
-	include_directories(
-		${Qt5Widgets_INCLUDES}
-		${Qt5Xml_INCLUDES}
-	)
-	add_definitions(
-		${Qt5Widgets_DEFINITIONS}
-		${Qt5Xml_DEFINITIONS}
-	)
 	set(QT_DEPLIBS
 		Qt5::Widgets
 		Qt5::Xml
 	)
 	qt5_wrap_ui(UIS ${_UIS})
 	qt5_add_resources(RSCS ${_RSCS})
-ELSE( ${USE_QT5} )
+ELSE()
 	find_package( Qt4 REQUIRED )
 	include( ${QT_USE_FILE} )
 	include_directories(
@@ -69,7 +61,7 @@ ELSE( ${USE_QT5} )
 	)
 	QT4_WRAP_UI(UIS ${_UIS})
 	QT4_ADD_RESOURCES(RSCS ${_RSCS})
-ENDIF( ${USE_QT5} )
+ENDIF()
 
 add_library(
 	${PLUGIN}
@@ -94,7 +86,7 @@ if( UNIX AND NOT( APPLE OR CYGWIN ) )
 		RUNTIME DESTINATION
 		${CMAKE_INSTALL_PREFIX}/${PLUGINS_PATH}
 	)
-endif( UNIX AND NOT( APPLE OR CYGWIN ) )
+endif()
 if( WIN32 )
 	install(
 		TARGETS
@@ -104,4 +96,4 @@ if( WIN32 )
 		${CMAKE_INSTALL_PREFIX}/${PLUGINS_PATH}
 		RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/${PLUGINS_PATH}
 	)
-endif( WIN32 )
+endif()
