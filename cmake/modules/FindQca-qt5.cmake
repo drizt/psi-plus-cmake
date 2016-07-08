@@ -12,6 +12,7 @@ find_path(
 	HINTS
 	${QCA_DIR}/include
 	PATH_SUFFIXES
+	qt5/Qca-qt5/QtCrypto
 	Qca-qt5/QtCrypto
 )
 
