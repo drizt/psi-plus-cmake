@@ -44,14 +44,6 @@ set( _RSCS
 IF( ${USE_QT5} )
 	find_package( Qt5Widgets REQUIRED )
 	find_package( Qt5Xml REQUIRED )
-	include_directories(
-		${Qt5Widgets_INCLUDES}
-		${Qt5Xml_INCLUDES}
-	)
-	add_definitions(
-		${Qt5Widgets_DEFINITIONS}
-		${Qt5Xml_DEFINITIONS}
-	)
 	set(QT_DEPLIBS
 		Qt5::Widgets
 		Qt5::Xml
@@ -59,6 +51,7 @@ IF( ${USE_QT5} )
 	IF( UNIX AND NOT( APPLE OR CYGWIN ) )
 		find_package( Qt5DBus REQUIRED )
 		find_package( Qt5X11Extras REQUIRED )
+		find_package( XCB REQUIRED )
 		include_directories( ${Qt5Dbus_INCLUDES} )
 		add_definitions(
 			${Qt5Dbus_DEFINITIONS} 
@@ -68,6 +61,7 @@ IF( ${USE_QT5} )
 			${QT_DEPLIBS}
 			Qt5::DBus
 			Qt5::X11Extras
+			${XCB_LIBRARY}
 		)
 	ENDIF( UNIX AND NOT( APPLE OR CYGWIN ) )
 	qt5_wrap_ui(UIS ${_UIS})
