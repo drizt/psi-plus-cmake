@@ -108,7 +108,7 @@ add_library(irisnet STATIC ${SOURCES} ${HEADERS} ${MOC_SOURCES} ${PLAIN_SOURCES}
 
 target_link_libraries(irisnet ${QJDns_LIBRARY})
 if(USE_QT5)
-	target_link_libraries(irisnet Qt5::Core Qt5::Network Qt5::Xml qca-qt5)
+	target_link_libraries(irisnet Qt5::Core Qt5::Network Qt5::Xml ${qca_LIB})
 else()
-	target_link_libraries(irisnet ${QT_LIBRARIES} qca)
+	target_link_libraries(irisnet ${QT_LIBRARIES} ${qca_LIB})
 endif()

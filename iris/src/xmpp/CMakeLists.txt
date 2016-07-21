@@ -144,9 +144,9 @@ add_library(iris
 
 target_link_libraries(iris ${IDN_LIBRARY})
 if(USE_QT5)
-	target_link_libraries(iris irisnet Qt5::Core Qt5::Gui Qt5::Network Qt5::Xml qca-qt5)
+	target_link_libraries(iris irisnet Qt5::Core Qt5::Gui Qt5::Network Qt5::Xml ${qca_LIB})
 else()
-	target_link_libraries(iris irisnet ${QT_LIBRARIES} qca)
+	target_link_libraries(iris irisnet ${QT_LIBRARIES} ${qca_LIB})
 endif()
 target_compile_definitions(iris INTERFACE IRISNET_STATIC)
 target_include_directories(iris INTERFACE ../../include ../../include/iris ..)

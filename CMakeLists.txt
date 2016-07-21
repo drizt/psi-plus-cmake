@@ -70,12 +70,6 @@ include_regular_expression("^.*\\.h$")
 # Put executable in build root dir
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/psi" )
 
-macro(remove_compiler_flag flag)
-	string(REPLACE "${flag}" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
-	string(REPLACE "${flag}" "" CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE}")
-endmacro()
-remove_compiler_flag("-O3")
-
 if(APPLE)
 	# Force Qt5 build on Mac OS X. Qt4 is not supported
 	set(USE_QT5 ON)
