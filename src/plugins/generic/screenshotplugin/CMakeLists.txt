@@ -54,7 +54,7 @@ set ( _HDRS
 	options.h
 	optionsdlg.h
 	optionswidget.h
-	iconset.h
+	screenshoticonset.h
 	controller.h
 	defines.h
 	proxysettingsdlg.h
@@ -74,7 +74,7 @@ set ( _SRCS
 	options.cpp
 	optionsdlg.cpp
 	optionswidget.cpp
-	iconset.cpp
+	screenshoticonset.cpp
 	controller.cpp
 	proxysettingsdlg.cpp
 	qxt/core/qxtglobal.cpp
