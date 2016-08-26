@@ -31,7 +31,7 @@ find_path(
 
 find_library(
 	HUNSPELL_LIBRARY
-	NAMES hunspell
+	NAMES hunspell hunspell-1.3
 	HINTS 
 	${PC_HUNSPELL_LIBDIR}
 	${PC_HUNSPELL_LIBRARY_DIRS}
