@@ -14,6 +14,7 @@ find_path(
 	PATH_SUFFIXES
 	qt5/Qca-qt5/QtCrypto
 	Qca-qt5/QtCrypto
+	qt5/QtCrypto
 )
 
 find_library(
