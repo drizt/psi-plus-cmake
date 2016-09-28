@@ -28,8 +28,6 @@ if(USE_QT5)
 		set(SQL_LIBS Qt5::Sql)
 	endif()
 
-	SET(CMAKE_AUTOUIC ON)
-
 	if(LINUX)
 		find_package(Qt5DBus REQUIRED)
 		find_package(Qt5X11Extras REQUIRED)
@@ -82,7 +80,7 @@ else()
 	if(ENABLE_SQL)
 		find_package(Qt4 REQUIRED QtSql)
 	endif()
-	set(CMAKE_AUTOUIC ON)
+
 	unset(QT_EXTRA_MODULES)
 
 	include(${QT_USE_FILE})
@@ -274,7 +272,7 @@ set(RESOURCES ../psi.qrc ../iconsets.qrc)
 qt4_add_resources(QRC_SOURCES ${RESOURCES})
 
 qt4_wrap_ui(UI_FORMS ${FORMS})
-add_custom_target(build_ui DEPENDS "${UI_FORMS}" SOURCES "${FORMS}")
+add_custom_target(build_ui_files DEPENDS "${UI_FORMS}" SOURCES "${FORMS}")
 
 qt_wrap_cpp(MOC_SOURCES ${SOURCES} ${HEADERS})
 
@@ -317,7 +315,7 @@ add_executable(${PROJECT_NAME}
 	)
 
 add_dependencies(${PROJECT_NAME} iris)
-add_dependencies(${PROJECT_NAME} build_ui)
+add_dependencies(${PROJECT_NAME} build_ui_files)
 
 target_link_libraries(${PROJECT_NAME}
 	${QT_LIBRARIES}

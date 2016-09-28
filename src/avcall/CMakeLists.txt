@@ -6,8 +6,6 @@ unset(SOURCES)
 unset(PLAIN_SOURCES)
 unset(UI_FORMS)
 
-set(CMAKE_AUTOUIC OFF)
-
 include_directories(
 	${PROJECT_SOURCE_DIR}/iris/include/iris
 	${PROJECT_SOURCE_DIR}/iris/src

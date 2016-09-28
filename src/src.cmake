@@ -29,44 +29,46 @@ endif()
 include_directories(.)
 
 list(APPEND FORMS
-	profileopen.ui
-	profilemanage.ui
-	profilenew.ui
-	homedirmigration.ui
-	proxy.ui
-	accountmanage.ui
+	about.ui
 	accountadd.ui
+	accountmanage.ui
+	accountmodify.ui
 	accountreg.ui
 	accountremove.ui
-	accountmodify.ui
-	captchadlg.ui
-	changepw.ui
+	activity.ui
 	addurl.ui
 	adduser.ui
-	info.ui
-	search.ui
-	about.ui
-	history.ui
-	passphrase.ui
-	mucconfig.ui
-	mucreasonseditor.ui
-	xmlconsole.ui
-	disco.ui
-	tip.ui
-	mood.ui
-	activity.ui
-	voicecall.ui
-	chatdlg.ui
-	bookmarkmanage.ui
-	ahcommanddlg.ui
 	ahcformdlg.ui
-	geolocation.ui
-	rosteravatarframe.ui
+	ahcommanddlg.ui
+	bookmarkmanage.ui
+	captchadlg.ui
+	changepw.ui
+	chatdlg.ui
+	disco.ui
 	filetrans.ui
+	geolocation.ui
 	groupchatdlg.ui
-	mucjoin.ui
 	groupchattopicdlg.ui
+	history.ui
+	homedirmigration.ui
+	infodlg.ui
+	info.ui
+	mood.ui
+	mucconfig.ui
+	mucjoin.ui
+	mucreasonseditor.ui
+	optioneditor.ui
+	passphrase.ui
 	pgpkey.ui
+	profilemanage.ui
+	profilenew.ui
+	profileopen.ui
+	proxy.ui
+	rosteravatarframe.ui
+	search.ui
+	tip.ui
+	voicecall.ui
+	xmlconsole.ui
 	)
 
 list(APPEND HEADERS
