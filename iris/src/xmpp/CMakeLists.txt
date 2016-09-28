@@ -1,5 +1,6 @@
 add_definitions(-DXMPP_TEST)
 
+find_package(ZLIB REQUIRED)
 include_directories(
 	${CMAKE_CURRENT_BINARY_DIR}
 	..
@@ -7,6 +8,7 @@ include_directories(
 	xmpp-core
 	xmpp-im
 	${IDN_INCLUDE_DIRS}
+	${ZLIB_INCLUDE_DIRS}
 	${QCA_INCLUDES}
 	)
 
@@ -142,7 +144,7 @@ add_library(iris
 	${PLAIN_HEADERS}
 	)
 
-target_link_libraries(iris ${IDN_LIBRARY})
+target_link_libraries(iris ${IDN_LIBRARY} ${ZLIB_LIBRARY})
 if(USE_QT5)
 	target_link_libraries(iris irisnet Qt5::Core Qt5::Gui Qt5::Network Qt5::Xml ${qca_LIB})
 else()

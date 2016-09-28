@@ -145,7 +145,7 @@ else()
 endif()
 
 # spellchecker
-if(Enchant_FOUND)
+if(USE_ENCHANT)
 	add_definitions(-DHAVE_ENCHANT)
 
 	include_directories(
@@ -163,7 +163,7 @@ if(Enchant_FOUND)
 	list(APPEND PLAIN_SOURCES
 		spellchecker/enchantchecker.cpp
 		)
-elseif(Hunspell_FOUND)
+elseif(USE_HUNSPELL)
 	add_definitions(-DHAVE_HUNSPELL)
 
 	include_directories(

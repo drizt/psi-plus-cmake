@@ -274,19 +274,30 @@ set(RESOURCES ../psi.qrc ../iconsets.qrc)
 qt4_add_resources(QRC_SOURCES ${RESOURCES})
 
 qt4_wrap_ui(UI_FORMS ${FORMS})
+add_custom_target(build_ui DEPENDS "${UI_FORMS}" SOURCES "${FORMS}")
 
 qt_wrap_cpp(MOC_SOURCES ${SOURCES} ${HEADERS})
 
 if(WIN32)
 	# resource compilation for MinGW
-	if(BUILD_ARCH STREQUAL "i386")
-		add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o
-			COMMAND ${CMAKE_RC_COMPILER} -I${CMAKE_CURRENT_SOURCE_DIR} -i${CMAKE_SOURCE_DIR}/win32/psi_win32.rc
-			-o ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o)
+	if(NOT MSVC)
+		if(BUILD_ARCH STREQUAL "i386")
+			add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o
+				COMMAND ${CMAKE_RC_COMPILER} -I${CMAKE_CURRENT_SOURCE_DIR} -i${CMAKE_SOURCE_DIR}/win32/psi_win32.rc
+				-o ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o)
+		else()
+			add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o
+				COMMAND ${CMAKE_RC_COMPILER} -I${CMAKE_CURRENT_SOURCE_DIR} -i${CMAKE_SOURCE_DIR}/win32/psi_win64.rc
+				-o ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o)
+		endif()
 	else()
-		add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o
-			COMMAND ${CMAKE_RC_COMPILER} -I${CMAKE_CURRENT_SOURCE_DIR} -i${CMAKE_SOURCE_DIR}/win32/psi_win64.rc
-			-o ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o)
+		if(BUILD_ARCH STREQUAL "win32")
+			add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o
+				COMMAND ${CMAKE_RC_COMPILER} /fo ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o ${CMAKE_SOURCE_DIR}/win32/psi_win32.rc)
+		else()
+			add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o
+				COMMAND ${CMAKE_RC_COMPILER} /fo ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o ${CMAKE_SOURCE_DIR}/win32/psi_win64.rc)
+		endif()
 	endif()
 	set(RC_FILE ${CMAKE_CURRENT_BINARY_DIR}/psi_win32.o)
 endif()
@@ -306,6 +317,7 @@ add_executable(${PROJECT_NAME}
 	)
 
 add_dependencies(${PROJECT_NAME} iris)
+add_dependencies(${PROJECT_NAME} build_ui)
 
 target_link_libraries(${PROJECT_NAME}
 	${QT_LIBRARIES}

@@ -13,7 +13,6 @@ set( plugins_list
 	qipxstatusesplugin
 	skinsplugin
 	icqdieplugin
-	clientswitcherplugin
 	captchaformsplugin
 	watcherplugin
 	videostatusplugin
@@ -33,6 +32,12 @@ set( plugins_list
 	messagefilterplugin
 	enummessagesplugin
 )
+
+if( NOT MSVC )
+	set( plugins_list ${plugins_list}
+		clientswitcherplugin
+	)
+endif()
 
 if( "${BUILD_PLUGINS}" STREQUAL "ALL" )
 	set ( plugins ${plugins_list} )
