@@ -31,6 +31,8 @@ set( plugins_list
 	conferenceloggerplugin
 	messagefilterplugin
 	enummessagesplugin
+	httpuploadplugin
+	imagepreviewplugin
 )
 
 if( NOT MSVC )
