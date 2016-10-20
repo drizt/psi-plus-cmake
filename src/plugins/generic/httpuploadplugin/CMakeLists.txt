@@ -30,10 +30,13 @@ set( _RSCS
 	${PLUGIN}.qrc
 )
 IF( USE_QT5 )
+        add_definitions(-DHAVE_QT5)
 	find_package( Qt5Widgets REQUIRED )
 	find_package( Qt5Xml REQUIRED )
+	find_package( Qt5Network REQUIRED )
 	set(QT_DEPLIBS
 		Qt5::Widgets
+		Qt5::Network
 		Qt5::Xml
 	)
 	qt5_add_resources(RSCS ${_RSCS})
