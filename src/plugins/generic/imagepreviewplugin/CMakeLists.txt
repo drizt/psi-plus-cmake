@@ -20,6 +20,11 @@ include_directories(
 
 set( _SRCS
 	${PLUGIN}.cpp
+	ScrollKeeper.cpp
+)
+
+set( _HDRS
+	ScrollKeeper.h
 )
 
 set( _RSCS
