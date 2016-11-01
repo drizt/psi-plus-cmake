@@ -2,6 +2,7 @@ cmake_minimum_required( VERSION 2.8.11 )
 
 set( plugins_list 
 	battleshipgameplugin
+	ripperccplugin
 )
 if( "${BUILD_PLUGINS}" STREQUAL "ALL" )
 	set( plugins ${plugins_list} )

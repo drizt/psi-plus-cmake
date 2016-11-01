@@ -6,7 +6,10 @@ set_directory_properties(PROPERTIES
 
 if(USE_QT5)
 	add_definitions(-DHAVE_QT5)
+	set(QT5_BUILD ON)
 endif()
+
+option( BUILD_DEV_PLUGINS "Build plugins from dev directory" OFF )
 
 # Use the same path for shared and static plugins
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/plugins")
@@ -30,6 +33,9 @@ endif()
 add_subdirectory(generic)
 if(LINUX)
 	add_subdirectory(unix)
+endif()
+if(BUILD_DEV_PLUGINS)
+	add_subdirectory(dev)
 endif()
 
 unset(BUILD_PLUGINS CACHE)
